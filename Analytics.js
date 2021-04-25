@@ -5,8 +5,8 @@ let isInitialized = false;
 const apiKey = AMPLITUDE_API_KEY;
 
 export const events = {
-  OPEN: 'OPEN',
-  ONBOARDED: 'ONBOARDED',
+  DOWNLOADED: 'DOWNLOADED',
+  SIGNED_UP: 'SIGNED_UP',
 };
 
 export function initialize() {

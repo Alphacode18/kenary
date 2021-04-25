@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Layout, Text, Button } from '@ui-kitten/components';
 
-export default register = ({ navigation }) => {
+export default Onboarding = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Layout style={styles.container} level={'1'}>

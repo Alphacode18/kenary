@@ -16,7 +16,7 @@ import {
 } from '@ui-kitten/components';
 import Firebase from '../../config/Firebase';
 
-export default register = ({ navigation }) => {
+export default SignUp = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,12 +36,18 @@ export default register = ({ navigation }) => {
     </TouchableWithoutFeedback>
   );
 
-  //TODO
-  /*
-   * Read Through Firebase Docs & firebase.config before implementation
-   */
-  const handleRegistrations = () => {
+  const handleSignUp = () => {
     setLoading(true);
+    Firebase.auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        setLoading(false);
+        navigation.navigate('Home');
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
   };
 
   return (
@@ -52,6 +58,7 @@ export default register = ({ navigation }) => {
         </Text>
         <Input
           style={styles.inputBox}
+          autoCapitalize={false}
           value={username}
           placeholder='Username'
           onChangeText={(username) => setUsername(username)}
@@ -59,6 +66,7 @@ export default register = ({ navigation }) => {
         <Input
           style={styles.inputBox}
           placeholder='Email'
+          autoCapitalize={false}
           value={email}
           onChangeText={(email) => setEmail(email)}
         />
@@ -81,7 +89,7 @@ export default register = ({ navigation }) => {
           }
         />
         <Button
-          onPress={handleRegistrations}
+          onPress={handleSignUp}
           style={{ width: '50%', borderRadius: 20, marginTop: 20 }}
           appearance='outline'
         >

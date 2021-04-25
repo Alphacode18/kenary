@@ -17,7 +17,7 @@ import {
 } from '@ui-kitten/components';
 import Firebase from '../../config/Firebase';
 
-export default register = ({ navigation }) => {
+export default Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -35,6 +35,16 @@ export default register = ({ navigation }) => {
 
   const handleLogin = () => {
     setLoading(true);
+    Firebase.auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        setLoading(false);
+        navigation.navigate('Home');
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
   };
 
   return (

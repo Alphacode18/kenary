@@ -88,7 +88,7 @@ export default Login = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ color: 'white', marginTop: 40 }}
-          onPress={() => navigation.navigate('ForgotPassword')}
+          onPress={() => navigation.navigate('Forgot')}
         >
           <Text>
             <Text style={{ textDecorationLine: 'underline' }}>

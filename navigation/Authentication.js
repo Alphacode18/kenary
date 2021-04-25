@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Onboarding, SignUp, Login, Home } from '../src/screens/_Export';
+import { Onboarding, SignUp, Login, Forgot } from '../src/screens/_Export';
 
 const Stack = createStackNavigator();
 
@@ -25,8 +25,8 @@ function Authentication() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name='Home'
-          component={Home}
+          name='Forgot'
+          component={Forgot}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

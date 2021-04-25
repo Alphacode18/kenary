@@ -58,7 +58,7 @@ export default SignUp = ({ navigation }) => {
         </Text>
         <Input
           style={styles.inputBox}
-          autoCapitalize={false}
+          autoCapitalize='none'
           value={username}
           placeholder='Username'
           onChangeText={(username) => setUsername(username)}
@@ -66,7 +66,7 @@ export default SignUp = ({ navigation }) => {
         <Input
           style={styles.inputBox}
           placeholder='Email'
-          autoCapitalize={false}
+          autoCapitalize='none'
           value={email}
           onChangeText={(email) => setEmail(email)}
         />

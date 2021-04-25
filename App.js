@@ -3,6 +3,7 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { Authentication } from './navigation/_Export';
+import { events, initialize, track } from './Analytics';
 
 export default () => (
   <>

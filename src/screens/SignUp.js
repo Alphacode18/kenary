@@ -15,7 +15,7 @@ import {
   Icon,
 } from '@ui-kitten/components';
 import Firebase from '../../config/Firebase';
-import { events, initialize, track } from '../../Amplitude';
+import { events, initialize, track } from '../../Analytics';
 
 export default SignUp = ({ navigation }) => {
   const [username, setUsername] = useState('');

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Text, Button } from '@ui-kitten/components';
+import { Layout, Text, Button, Spinner } from '@ui-kitten/components';
 import Firebase from '../../../config/Firebase';
 
 export default Profile = ({ navigation }) => {

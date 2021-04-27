@@ -15,6 +15,7 @@ import {
   Icon,
 } from '@ui-kitten/components';
 import Firebase from '../../config/Firebase';
+import { events, initialize, track } from '../../Amplitude';
 
 export default SignUp = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -42,6 +43,7 @@ export default SignUp = ({ navigation }) => {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         setLoading(false);
+        track(events.REGISTRATIONS);
         navigation.navigate('Home');
       })
       .catch((error) => {

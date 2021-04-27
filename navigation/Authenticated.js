@@ -1,14 +1,14 @@
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
-import { Home } from '../src/screens/_Export';
+import Dashboard from './../src/screens/Dashboard';
 
 const Authenticated = createSwitchNavigator(
   {
-    Home: {
-      screen: Home,
+    Dashboard: {
+      screen: Dashboard,
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Dashboard',
   }
 );
 

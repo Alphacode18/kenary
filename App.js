@@ -4,7 +4,9 @@ import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { Authentication, Authenticated } from './navigation/_Export';
 import Firebase from './config/Firebase';
-import { events, initialize, track } from './Analytics';
+import { initialize } from './Amplitude';
+
+initialize();
 
 export default () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

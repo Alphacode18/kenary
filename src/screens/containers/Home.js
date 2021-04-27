@@ -7,11 +7,28 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import { Layout, Text, ViewPager, Avatar, Card } from '@ui-kitten/components';
+import { Layout, Text, Avatar } from '@ui-kitten/components';
+import Header from '../components/RecommendationPager';
 const { height, width } = Dimensions.get('screen');
 
 export default Home = ({ navigation }) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [recommendationData, setRecommendationData] = useState([]);
+  if (recommendationData.length === 0) {
+    setRecommendationData([
+      {
+        name: 'Happy Hollow Park',
+        image: require('../../../assets/Test/Hollow.jpeg'),
+      },
+      {
+        name: '8Eleven Bistro',
+        image: require('../../../assets/Test/8Eleven.jpeg'),
+      },
+      {
+        name: 'Coyote Crossing Golf Course',
+        image: require('../../../assets/Test/Coyote.jpeg'),
+      },
+    ]);
+  }
   return (
     <>
       <Layout style={styles.layout}>
@@ -33,21 +50,8 @@ export default Home = ({ navigation }) => {
           <Text category='h1' style={styles.hero}>
             West Lafayette
           </Text>
+          <Header data={recommendationData} />
           <ScrollView>
-            <ViewPager
-              selectedIndex={selectedIndex}
-              onSelect={(index) => setSelectedIndex(index)}
-            >
-              <Layout style={styles.tab} level='1'>
-                <Text category='h5'>USERS</Text>
-              </Layout>
-              <Layout style={styles.tab} level='1'>
-                <Text category='h5'>ORDERS</Text>
-              </Layout>
-              <Layout style={styles.tab} level='1'>
-                <Text category='h5'>TRANSACTIONS</Text>
-              </Layout>
-            </ViewPager>
             <Layout style={styles.header}>
               <Text category='h6'>Near You</Text>
               <TouchableOpacity>
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
     height: 0.2 * height,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 20,
     margin: 20,
   },
 });

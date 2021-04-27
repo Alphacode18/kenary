@@ -1,21 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { Authentication, Authenticated } from './navigation/_Export';
+import Firebase from './config/Firebase';
+import { initialize } from './Amplitude';
 
-export default function App() {
+initialize();
+
+export default () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  Firebase.auth().onAuthStateChanged((user) => {
+    user ? setIsAuthenticated(true) : setIsAuthenticated(false);
+  });
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        {isAuthenticated ? <Authenticated /> : <Authentication />}
+      </ApplicationProvider>
+    </>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};

@@ -9,7 +9,6 @@ import { initialize, track, events } from './Analytics';
 initialize();
 
 export default () => {
-  track(events.OPEN);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   Firebase.auth().onAuthStateChanged((user) => {
     user ? setIsAuthenticated(true) : setIsAuthenticated(false);

@@ -3,8 +3,12 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableWithoutFeedback,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
 } from 'react-native';
 import { Layout, Text, ViewPager, Avatar, Card } from '@ui-kitten/components';
+const { height, width } = Dimensions.get('screen');
 
 export default Home = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -29,53 +33,40 @@ export default Home = ({ navigation }) => {
           <Text category='h1' style={styles.hero}>
             West Lafayette
           </Text>
-          <ViewPager
-            selectedIndex={selectedIndex}
-            onSelect={(index) => setSelectedIndex(index)}
-            style={{ marginTop: 20 }}
-          >
-            <Layout style={styles.tab} level='1'>
-              <Card>
-                <Text>
-                  The Maldives, officially the Republic of Maldives, is a small
-                  country in South Asia, located in the Arabian Sea of the
-                  Indian Ocean. It lies southwest of Sri Lanka and India, about
-                  1,000 kilometres (620 mi) from the Asian continent
-                </Text>
-              </Card>
+          <ScrollView>
+            <ViewPager
+              selectedIndex={selectedIndex}
+              onSelect={(index) => setSelectedIndex(index)}
+            >
+              <Layout style={styles.tab} level='1'>
+                <Text category='h5'>USERS</Text>
+              </Layout>
+              <Layout style={styles.tab} level='1'>
+                <Text category='h5'>ORDERS</Text>
+              </Layout>
+              <Layout style={styles.tab} level='1'>
+                <Text category='h5'>TRANSACTIONS</Text>
+              </Layout>
+            </ViewPager>
+            <Layout style={styles.header}>
+              <Text category='h6'>Near You</Text>
+              <TouchableOpacity>
+                <Text style={{ marginRight: 20 }}>See All</Text>
+              </TouchableOpacity>
             </Layout>
-            <Layout style={styles.tab} level='1'>
-              <Card>
-                <Text>
-                  The Maldives, officially the Republic of Maldives, is a small
-                  country in South Asia, located in the Arabian Sea of the
-                  Indian Ocean. It lies southwest of Sri Lanka and India, about
-                  1,000 kilometres (620 mi) from the Asian continent
-                </Text>
-              </Card>
+            <Layout style={styles.header}>
+              <Text category='h6'>Top Rated</Text>
+              <TouchableOpacity>
+                <Text style={{ marginRight: 20 }}>See All</Text>
+              </TouchableOpacity>
             </Layout>
-            <Layout style={styles.tab} level='1'>
-              <Card>
-                <Text>
-                  The Maldives, officially the Republic of Maldives, is a small
-                  country in South Asia, located in the Arabian Sea of the
-                  Indian Ocean. It lies southwest of Sri Lanka and India, about
-                  1,000 kilometres (620 mi) from the Asian continent
-                </Text>
-              </Card>
+            <Layout style={styles.header}>
+              <Text category='h6'>Near You</Text>
+              <TouchableOpacity>
+                <Text style={{ marginRight: 20 }}>See All</Text>
+              </TouchableOpacity>
             </Layout>
-          </ViewPager>
-          <Layout
-            style={{
-              marginHorizontal: 20,
-              marginTop: 20,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text category='h6'>Experience</Text>
-            <Text category='h6'>See All</Text>
-          </Layout>
+          </ScrollView>
         </SafeAreaView>
       </Layout>
     </>
@@ -98,10 +89,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   tab: {
+    height: 0.2 * height,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    marginLeft: 20,
-    marginRight: 20,
+    margin: 20,
   },
 });

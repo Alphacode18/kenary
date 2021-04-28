@@ -14,7 +14,7 @@ export default RecommendationCard = ({ recommendation }) => {
       >
         <Text style={styles.hero}>{name}</Text>
         <Text style={styles.description}>{description}</Text>
-        <Text style={styles.recommended}>Recommended</Text>
+        <Text style={styles.recommended}>Top Picks</Text>
       </ImageBackground>
     </Layout>
   );
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: 15,
     bottom: '79.5%',
-    left: '65%',
+    left: '75%',
     padding: 14,
   },
   background: {
@@ -63,8 +63,6 @@ const styles = StyleSheet.create({
       width: 0,
       height: 5,
     },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
     elevation: 10,
   },
   image: {

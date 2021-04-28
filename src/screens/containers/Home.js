@@ -7,25 +7,28 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import { Layout, Text, Avatar } from '@ui-kitten/components';
-import Header from '../components/RecommendationPager';
+import { Layout, Text, Avatar, ViewPager } from '@ui-kitten/components';
 const { height, width } = Dimensions.get('screen');
+import RecommendationPager from '../../screens/components/RecommendationPager';
 
 export default Home = ({ navigation }) => {
   const [recommendationData, setRecommendationData] = useState([]);
   if (recommendationData.length === 0) {
     setRecommendationData([
       {
-        name: 'Happy Hollow Park',
+        name: 'Happy Hollow',
         image: require('../../../assets/Test/Hollow.jpeg'),
+        description: 'Assorted adventures for every family ',
       },
       {
         name: '8Eleven Bistro',
         image: require('../../../assets/Test/8Eleven.jpeg'),
+        description: 'Fingerlicking food served with flair',
       },
       {
-        name: 'Coyote Crossing Golf Course',
+        name: 'Coyote Golf',
         image: require('../../../assets/Test/Coyote.jpeg'),
+        description: 'A course you will keep coming back to',
       },
     ]);
   }
@@ -50,7 +53,7 @@ export default Home = ({ navigation }) => {
           <Text category='h1' style={styles.hero}>
             West Lafayette
           </Text>
-          <Header data={recommendationData} />
+          <RecommendationPager data={recommendationData} />
           <ScrollView>
             <Layout style={styles.header}>
               <Text category='h6'>Near You</Text>

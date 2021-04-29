@@ -3,8 +3,8 @@ import { Layout, Text } from '@ui-kitten/components';
 import { ImageBackground, StyleSheet, Dimensions } from 'react-native';
 const { height } = Dimensions.get('screen');
 
-export default RecommendationCard = ({ recommendation }) => {
-  const { name, image, description } = recommendation;
+export default HeroCard = ({ data }) => {
+  const { name, image, description } = data;
   return (
     <Layout style={styles.tab}>
       <ImageBackground

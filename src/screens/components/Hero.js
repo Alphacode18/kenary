@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { ViewPager } from '@ui-kitten/components';
 import { Dimensions } from 'react-native';
-const { height, width } = Dimensions.get('screen');
-import RecommendationCard from '../components/RecommendationCard';
+import HeroCard from './HeroCard';
 
-export default RecommendationPager = ({ data, toggleVerticalScroll }) => {
+export default Hero = ({ data, toggleVerticalScroll }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
     <ViewPager
@@ -17,10 +16,8 @@ export default RecommendationPager = ({ data, toggleVerticalScroll }) => {
         toggleVerticalScroll();
       }}
     >
-      {data.map((recommendation, index) => {
-        return (
-          <RecommendationCard key={index} recommendation={recommendation} />
-        );
+      {data.map((data, index) => {
+        return <HeroCard key={index} data={data} />;
       })}
     </ViewPager>
   );

@@ -11,7 +11,7 @@ import { Home, Profile, Circles, Recommendations } from './_Export';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-const HomeIcon = (props) => <Icon {...props} name='home-outline' />;
+const HomeIcon = (props) => <Icon {...props} name='compass-outline' />;
 const CircleIcon = (props) => (
   <Icon {...props} name='radio-button-off-outline' />
 );
@@ -25,10 +25,10 @@ const BottomTabBar = ({ navigation, state }) => (
       onSelect={(index) => navigation.navigate(state.routeNames[index])}
       style={{ marginBottom: 20 }}
     >
-      <BottomNavigationTab icon={HomeIcon} />
-      <BottomNavigationTab icon={RecommendationIcon} />
-      <BottomNavigationTab icon={CircleIcon} />
-      <BottomNavigationTab icon={PersonIcon} />
+      <BottomNavigationTab title='Explore' icon={HomeIcon} />
+      <BottomNavigationTab title='Deals' icon={RecommendationIcon} />
+      <BottomNavigationTab title='Circles' icon={CircleIcon} />
+      <BottomNavigationTab title='Me' icon={PersonIcon} />
     </BottomNavigation>
   </Layout>
 );

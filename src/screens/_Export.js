@@ -5,7 +5,7 @@ import Forgot from './Forgot';
 import Home from './containers/Home';
 import Profile from './containers/Profile';
 import Circles from './containers/Circles';
-import Recommendations from './containers/Recommendations';
+import Explore from './containers/Explore';
 
 module.exports = {
   Onboarding,
@@ -15,5 +15,5 @@ module.exports = {
   Home,
   Profile,
   Circles,
-  Recommendations,
+  Explore,
 };

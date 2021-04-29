@@ -3,7 +3,7 @@ import { Dimensions, Image, StyleSheet } from 'react-native';
 import { Layout, Text, ListItem } from '@ui-kitten/components';
 const { width } = Dimensions.get('screen');
 
-export default Entries = ({ navigation, item }) => {
+export default Entries = ({ item, navigation }) => {
   return (
     <ListItem onPress={() => navigation.navigate('Profile')}>
       <Layout style={styles.container}>

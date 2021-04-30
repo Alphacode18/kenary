@@ -1,10 +1,23 @@
 import React from 'react';
 import { StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { Layout, Text, Input } from '@ui-kitten/components';
+import { Layout, Text, Input, Icon, Avatar } from '@ui-kitten/components';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import Categories from '../components/Categories';
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
+  </TouchableWithoutFeedback>
+);
+
+const SearchIcon = (props) => (
+  // TODO: Add function to search
+  <TouchableWithoutFeedback
+    onPress={() => {
+      Keyboard.dismiss();
+    }}
+  >
+    <Icon {...props} name='search-outline' />
   </TouchableWithoutFeedback>
 );
 
@@ -17,16 +30,37 @@ export default Explore = () => {
             autoCapitalize='none'
             autoCorrect={false}
             status='info'
-            placeholder='Search'
+            placeholder='What do you want to do?'
             style={{
               borderRadius: 25,
               borderColor: '#cc7722',
               alignItems: 'flex-start',
               width: '95%',
-              marginVertical: 100,
+              marginTop: 100,
+              marginBottom: 55,
             }}
             textStyle={{ color: '#000' }}
+            accessoryRight={SearchIcon}
           />
+          <Text
+            category='h4'
+            style={{ color: 'white', alignSelf: 'flex-start', marginLeft: 20 }}
+          >
+            Categories
+          </Text>
+          <Layout
+            style={{
+              flex: 0.5,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              backgroundColor: '#cc7722',
+            }}
+          >
+            <Categories pack={'ionicon'} icon={'beer-outline'} />
+            <Categories pack={'ionicon'} icon={'book-outline'} />
+            <Categories pack={'ionicon'} icon={'fast-food-outline'} />
+            <Categories pack={'ionicon'} icon={'bicycle-outline'} />
+          </Layout>
         </Layout>
         <Layout style={styles.container}>
           <Text category='h1'>Explore</Text>

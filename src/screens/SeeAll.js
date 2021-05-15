@@ -1,10 +1,27 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { Layout, Text, List } from '@ui-kitten/components';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import ListEntries from './components/ListEntries';
 
-export default SeeAll = ({ route }) => {
-  const { title, data } = route.params;
+export default SeeAll = ({ route, navigation }) => {
+  const { data } = route.params;
+
+  const headerComponent = () => {
+    return (
+      <Layout style={styles.header}>
+        <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+          <FontAwesome5Icon name='arrow-left' size='25' />
+        </TouchableWithoutFeedback>
+      </Layout>
+    );
+  };
+
   return (
     <Layout style={styles.container}>
       <SafeAreaView>
@@ -13,11 +30,14 @@ export default SeeAll = ({ route }) => {
             maxLength: 180,
             flexDirection: 'row',
             flexWrap: 'wrap',
+            paddingLeft: 5,
           }}
           data={data}
           renderItem={ListEntries}
           numColumns={2}
           columnWrapperStyle={{ justifyContent: 'space-around' }}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={headerComponent}
         />
       </SafeAreaView>
     </Layout>
@@ -27,5 +47,10 @@ export default SeeAll = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
   },
 });

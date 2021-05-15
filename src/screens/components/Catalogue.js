@@ -6,7 +6,7 @@ import Entries from './Entries';
 /* The previewNumber denotes the number of data points to be shown
  * on the Homepage horizontal flatlists.
  */
-const previewNumber = 2;
+const previewNumber = 5;
 
 export default Catalogue = ({ name, data, navigation }) => {
   const preview = data.slice(0, previewNumber);
@@ -17,7 +17,6 @@ export default Catalogue = ({ name, data, navigation }) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('See All', {
-              title: name,
               data: data,
             })
           }

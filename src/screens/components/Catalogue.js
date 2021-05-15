@@ -27,7 +27,9 @@ export default Catalogue = ({ name, data, navigation }) => {
       <List
         style={{ maxLength: 180 }}
         data={preview}
-        renderItem={Entries}
+        renderItem={({ item }) => (
+          <Entries item={item} navigation={navigation} />
+        )}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       />

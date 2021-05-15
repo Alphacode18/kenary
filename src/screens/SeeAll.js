@@ -33,7 +33,9 @@ export default SeeAll = ({ route, navigation }) => {
             paddingLeft: 5,
           }}
           data={data}
-          renderItem={ListEntries}
+          renderItem={({ item }) => (
+            <ListEntries item={item} navigation={navigation} />
+          )}
           numColumns={2}
           columnWrapperStyle={{ justifyContent: 'space-around' }}
           showsVerticalScrollIndicator={false}

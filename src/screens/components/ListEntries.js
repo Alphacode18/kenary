@@ -5,7 +5,14 @@ const { width } = Dimensions.get('screen');
 
 export default Entries = ({ item, navigation }) => {
   return (
-    <ListItem onPress={() => navigation.navigate('Profile')}>
+    <ListItem
+      onPress={() =>
+        navigation.navigate('Listing', {
+          name: item.name,
+          keywords: item.keywords,
+        })
+      }
+    >
       <Layout style={styles.container}>
         <Layout style={{ flex: 3 }}>
           <Image source={item.image} style={styles.image} />

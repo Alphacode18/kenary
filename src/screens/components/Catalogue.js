@@ -8,13 +8,20 @@ import Entries from './Entries';
  */
 const previewNumber = 2;
 
-export default Catalogue = ({ name, data }) => {
+export default Catalogue = ({ name, data, navigation }) => {
   const preview = data.slice(0, previewNumber);
   return (
     <>
       <Layout style={styles.header}>
         <Text category='h6'>{name}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('See All', {
+              title: name,
+              data: data,
+            })
+          }
+        >
           <Text style={{ marginRight: 20 }}>See All</Text>
         </TouchableOpacity>
       </Layout>

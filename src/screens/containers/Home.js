@@ -51,9 +51,13 @@ export default Home = ({ navigation }) => {
               West Lafayette
             </Text>
             <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
-            <Catalogue name='Near You' data={data} />
-            <Catalogue name='Specials' data={data} />
-            <Catalogue name='Experimental' data={data} />
+            <Catalogue name='Near You' data={data} navigation={navigation} />
+            <Catalogue name='Specials' data={data} navigation={navigation} />
+            <Catalogue
+              name='Experimental'
+              data={data}
+              navigation={navigation}
+            />
           </ScrollView>
         </SafeAreaView>
       </Layout>

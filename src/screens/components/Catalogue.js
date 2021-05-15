@@ -3,7 +3,13 @@ import { TouchableOpacity, Dimensions, Image, StyleSheet } from 'react-native';
 import { Layout, Text, List } from '@ui-kitten/components';
 import Entries from './Entries';
 
+/* The previewNumber denotes the number of data points to be shown
+ * on the Homepage horizontal flatlists.
+ */
+const previewNumber = 2;
+
 export default Catalogue = ({ name, data }) => {
+  const preview = data.slice(0, previewNumber);
   return (
     <>
       <Layout style={styles.header}>
@@ -14,7 +20,7 @@ export default Catalogue = ({ name, data }) => {
       </Layout>
       <List
         style={{ maxLength: 180 }}
-        data={data}
+        data={preview}
         renderItem={Entries}
         horizontal={true}
         showsHorizontalScrollIndicator={false}

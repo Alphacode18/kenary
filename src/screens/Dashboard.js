@@ -7,7 +7,8 @@ import {
   Icon,
   Layout,
 } from '@ui-kitten/components';
-import { Home, Profile, Circles, Explore } from './_Export';
+import { Profile, Circles, Explore } from './_Export';
+import HomeStack from '../../navigation/HomeStack';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -35,7 +36,7 @@ const BottomTabBar = ({ navigation, state }) => (
 
 const TabNavigator = () => (
   <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
-    <Screen name='Home' component={Home} />
+    <Screen name='Home' component={HomeStack} />
     <Screen name='Explore' component={Explore} />
     <Screen name='Circle' component={Circles} />
     <Screen name='Profile' component={Profile} />

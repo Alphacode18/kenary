@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -6,14 +6,67 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import { Layout, Text, Button, Divider } from '@ui-kitten/components';
+import { Layout, Text, Button, Divider, Popover } from '@ui-kitten/components';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import openMap from 'react-native-open-maps';
+import * as WebBrowser from 'expo-web-browser';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 const { height, width } = Dimensions.get('screen');
 
+const handleReservation = async () => {
+  await WebBrowser.openBrowserAsync('https://happyhollow.org/visit/');
+};
+
 export default Listing = ({ route }) => {
+  const [mondayVisible, setMondayVisible] = useState(false);
+  const [tuesdayVisible, setTuesdayVisible] = useState(false);
+  const [wednesdayVisible, setWednesdayVisible] = useState(false);
+  const [thursdayVisible, setThursdayVisible] = useState(false);
+  const [fridayVisible, setFridayVisible] = useState(false);
+  const [saturdayVisible, setSaturdayVisible] = useState(false);
+  const [sundayVisible, setSundayVisible] = useState(false);
+  const renderTimingButton = (day) => (
+    <Button
+      style={{
+        width: 55,
+        height: 55,
+        borderRadius: width / 2,
+        borderColor: 'teal',
+        marginLeft: 10,
+        marginBottom: 5,
+        marginTop: 5,
+        backgroundColor: 'teal',
+      }}
+      onPress={() => {
+        switch (day) {
+          case 'M':
+            setMondayVisible(true);
+            break;
+          case 'T':
+            setTuesdayVisible(true);
+            break;
+          case 'W':
+            setWednesdayVisible(true);
+            break;
+          case 'R':
+            setThursdayVisible(true);
+            break;
+          case 'F':
+            setFridayVisible(true);
+            break;
+          case 'S':
+            setSaturdayVisible(true);
+            break;
+          case 'Su':
+            setSundayVisible(true);
+            break;
+        }
+      }}
+    >
+      {day === 'Su' ? 'S' : day}
+    </Button>
+  );
   const { name, image, description, keywords, navigation } = route.params;
   return (
     <Layout style={styles.container}>
@@ -74,6 +127,7 @@ export default Listing = ({ route }) => {
               width: 0.35 * width,
               height: 50,
             }}
+            onPress={handleReservation}
           >
             Reserve
           </Button>
@@ -137,6 +191,92 @@ export default Listing = ({ route }) => {
           >
             <Text style={{ color: 'teal' }}>{keywords}</Text>
           </Button>
+        </Layout>
+        <Divider
+          style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
+        />
+        <Text style={{ fontSize: 25, fontWeight: '500', padding: 15 }}>
+          Timings
+        </Text>
+        <Layout
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignContent: 'space-between',
+            marginBottom: 10,
+          }}
+        >
+          <Popover
+            visible={mondayVisible}
+            anchor={() => renderTimingButton('M')}
+            onBackdropPress={() => setMondayVisible(false)}
+            placement={'top'}
+          >
+            <Layout style={styles.content}>
+              <Text>8:00 AM - 8:40 PM</Text>
+            </Layout>
+          </Popover>
+          <Popover
+            visible={tuesdayVisible}
+            anchor={() => renderTimingButton('T')}
+            onBackdropPress={() => setTuesdayVisible(false)}
+            placement={'top'}
+          >
+            <Layout style={styles.content}>
+              <Text>8:00 AM - 8:40 PM</Text>
+            </Layout>
+          </Popover>
+          <Popover
+            visible={wednesdayVisible}
+            anchor={() => renderTimingButton('W')}
+            onBackdropPress={() => setWednesdayVisible(false)}
+            placement={'top'}
+          >
+            <Layout style={styles.content}>
+              <Text>8:00 AM - 8:40 PM</Text>
+            </Layout>
+          </Popover>
+          <Popover
+            visible={thursdayVisible}
+            anchor={() => renderTimingButton('R')}
+            onBackdropPress={() => setThursdayVisible(false)}
+            placement={'top'}
+          >
+            <Layout style={styles.content}>
+              <Text>8:00 AM - 8:40 PM</Text>
+            </Layout>
+          </Popover>
+          <Popover
+            visible={fridayVisible}
+            anchor={() => renderTimingButton('F')}
+            onBackdropPress={() => setFridayVisible(false)}
+            placement={'top'}
+          >
+            <Layout style={styles.content}>
+              <Text>8:00 AM - 8:40 PM</Text>
+            </Layout>
+          </Popover>
+          <Popover
+            visible={saturdayVisible}
+            anchor={() => renderTimingButton('S')}
+            onBackdropPress={() => setSaturdayVisible(false)}
+            placement={'top'}
+          >
+            <Layout style={styles.content}>
+              <Text>8:00 AM - 8:40 PM</Text>
+            </Layout>
+          </Popover>
+          <Popover
+            visible={sundayVisible}
+            anchor={() => renderTimingButton('Su')}
+            onBackdropPress={() => setSundayVisible(false)}
+            placement={'top'}
+          >
+            <Layout style={styles.content}>
+              <Text>8:00 AM - 8:40 PM</Text>
+            </Layout>
+          </Popover>
         </Layout>
         <Divider
           style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
@@ -210,5 +350,11 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 20,
     fontWeight: '400',
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 4,
+    paddingVertical: 8,
   },
 });

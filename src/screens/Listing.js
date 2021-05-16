@@ -47,45 +47,89 @@ export default Listing = ({ route }) => {
           style={{
             flex: 1,
             flexDirection: 'row',
+            alignContent: 'space-between',
+            marginBottom: 10,
+          }}
+        >
+          <Text
+            style={{
+              width: 0.4 * width,
+              marginLeft: 15,
+              marginRight: 50,
+              marginBottom: 10,
+            }}
+          >
+            This experience might be enhanced by booking in advance.
+          </Text>
+          <Button
+            style={{
+              backgroundColor: 'teal',
+              borderColor: 'teal',
+              width: 0.35 * width,
+              height: 50,
+            }}
+          >
+            Book
+          </Button>
+        </Layout>
+        <Divider
+          style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
+        />
+        <Layout
+          style={{
+            flex: 1,
+            flexDirection: 'row',
             flexWrap: 'wrap',
             paddingBottom: 20,
           }}
         >
           <Button
-            style={{ backgroundColor: 'teal', borderRadius: 20, margin: 3 }}
+            style={{
+              borderRadius: 20,
+              marginLeft: 10,
+              marginBottom: 5,
+              marginTop: 5,
+            }}
+            appearance='outline'
             disabled={true}
           >
-            <Text style={{ color: 'white' }}>{keywords}</Text>
+            <Text style={{ color: 'teal' }}>{keywords}</Text>
           </Button>
           <Button
-            style={{ backgroundColor: 'teal', borderRadius: 20, margin: 3 }}
+            style={{
+              borderRadius: 20,
+              marginLeft: 10,
+              marginBottom: 5,
+              marginTop: 5,
+            }}
+            appearance='outline'
             disabled={true}
           >
-            <Text style={{ color: 'white' }}>{keywords}</Text>
+            <Text style={{ color: 'teal' }}>{keywords}</Text>
           </Button>
           <Button
-            style={{ backgroundColor: 'teal', borderRadius: 20, margin: 3 }}
+            style={{
+              borderRadius: 20,
+              marginLeft: 10,
+              marginBottom: 5,
+              marginTop: 5,
+            }}
+            appearance='outline'
             disabled={true}
           >
-            <Text style={{ color: 'white' }}>{keywords}</Text>
+            <Text style={{ color: 'teal' }}>{keywords}</Text>
           </Button>
           <Button
-            style={{ backgroundColor: 'teal', borderRadius: 20, margin: 3 }}
+            style={{
+              borderRadius: 20,
+              marginLeft: 10,
+              marginBottom: 5,
+              marginTop: 5,
+            }}
+            appearance='outline'
             disabled={true}
           >
-            <Text style={{ color: 'white' }}>{keywords}</Text>
-          </Button>
-          <Button
-            style={{ backgroundColor: 'teal', borderRadius: 20, margin: 3 }}
-            disabled={true}
-          >
-            <Text style={{ color: 'white' }}>{keywords}</Text>
-          </Button>
-          <Button
-            style={{ backgroundColor: 'teal', borderRadius: 20, margin: 3 }}
-            disabled={true}
-          >
-            <Text style={{ color: 'white' }}>{keywords}</Text>
+            <Text style={{ color: 'teal' }}>{keywords}</Text>
           </Button>
         </Layout>
         <Divider

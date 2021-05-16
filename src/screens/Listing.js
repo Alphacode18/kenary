@@ -10,6 +10,7 @@ import { Layout, Text, Button, Divider } from '@ui-kitten/components';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import openMap from 'react-native-open-maps';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 const { height, width } = Dimensions.get('screen');
 
 export default Listing = ({ route }) => {
@@ -51,16 +52,21 @@ export default Listing = ({ route }) => {
             marginBottom: 10,
           }}
         >
-          <Text
+          <FeatherIcon
+            name='alert-octagon'
             style={{
               width: 0.4 * width,
               marginLeft: 15,
               marginRight: 50,
               marginBottom: 10,
+              color: '#cc7722',
             }}
           >
-            This experience might be enhanced by booking in advance.
-          </Text>
+            {' '}
+            <Text style={{ color: '#cc7722' }}>
+              This experience might be enhanced by booking in advance.
+            </Text>
+          </FeatherIcon>
           <Button
             style={{
               backgroundColor: 'teal',
@@ -69,7 +75,7 @@ export default Listing = ({ route }) => {
               height: 50,
             }}
           >
-            Book
+            Reserve
           </Button>
         </Layout>
         <Divider
@@ -152,6 +158,7 @@ export default Listing = ({ route }) => {
               height: 0.3 * height,
               marginLeft: 15,
               borderRadius: 10,
+              marginBottom: 15,
             }}
             minZoomLevel={15}
             provider={PROVIDER_GOOGLE}

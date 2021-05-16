@@ -105,7 +105,7 @@ export default Listing = ({ route }) => {
           <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
             <FontAwesome5Icon
               name='arrow-circle-left'
-              size='30'
+              size={30}
               style={styles.header}
               color={'white'}
             />
@@ -114,7 +114,7 @@ export default Listing = ({ route }) => {
         <Text style={styles.heading}>{name}</Text>
         <FontAwesome5Icon
           name='star'
-          size='20'
+          size={20}
           style={{ paddingLeft: 10, paddingTop: 10 }}
           color={'red'}
         >

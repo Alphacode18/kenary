@@ -9,9 +9,9 @@ export default Categories = ({ pack, icon }) => {
     // <ListItem onPress={() => {}}>
     <Layout style={styles.container}>
       {pack === 'ionicon' ? (
-        <IoniconsIcon name={icon} size='35' color='#cc7722' />
+        <IoniconsIcon name={icon} size={35} color='#cc7722' />
       ) : (
-        <FontAwesome5Icon name={icon} size='35' color='#cc7722' />
+        <FontAwesome5Icon name={icon} size={35} color='#cc7722' />
       )}
     </Layout>
     // </ListItem>

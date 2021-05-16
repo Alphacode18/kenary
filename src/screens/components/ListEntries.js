@@ -10,6 +10,7 @@ export default Entries = ({ item, navigation }) => {
         navigation.navigate('Listing', {
           name: item.name,
           keywords: item.keywords,
+          navigation: navigation,
         })
       }
     >

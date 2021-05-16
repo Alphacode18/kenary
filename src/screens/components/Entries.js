@@ -9,7 +9,10 @@ export default Entries = ({ item, navigation }) => {
       onPress={() =>
         navigation.navigate('Listing', {
           name: item.name,
+          image: item.image,
+          description: item.description,
           keywords: item.keywords,
+          navigation: navigation,
         })
       }
     >

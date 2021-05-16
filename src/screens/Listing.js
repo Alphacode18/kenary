@@ -5,14 +5,41 @@ import {
   ImageBackground,
   Dimensions,
   ScrollView,
+  Image,
 } from 'react-native';
-import { Layout, Text, Button, Divider, Popover } from '@ui-kitten/components';
+import {
+  Layout,
+  Text,
+  Button,
+  Divider,
+  Popover,
+  List,
+} from '@ui-kitten/components';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import openMap from 'react-native-open-maps';
 import * as WebBrowser from 'expo-web-browser';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 const { height, width } = Dimensions.get('screen');
+import Attractions from './components/Attractions';
+
+const dummyURI = [
+  {
+    name: 'Rides',
+    uri:
+      'https://happyhollow.org/wp-content/uploads/2019/03/20181118_145003-e1555114014311.jpg',
+  },
+  {
+    name: 'Zoo',
+    uri:
+      'https://happyhollow.org/wp-content/uploads/2019/04/56958805_10161604780090176_4584502173978591232_n-e1555108880109.jpg',
+  },
+  {
+    name: 'Theatre',
+    uri:
+      'https://happyhollow.org/wp-content/uploads/2019/04/puppetTheatre-8527-e1555112242198.jpg',
+  },
+];
 
 const handleReservation = async () => {
   await WebBrowser.openBrowserAsync('https://happyhollow.org/visit/');
@@ -196,6 +223,23 @@ export default Listing = ({ route }) => {
           style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
         />
         <Text style={{ fontSize: 25, fontWeight: '500', padding: 15 }}>
+          Major Attractions
+        </Text>
+        <List
+          style={{
+            maxLength: 180,
+            paddingLeft: 5,
+            marginBottom: 20,
+          }}
+          data={dummyURI}
+          renderItem={Attractions}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+        <Divider
+          style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
+        />
+        <Text style={{ fontSize: 25, fontWeight: '500', padding: 15 }}>
           Timings
         </Text>
         <Layout
@@ -298,7 +342,7 @@ export default Listing = ({ route }) => {
               height: 0.3 * height,
               marginLeft: 15,
               borderRadius: 10,
-              marginBottom: 15,
+              marginBottom: 20,
             }}
             minZoomLevel={15}
             provider={PROVIDER_GOOGLE}
@@ -311,7 +355,7 @@ export default Listing = ({ route }) => {
             scrollEnabled={false}
             onPress={() => {
               openMap({
-                query: name,
+                query: `${name}, West Lafayette`,
                 provider: 'google',
                 travelType: 'drive',
                 navigate_mode: 'preview',

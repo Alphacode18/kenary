@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { db } from '../../../config/Firebase';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,6 +15,26 @@ import { catalogueDummyData } from '../../../test/Data';
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
+
+  const retriveExperiences = async () => {
+    const tempExperiencesArray = [];
+    const data = db
+      .collection('cities')
+      .doc('west-lafayette')
+      .collection('experiences');
+    await data.get().then((snapshot) => {
+      if (snapshot.docs.length > 0) {
+        snapshot.docs.forEach((doc) => {
+          const data = doc.data();
+          tempExperiencesArray.push(data);
+        });
+      } else {
+        console.log('No Data Found :(');
+      }
+    });
+    setData(tempExperiencesArray);
+  };
+
   const [allowVerticalScroll, setAllowVerticalScroll] = useState(true);
   const toggleVerticalScroll = () => {
     setTimeout(() => {
@@ -22,9 +43,12 @@ export default Home = ({ navigation }) => {
         : setAllowVerticalScroll(true);
     }, 0);
   };
+
   useEffect(() => {
+    retriveExperiences();
     setData(catalogueDummyData);
   }, []);
+
   return (
     <>
       <Layout style={styles.layout}>

@@ -22,6 +22,8 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 const { height, width } = Dimensions.get('screen');
 import Attractions from './components/Attractions';
+import Timings from './components/Timings';
+import Map from './components/Map';
 
 const dummyURI = [
   {
@@ -41,65 +43,29 @@ const dummyURI = [
   },
 ];
 
-const handleReservation = async () => {
-  await WebBrowser.openBrowserAsync('https://happyhollow.org/visit/');
-};
-
 export default Listing = ({ route }) => {
-  const [mondayVisible, setMondayVisible] = useState(false);
-  const [tuesdayVisible, setTuesdayVisible] = useState(false);
-  const [wednesdayVisible, setWednesdayVisible] = useState(false);
-  const [thursdayVisible, setThursdayVisible] = useState(false);
-  const [fridayVisible, setFridayVisible] = useState(false);
-  const [saturdayVisible, setSaturdayVisible] = useState(false);
-  const [sundayVisible, setSundayVisible] = useState(false);
-  const renderTimingButton = (day) => (
-    <Button
-      style={{
-        width: 55,
-        height: 55,
-        borderRadius: width / 2,
-        borderColor: 'teal',
-        marginLeft: 10,
-        marginBottom: 5,
-        marginTop: 5,
-        backgroundColor: 'teal',
-      }}
-      onPress={() => {
-        switch (day) {
-          case 'M':
-            setMondayVisible(true);
-            break;
-          case 'T':
-            setTuesdayVisible(true);
-            break;
-          case 'W':
-            setWednesdayVisible(true);
-            break;
-          case 'R':
-            setThursdayVisible(true);
-            break;
-          case 'F':
-            setFridayVisible(true);
-            break;
-          case 'S':
-            setSaturdayVisible(true);
-            break;
-          case 'Su':
-            setSundayVisible(true);
-            break;
-        }
-      }}
-    >
-      {day === 'Su' ? 'S' : day}
-    </Button>
-  );
-  const { name, image, description, keywords, navigation } = route.params;
+  const listingData = route.params.data;
+  const navigation = route.params.navigation;
+  const {
+    name,
+    description,
+    rating,
+    keywords,
+    booking,
+    coordinates,
+    attractions,
+    timings,
+    image,
+  } = listingData;
+  console.log(coordinates);
+  const handleReservation = async () => {
+    await WebBrowser.openBrowserAsync(booking);
+  };
   return (
     <Layout style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
-          source={image}
+          source={{ uri: image }}
           style={{ width: width, height: 0.4 * height }}
         >
           <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
@@ -118,7 +84,7 @@ export default Listing = ({ route }) => {
           style={{ paddingLeft: 10, paddingTop: 10 }}
           color={'red'}
         >
-          <Text style={{ fontSize: 20 }}> 4.2</Text>
+          <Text style={{ fontSize: 20 }}> {rating}</Text>
         </FontAwesome5Icon>
         <Text style={styles.text}>{description}</Text>
         <Divider
@@ -170,54 +136,23 @@ export default Listing = ({ route }) => {
             paddingBottom: 20,
           }}
         >
-          <Button
-            style={{
-              borderRadius: 20,
-              marginLeft: 10,
-              marginBottom: 5,
-              marginTop: 5,
-            }}
-            appearance='outline'
-            disabled={true}
-          >
-            <Text style={{ color: 'teal' }}>{keywords}</Text>
-          </Button>
-          <Button
-            style={{
-              borderRadius: 20,
-              marginLeft: 10,
-              marginBottom: 5,
-              marginTop: 5,
-            }}
-            appearance='outline'
-            disabled={true}
-          >
-            <Text style={{ color: 'teal' }}>{keywords}</Text>
-          </Button>
-          <Button
-            style={{
-              borderRadius: 20,
-              marginLeft: 10,
-              marginBottom: 5,
-              marginTop: 5,
-            }}
-            appearance='outline'
-            disabled={true}
-          >
-            <Text style={{ color: 'teal' }}>{keywords}</Text>
-          </Button>
-          <Button
-            style={{
-              borderRadius: 20,
-              marginLeft: 10,
-              marginBottom: 5,
-              marginTop: 5,
-            }}
-            appearance='outline'
-            disabled={true}
-          >
-            <Text style={{ color: 'teal' }}>{keywords}</Text>
-          </Button>
+          {keywords.map((keyword) => {
+            return (
+              <Button
+                style={{
+                  borderRadius: 20,
+                  marginLeft: 10,
+                  marginBottom: 5,
+                  marginTop: 5,
+                }}
+                id={keyword}
+                appearance='outline'
+                disabled={true}
+              >
+                <Text style={{ color: 'teal' }}>{keyword}</Text>
+              </Button>
+            );
+          })}
         </Layout>
         <Divider
           style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
@@ -239,92 +174,7 @@ export default Listing = ({ route }) => {
         <Divider
           style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
         />
-        <Text style={{ fontSize: 25, fontWeight: '500', padding: 15 }}>
-          Timings
-        </Text>
-        <Layout
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            alignContent: 'space-between',
-            marginBottom: 10,
-          }}
-        >
-          <Popover
-            visible={mondayVisible}
-            anchor={() => renderTimingButton('M')}
-            onBackdropPress={() => setMondayVisible(false)}
-            placement={'top'}
-          >
-            <Layout style={styles.content}>
-              <Text>8:00 AM - 8:40 PM</Text>
-            </Layout>
-          </Popover>
-          <Popover
-            visible={tuesdayVisible}
-            anchor={() => renderTimingButton('T')}
-            onBackdropPress={() => setTuesdayVisible(false)}
-            placement={'top'}
-          >
-            <Layout style={styles.content}>
-              <Text>8:00 AM - 8:40 PM</Text>
-            </Layout>
-          </Popover>
-          <Popover
-            visible={wednesdayVisible}
-            anchor={() => renderTimingButton('W')}
-            onBackdropPress={() => setWednesdayVisible(false)}
-            placement={'top'}
-          >
-            <Layout style={styles.content}>
-              <Text>8:00 AM - 8:40 PM</Text>
-            </Layout>
-          </Popover>
-          <Popover
-            visible={thursdayVisible}
-            anchor={() => renderTimingButton('R')}
-            onBackdropPress={() => setThursdayVisible(false)}
-            placement={'top'}
-          >
-            <Layout style={styles.content}>
-              <Text>8:00 AM - 8:40 PM</Text>
-            </Layout>
-          </Popover>
-          <Popover
-            visible={fridayVisible}
-            anchor={() => renderTimingButton('F')}
-            onBackdropPress={() => setFridayVisible(false)}
-            placement={'top'}
-          >
-            <Layout style={styles.content}>
-              <Text>8:00 AM - 8:40 PM</Text>
-            </Layout>
-          </Popover>
-          <Popover
-            visible={saturdayVisible}
-            anchor={() => renderTimingButton('S')}
-            onBackdropPress={() => setSaturdayVisible(false)}
-            placement={'top'}
-          >
-            <Layout style={styles.content}>
-              <Text>8:00 AM - 8:40 PM</Text>
-            </Layout>
-          </Popover>
-          <Popover
-            visible={sundayVisible}
-            anchor={() => renderTimingButton('Su')}
-            onBackdropPress={() => setSundayVisible(false)}
-            placement={'top'}
-          >
-            <Layout style={styles.content}>
-              <Text>8:00 AM - 8:40 PM</Text>
-            </Layout>
-          </Popover>
-        </Layout>
-        <Divider
-          style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
-        />
+        <Timings timings={timings} />
         <Layout
           styles={{
             flex: 1,
@@ -347,8 +197,8 @@ export default Listing = ({ route }) => {
             minZoomLevel={15}
             provider={PROVIDER_GOOGLE}
             initialRegion={{
-              latitude: 40.4350353,
-              longitude: -86.8975098,
+              latitude: coordinates['latitude'],
+              longitude: coordinates['longitude'],
               latitudeDelta: 0.01,
               longitudeDelta: 0.01,
             }}
@@ -363,7 +213,10 @@ export default Listing = ({ route }) => {
             }}
           >
             <Marker
-              coordinate={{ latitude: 40.4350353, longitude: -86.8975098 }}
+              coordinate={{
+                latitude: coordinates['latitude'],
+                longitude: coordinates['longitude'],
+              }}
             />
           </MapView>
         </Layout>
@@ -394,11 +247,5 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 20,
     fontWeight: '400',
-  },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 4,
-    paddingVertical: 8,
   },
 });

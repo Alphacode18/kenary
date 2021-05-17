@@ -16,7 +16,7 @@ export default Entries = ({ item, navigation }) => {
     >
       <Layout style={styles.container}>
         <Layout style={{ flex: 3 }}>
-          <Image source={item.image} style={styles.image} />
+          <Image source={{ uri: item.image }} style={styles.image} />
         </Layout>
         <Layout style={styles.textContainer}>
           <Text style={styles.name}>{item.name}</Text>

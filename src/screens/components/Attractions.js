@@ -1,66 +1,49 @@
 import React from 'react';
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import { Layout, Text, ListItem } from '@ui-kitten/components';
+import { Dimensions } from 'react-native';
+import { Layout, Text, Divider, List } from '@ui-kitten/components';
+import AttractionElement from '../components/AttractionElement';
+
 const { width } = Dimensions.get('screen');
 
-export default Attractions = ({ item }) => {
+const dummyURI = [
+  {
+    name: 'Rides',
+    uri:
+      'https://happyhollow.org/wp-content/uploads/2019/03/20181118_145003-e1555114014311.jpg',
+  },
+  {
+    name: 'Zoo',
+    uri:
+      'https://happyhollow.org/wp-content/uploads/2019/04/56958805_10161604780090176_4584502173978591232_n-e1555108880109.jpg',
+  },
+  {
+    name: 'Theatre',
+    uri:
+      'https://happyhollow.org/wp-content/uploads/2019/04/puppetTheatre-8527-e1555112242198.jpg',
+  },
+];
+const Attractions = ({ attractions }) => {
   return (
-    <>
-      <TouchableWithoutFeedback>
-        <ListItem>
-          <Layout style={styles.container}>
-            <Layout style={{ flex: 3 }}>
-              <Image source={{ uri: item.uri }} style={styles.image} />
-            </Layout>
-            <Layout style={styles.textContainer}>
-              <Text style={styles.name}>{item.name}</Text>
-            </Layout>
-          </Layout>
-        </ListItem>
-      </TouchableWithoutFeedback>
-    </>
+    <Layout>
+      <Text style={{ fontSize: 25, fontWeight: '500', padding: 15 }}>
+        Major Attractions
+      </Text>
+      <List
+        style={{
+          maxLength: 180,
+          paddingLeft: 5,
+          marginBottom: 20,
+        }}
+        data={dummyURI}
+        renderItem={AttractionElement}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+      />
+      <Divider
+        style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
+      />
+    </Layout>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: width / 2,
-    height: width / 2,
-    borderWidth: 0.5,
-    borderColor: '#dddddd',
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.1,
-    elevation: 10,
-  },
-  image: {
-    flex: 1,
-    width: null,
-    height: null,
-    resizeMode: 'cover',
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
-  textContainer: {
-    flex: 0.5,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    paddingLeft: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-  name: { fontSize: 12, fontWeight: 'bold', color: '#000' },
-});
+export default Attractions;

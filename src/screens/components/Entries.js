@@ -20,16 +20,11 @@ export default Entries = ({ item, navigation }) => {
         </Layout>
         <Layout style={styles.textContainer}>
           <Text style={styles.name}>{name}</Text>
-          {/* <Text>
+          <Text>
             {keywords.map((keyword) => {
-              return (
-                <Text
-                  id={keyword}
-                  style={styles.keyword}
-                >{`${keyword} | `}</Text>
-              );
+              return <Text style={styles.keyword}>{`${keyword} | `}</Text>;
             })}
-          </Text> */}
+          </Text>
           <Text style={styles.divider}>
             - - - - - - - - - - - - - - - - - - - - - - - - -
           </Text>

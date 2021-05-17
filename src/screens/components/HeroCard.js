@@ -8,12 +8,11 @@ export default HeroCard = ({ data }) => {
   return (
     <Layout style={styles.tab}>
       <ImageBackground
-        source={image}
+        source={{ uri: image }}
         imageStyle={styles.image}
         style={styles.background}
       >
         <Text style={styles.hero}>{name}</Text>
-        <Text style={styles.description}>{description}</Text>
         <Text style={styles.recommended}>Top Picks</Text>
       </ImageBackground>
     </Layout>
@@ -33,8 +32,9 @@ const styles = StyleSheet.create({
     color: 'white',
     position: 'absolute',
     fontSize: 30,
-    bottom: 60,
-    left: 20,
+    bottom: 0,
+    backgroundColor: 'teal',
+    padding: 10,
   },
   description: {
     color: 'white',
@@ -66,6 +66,8 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   image: {
+    height: null,
+    width: null,
     borderRadius: 10,
     overflow: 'hidden',
   },

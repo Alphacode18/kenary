@@ -23,6 +23,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 const { height, width } = Dimensions.get('screen');
 import Attractions from './components/Attractions';
 import Timings from './components/Timings';
+import ViewMap from './components/ViewMap';
 const dummyURI = [
   {
     name: 'Rides',
@@ -173,51 +174,7 @@ export default Listing = ({ route }) => {
           style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
         />
         <Timings timings={timings} />
-        <Layout
-          styles={{
-            flex: 1,
-            backgroundColor: '#fff',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text style={{ fontSize: 25, fontWeight: '500', padding: 15 }}>
-            Location
-          </Text>
-          <MapView
-            style={{
-              width: 0.9 * width,
-              height: 0.3 * height,
-              marginLeft: 15,
-              borderRadius: 10,
-              marginBottom: 20,
-            }}
-            minZoomLevel={15}
-            provider={PROVIDER_GOOGLE}
-            initialRegion={{
-              latitude: coordinates['latitude'],
-              longitude: coordinates['longitude'],
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
-            }}
-            scrollEnabled={false}
-            onPress={() => {
-              openMap({
-                query: `${name}, West Lafayette`,
-                provider: 'google',
-                travelType: 'drive',
-                navigate_mode: 'preview',
-              });
-            }}
-          >
-            <Marker
-              coordinate={{
-                latitude: coordinates['latitude'],
-                longitude: coordinates['longitude'],
-              }}
-            />
-          </MapView>
-        </Layout>
+        <ViewMap coordinates={coordinates} />
       </ScrollView>
     </Layout>
   );

@@ -23,8 +23,6 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 const { height, width } = Dimensions.get('screen');
 import Attractions from './components/Attractions';
 import Timings from './components/Timings';
-import Map from './components/Map';
-
 const dummyURI = [
   {
     name: 'Rides',

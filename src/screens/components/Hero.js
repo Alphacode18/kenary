@@ -16,7 +16,7 @@ export default Hero = ({ data, toggleVerticalScroll, navigation }) => {
       }}
     >
       {data.map((data, index) => {
-        return <HeroCard key={index} data={data} navigation={navigation} />;
+        return <HeroCard key={index} data={data} />;
       })}
     </ViewPager>
   );

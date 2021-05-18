@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import { Layout, Text, Divider, Button } from '@ui-kitten/components';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-
+import * as WebBrowser from 'expo-web-browser';
 const { height, width } = Dimensions.get('screen');
 
 const Reserve = ({ booking }) => {

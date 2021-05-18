@@ -5,7 +5,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import openMap from 'react-native-open-maps';
 const { height, width } = Dimensions.get('screen');
 
-export default ViewMap = ({ coordinates }) => {
+export default ViewMap = ({ name, coordinates }) => {
   return (
     <Layout
       styles={{

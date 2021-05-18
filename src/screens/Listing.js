@@ -32,7 +32,7 @@ export default Listing = ({ route }) => {
         <Tags keywords={keywords} />
         <Attractions attractions={attractions} />
         <Timings timings={timings} />
-        <ViewMap coordinates={coordinates} />
+        <ViewMap name={name} coordinates={coordinates} />
       </ScrollView>
     </Layout>
   );

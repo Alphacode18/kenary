@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import { Layout, Text, Avatar } from '@ui-kitten/components';
 const { height } = Dimensions.get('screen');
@@ -72,11 +73,18 @@ export default Home = ({ navigation }) => {
             <Text category='h1' style={styles.hero}>
               West Lafayette
             </Text>
-            <Hero
-              data={data}
-              toggleVerticalScroll={toggleVerticalScroll}
-              navigation={navigation}
-            />
+            <TouchableOpacity
+              style={{ alignSelf: 'flex-end', marginRight: 20 }}
+              onPress={() =>
+                navigation.navigate('See All', {
+                  name: 'Top Picks',
+                  data: data,
+                })
+              }
+            >
+              <Text>Learn More</Text>
+            </TouchableOpacity>
+            <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
             <Catalogue name='Near You' data={data} navigation={navigation} />
             <Catalogue name='Specials' data={data} navigation={navigation} />
             <Catalogue

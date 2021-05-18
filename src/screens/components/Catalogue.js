@@ -22,7 +22,7 @@ export default Catalogue = ({ name, data, navigation }) => {
             })
           }
         >
-          <Text style={{ marginRight: 20 }}>See All</Text>
+          <Text style={{ marginRight: 20 }}>{'See All'}</Text>
         </TouchableOpacity>
       </Layout>
       <List

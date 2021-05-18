@@ -8,11 +8,10 @@ import {
 } from 'react-native';
 const { height } = Dimensions.get('screen');
 
-export default HeroCard = ({ data, navigation }) => {
+export default HeroCard = ({ data }) => {
   const { name, image } = data;
   return (
     <Layout style={styles.tab}>
-      <Text style={{ alignSelf: 'flex-end' }}>Learn More</Text>
       <ImageBackground
         source={{ uri: image }}
         imageStyle={styles.image}
@@ -54,8 +53,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     position: 'absolute',
     fontSize: 15,
-    bottom: '76.4%',
-    left: '75.3%',
+    bottom: '80%',
+    left: '75%',
     padding: 14,
   },
   background: {
@@ -68,7 +67,6 @@ const styles = StyleSheet.create({
       height: 5,
     },
     elevation: 10,
-    marginTop: 10,
   },
   image: {
     height: null,

@@ -4,16 +4,15 @@ import { ImageBackground, StyleSheet, Dimensions } from 'react-native';
 const { height } = Dimensions.get('screen');
 
 export default HeroCard = ({ data }) => {
-  const { name, image, description } = data;
+  const { name, image } = data;
   return (
     <Layout style={styles.tab}>
       <ImageBackground
-        source={image}
+        source={{ uri: image }}
         imageStyle={styles.image}
         style={styles.background}
       >
         <Text style={styles.hero}>{name}</Text>
-        <Text style={styles.description}>{description}</Text>
         <Text style={styles.recommended}>Top Picks</Text>
       </ImageBackground>
     </Layout>
@@ -29,20 +28,11 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   hero: {
-    fontWeight: 'bold',
     color: 'white',
     position: 'absolute',
+    bottom: 10,
+    left: 5,
     fontSize: 30,
-    bottom: 60,
-    left: 20,
-  },
-  description: {
-    color: 'white',
-    position: 'absolute',
-    fontSize: 15,
-    bottom: 20,
-    left: 20,
-    width: '50%',
   },
   recommended: {
     color: 'white',
@@ -50,7 +40,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     position: 'absolute',
     fontSize: 15,
-    bottom: '79.5%',
+    bottom: '80%',
     left: '75%',
     padding: 14,
   },
@@ -66,6 +56,8 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   image: {
+    height: null,
+    width: null,
     borderRadius: 10,
     overflow: 'hidden',
   },

@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 import {
   Layout,
@@ -37,23 +38,30 @@ export default Login = ({ navigation }) => {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         setLoading(false);
-        navigation.navigate('Home');
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
-        console.log(error);
+        Alert.alert('Username/Password did not match');
       });
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <Layout style={styles.container} level={'1'}>
-        <Text category='h1' style={{ padding: 20, marginTop: 50 }}>
-          Let's Get Started!
+      <Layout style={styles.container}>
+        <Text
+          style={{
+            padding: 20,
+            marginTop: 50,
+            fontSize: 30,
+            fontWeight: '400',
+          }}
+        >
+          Ready For Adventures?
         </Text>
         <Input
           style={styles.inputBox}
           placeholder='Email'
+          autoCapitalize={'none'}
           value={email}
           onChangeText={(email) => setEmail(email)}
         />
@@ -67,10 +75,21 @@ export default Login = ({ navigation }) => {
         />
         <Button
           onPress={handleLogin}
-          style={{ width: '50%', borderRadius: 20, marginTop: 20 }}
+          style={{
+            width: '75%',
+            backgroundColor: 'black',
+            borderRadius: 30,
+            borderColor: 'black',
+            height: 50,
+            marginTop: 20,
+          }}
           appearance='outline'
         >
-          {loading === false ? <Text>Login</Text> : <Spinner size='small' />}
+          {loading === false ? (
+            <Text style={{ color: 'white' }}>Login</Text>
+          ) : (
+            <Spinner size='small' />
+          )}
         </Button>
         <TouchableOpacity
           style={{ color: 'white', marginTop: 40 }}
@@ -101,13 +120,12 @@ const styles = StyleSheet.create({
     flex: 4,
     alignItems: 'center',
     justifyContent: 'center',
-    top: 20,
   },
   inputBox: {
     width: '85%',
-    margin: 0,
+    margin: 10,
     padding: 15,
-    fontSize: 16,
+    fontSize: 20,
     textAlign: 'center',
   },
 });

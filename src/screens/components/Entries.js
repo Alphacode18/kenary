@@ -3,16 +3,33 @@ import { Dimensions, Image, StyleSheet } from 'react-native';
 import { Layout, Text, ListItem } from '@ui-kitten/components';
 const { width } = Dimensions.get('screen');
 
-export default Entries = ({ navigation, item }) => {
+export default Entries = ({ item, navigation }) => {
+  const { name, image, keywords } = item;
   return (
-    <ListItem onPress={() => navigation.navigate('Profile')}>
+    <ListItem
+      onPress={() =>
+        navigation.navigate('Listing', {
+          data: item,
+          navigation: navigation,
+        })
+      }
+    >
       <Layout style={styles.container}>
         <Layout style={{ flex: 3 }}>
-          <Image source={item.image} style={styles.image} />
+          <Image source={{ uri: image }} style={styles.image} />
         </Layout>
         <Layout style={styles.textContainer}>
-          <Text style={styles.name}>{item.name}</Text>
-          <Text style={styles.keyword}>{item.keywords}</Text>
+          <Text style={styles.name}>{name}</Text>
+          <Text>
+            {keywords.map((keyword) => {
+              return (
+                <Text
+                  id={keyword}
+                  style={styles.keyword}
+                >{`${keyword} | `}</Text>
+              );
+            })}
+          </Text>
           <Text style={styles.divider}>
             - - - - - - - - - - - - - - - - - - - - - - - - -
           </Text>

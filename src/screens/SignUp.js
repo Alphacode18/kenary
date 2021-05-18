@@ -39,32 +39,36 @@ export default SignUp = ({ navigation }) => {
 
   const handleSignUp = () => {
     setLoading(true);
-    Firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        setLoading(false);
-        track(events.REGISTRATIONS);
-        navigation.navigate('Home');
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
+    if (password === confirmPassword) {
+      Firebase.auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          setLoading(false);
+          track(events.REGISTRATIONS);
+        })
+        .catch((error) => {
+          setLoading(false);
+          Alert.alert(error);
+        });
+    } else {
+      setLoading(false);
+      Alert.alert('Passwords do not match. Please try again');
+    }
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <Layout style={styles.container} level={'1'}>
-        <Text category='h1' style={{ padding: 20, marginTop: 50 }}>
-          Welcome To Kenary!
+      <Layout style={styles.container}>
+        <Text
+          style={{
+            padding: 20,
+            marginTop: 50,
+            fontSize: 30,
+            fontWeight: '400',
+          }}
+        >
+          Ready For Adventures?
         </Text>
-        <Input
-          style={styles.inputBox}
-          autoCapitalize='none'
-          value={username}
-          placeholder='Username'
-          onChangeText={(username) => setUsername(username)}
-        />
         <Input
           style={styles.inputBox}
           placeholder='Email'
@@ -92,10 +96,21 @@ export default SignUp = ({ navigation }) => {
         />
         <Button
           onPress={handleSignUp}
-          style={{ width: '50%', borderRadius: 20, marginTop: 20 }}
+          style={{
+            width: '75%',
+            backgroundColor: 'black',
+            borderRadius: 30,
+            borderColor: 'black',
+            height: 50,
+            marginTop: 20,
+          }}
           appearance='outline'
         >
-          {loading === false ? <Text>Sign Up</Text> : <Spinner size='small' />}
+          {loading === false ? (
+            <Text style={{ color: 'white' }}>Sign Up</Text>
+          ) : (
+            <Spinner size='small' />
+          )}
         </Button>
         <TouchableOpacity
           style={{ color: 'white', marginTop: 40 }}
@@ -116,7 +131,6 @@ const styles = StyleSheet.create({
     flex: 4,
     alignItems: 'center',
     justifyContent: 'center',
-    top: 20,
   },
   inputBox: {
     width: '85%',

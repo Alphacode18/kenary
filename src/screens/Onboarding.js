@@ -1,28 +1,61 @@
 import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import {
+  StyleSheet,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  Keyboard,
+  ImageBackground,
+  Dimensions,
+  Image,
+} from 'react-native';
 import { Layout, Text, Button } from '@ui-kitten/components';
+const { height, width } = Dimensions.get('screen');
 
 export default Onboarding = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Layout style={styles.container} level={'1'}>
-        <Text category='h1' style={{ padding: 20, marginTop: 50 }}>
-          Kenary
-        </Text>
-        <Button
-          style={{ width: '50%', marginTop: 20 }}
-          status={'success'}
-          onPress={() => navigation.navigate('SignUp')}
+        <ImageBackground
+          source={require('../../assets/background.png')}
+          style={{ width: width, height: height, resizeMode: 'cover' }}
         >
-          <Text style={{ color: 'white' }}>Sign Up</Text>
-        </Button>
-        <Button
-          style={{ width: '50%', marginTop: 20 }}
-          appearance='filled'
-          onPress={() => navigation.navigate('Login')}
-        >
-          <Text style={{ color: 'white' }}>Login</Text>
-        </Button>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text
+              style={{
+                top: 60,
+                left: width - width / 6,
+                fontSize: 15,
+              }}
+            >
+              Login
+            </Text>
+          </TouchableOpacity>
+          <Text
+            style={{
+              top: height - height / 3,
+              left: 40,
+              fontSize: 45,
+              width: '85%',
+              fontWeight: '400',
+            }}
+          >
+            Experiences that create memories.
+          </Text>
+          <Button
+            style={{
+              width: '75%',
+              top: height - height / 3.5,
+              left: width / 8,
+              backgroundColor: 'black',
+              borderRadius: 30,
+              borderColor: 'black',
+              height: 50,
+            }}
+            onPress={() => navigation.navigate('SignUp')}
+          >
+            <Text style={{ color: 'white' }}>Sign Up</Text>
+          </Button>
+        </ImageBackground>
       </Layout>
     </TouchableWithoutFeedback>
   );

@@ -7,16 +7,17 @@ import {
   Icon,
   Layout,
 } from '@ui-kitten/components';
-import { Home, Profile, Circles, Recommendations } from './_Export';
+import { Profile, Circles, Explore } from './_Export';
+import HomeStack from '../../navigation/HomeStack';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-const HomeIcon = (props) => <Icon {...props} name='compass-outline' />;
+const HomeIcon = (props) => <Icon {...props} name='home-outline' />;
+const ExploreIcon = (props) => <Icon {...props} name='compass-outline' />;
 const CircleIcon = (props) => (
   <Icon {...props} name='radio-button-off-outline' />
 );
 const PersonIcon = (props) => <Icon {...props} name='person-outline' />;
-const RecommendationIcon = (props) => <Icon {...props} name='flash-outline' />;
 
 const BottomTabBar = ({ navigation, state }) => (
   <Layout>
@@ -25,8 +26,8 @@ const BottomTabBar = ({ navigation, state }) => (
       onSelect={(index) => navigation.navigate(state.routeNames[index])}
       style={{ marginBottom: 20 }}
     >
-      <BottomNavigationTab title='Explore' icon={HomeIcon} />
-      <BottomNavigationTab title='Deals' icon={RecommendationIcon} />
+      <BottomNavigationTab title='Home' icon={HomeIcon} />
+      <BottomNavigationTab title='Explore' icon={ExploreIcon} />
       <BottomNavigationTab title='Circles' icon={CircleIcon} />
       <BottomNavigationTab title='Me' icon={PersonIcon} />
     </BottomNavigation>
@@ -35,8 +36,8 @@ const BottomTabBar = ({ navigation, state }) => (
 
 const TabNavigator = () => (
   <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
-    <Screen name='Home' component={Home} />
-    <Screen name='Recommendations' component={Recommendations} />
+    <Screen name='Home' component={HomeStack} />
+    <Screen name='Explore' component={Explore} />
     <Screen name='Circle' component={Circles} />
     <Screen name='Profile' component={Profile} />
   </Navigator>

@@ -1,19 +1,40 @@
 import React, { useState, useEffect } from 'react';
+import { db } from '../../../config/Firebase';
 import {
   SafeAreaView,
   StyleSheet,
   TouchableWithoutFeedback,
   Dimensions,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import { Layout, Text, Avatar } from '@ui-kitten/components';
 const { height } = Dimensions.get('screen');
 import Hero from '../components/Hero';
 import Catalogue from '../components/Catalogue';
-import { catalogueDummyData } from '../../../test/Data';
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
+
+  const retriveExperiences = async () => {
+    const tempExperiencesArray = [];
+    const data = db
+      .collection('cities')
+      .doc('west-lafayette')
+      .collection('experiences');
+    await data.get().then((snapshot) => {
+      if (snapshot.docs.length > 0) {
+        snapshot.docs.forEach((doc) => {
+          const data = doc.data();
+          tempExperiencesArray.push(data);
+        });
+      } else {
+        console.log('No Data Found :(');
+      }
+    });
+    setData(tempExperiencesArray);
+  };
+
   const [allowVerticalScroll, setAllowVerticalScroll] = useState(true);
   const toggleVerticalScroll = () => {
     setTimeout(() => {
@@ -22,9 +43,11 @@ export default Home = ({ navigation }) => {
         : setAllowVerticalScroll(true);
     }, 0);
   };
+
   useEffect(() => {
-    setData(catalogueDummyData);
+    retriveExperiences();
   }, []);
+
   return (
     <>
       <Layout style={styles.layout}>
@@ -41,8 +64,13 @@ export default Home = ({ navigation }) => {
               <Layout style={styles.header}>
                 <Text category='h1'>Experience</Text>
                 <Avatar
-                  source={require('../../../assets/Shreyas.jpg')}
-                  style={{ marginRight: 20 }}
+                  source={{
+                    uri: `https://robohash.org/${Math.floor(
+                      Math.random() * 10
+                    )}.png`,
+                  }}
+                  size={'large'}
+                  style={{ marginRight: 20, backgroundColor: 'black' }}
                 />
               </Layout>
             </TouchableWithoutFeedback>
@@ -50,10 +78,25 @@ export default Home = ({ navigation }) => {
             <Text category='h1' style={styles.hero}>
               West Lafayette
             </Text>
+            <TouchableOpacity
+              style={{ alignSelf: 'flex-end', marginRight: 20 }}
+              onPress={() =>
+                navigation.navigate('See All', {
+                  name: 'Top Picks',
+                  data: data,
+                })
+              }
+            >
+              <Text>Learn More</Text>
+            </TouchableOpacity>
             <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
-            <Catalogue name='Near You' data={data} />
-            <Catalogue name='Specials' data={data} />
-            <Catalogue name='Experimental' data={data} />
+            <Catalogue name='Near You' data={data} navigation={navigation} />
+            <Catalogue name='Specials' data={data} navigation={navigation} />
+            <Catalogue
+              name='Experimental'
+              data={data}
+              navigation={navigation}
+            />
           </ScrollView>
         </SafeAreaView>
       </Layout>

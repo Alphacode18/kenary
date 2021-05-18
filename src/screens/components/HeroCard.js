@@ -1,12 +1,18 @@
 import React from 'react';
 import { Layout, Text } from '@ui-kitten/components';
-import { ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import {
+  ImageBackground,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 const { height } = Dimensions.get('screen');
 
-export default HeroCard = ({ data }) => {
+export default HeroCard = ({ data, navigation }) => {
   const { name, image } = data;
   return (
     <Layout style={styles.tab}>
+      <Text style={{ alignSelf: 'flex-end' }}>Learn More</Text>
       <ImageBackground
         source={{ uri: image }}
         imageStyle={styles.image}
@@ -28,13 +34,11 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   hero: {
-    fontWeight: 'bold',
     color: 'white',
     position: 'absolute',
+    bottom: 10,
+    left: 5,
     fontSize: 30,
-    bottom: 0,
-    backgroundColor: 'teal',
-    padding: 10,
   },
   description: {
     color: 'white',
@@ -50,8 +54,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     position: 'absolute',
     fontSize: 15,
-    bottom: '79.5%',
-    left: '75%',
+    bottom: '76.4%',
+    left: '75.3%',
     padding: 14,
   },
   background: {
@@ -64,6 +68,7 @@ const styles = StyleSheet.create({
       height: 5,
     },
     elevation: 10,
+    marginTop: 10,
   },
   image: {
     height: null,

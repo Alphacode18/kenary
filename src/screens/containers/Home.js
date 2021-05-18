@@ -72,7 +72,11 @@ export default Home = ({ navigation }) => {
             <Text category='h1' style={styles.hero}>
               West Lafayette
             </Text>
-            <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
+            <Hero
+              data={data}
+              toggleVerticalScroll={toggleVerticalScroll}
+              navigation={navigation}
+            />
             <Catalogue name='Near You' data={data} navigation={navigation} />
             <Catalogue name='Specials' data={data} navigation={navigation} />
             <Catalogue

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ViewPager } from '@ui-kitten/components';
 import HeroCard from './HeroCard';
 
-export default Hero = ({ data, toggleVerticalScroll }) => {
+export default Hero = ({ data, toggleVerticalScroll, navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
     <ViewPager
@@ -16,7 +16,7 @@ export default Hero = ({ data, toggleVerticalScroll }) => {
       }}
     >
       {data.map((data, index) => {
-        return <HeroCard key={index} data={data} />;
+        return <HeroCard key={index} data={data} navigation={navigation} />;
       })}
     </ViewPager>
   );

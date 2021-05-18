@@ -22,7 +22,12 @@ export default Entries = ({ item, navigation }) => {
           <Text style={styles.name}>{name}</Text>
           <Text>
             {keywords.map((keyword) => {
-              return <Text style={styles.keyword}>{`${keyword} | `}</Text>;
+              return (
+                <Text
+                  id={keyword}
+                  style={styles.keyword}
+                >{`${keyword} | `}</Text>
+              );
             })}
           </Text>
           <Text style={styles.divider}>

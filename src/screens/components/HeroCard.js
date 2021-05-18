@@ -4,7 +4,7 @@ import { ImageBackground, StyleSheet, Dimensions } from 'react-native';
 const { height } = Dimensions.get('screen');
 
 export default HeroCard = ({ data }) => {
-  const { name, image, description } = data;
+  const { name, image } = data;
   return (
     <Layout style={styles.tab}>
       <ImageBackground

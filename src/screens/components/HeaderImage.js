@@ -16,6 +16,7 @@ const HeaderImage = ({ image, navigation }) => {
       <ImageBackground
         source={{ uri: image }}
         style={{ width: width, height: 0.4 * height }}
+        imageStyle={{ resizeMode: 'cover' }}
       >
         <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
           <FontAwesome5Icon

@@ -17,6 +17,7 @@ export default Catalogue = ({ name, data, navigation }) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('See All', {
+              name: name,
               data: data,
             })
           }

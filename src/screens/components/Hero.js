@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ViewPager } from '@ui-kitten/components';
-import { Dimensions } from 'react-native';
 import HeroCard from './HeroCard';
 
 export default Hero = ({ data, toggleVerticalScroll }) => {

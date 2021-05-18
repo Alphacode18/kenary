@@ -11,7 +11,6 @@ import { Layout, Text, Avatar } from '@ui-kitten/components';
 const { height } = Dimensions.get('screen');
 import Hero from '../components/Hero';
 import Catalogue from '../components/Catalogue';
-import { catalogueDummyData } from '../../../test/Data';
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -46,7 +45,6 @@ export default Home = ({ navigation }) => {
 
   useEffect(() => {
     retriveExperiences();
-    setData(catalogueDummyData);
   }, []);
 
   return (

@@ -10,13 +10,16 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import ListEntries from './components/ListEntries';
 
 export default SeeAll = ({ route, navigation }) => {
-  const { data } = route.params;
+  const { name, data } = route.params;
 
   const headerComponent = () => {
     return (
       <Layout style={styles.header}>
         <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-          <FontAwesome5Icon name='arrow-left' size='25' />
+          <FontAwesome5Icon name='arrow-left' size={25}>
+            <Text>{'\t  '}</Text>
+            <Text style={{ fontSize: 25 }}>{name}</Text>
+          </FontAwesome5Icon>
         </TouchableWithoutFeedback>
       </Layout>
     );

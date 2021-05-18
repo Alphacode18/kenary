@@ -64,8 +64,13 @@ export default Home = ({ navigation }) => {
               <Layout style={styles.header}>
                 <Text category='h1'>Experience</Text>
                 <Avatar
-                  source={require('../../../assets/Shreyas.jpg')}
-                  style={{ marginRight: 20 }}
+                  source={{
+                    uri: `https://robohash.org/${Math.floor(
+                      Math.random() * 10
+                    )}.png`,
+                  }}
+                  size={'large'}
+                  style={{ marginRight: 20, backgroundColor: 'black' }}
                 />
               </Layout>
             </TouchableWithoutFeedback>

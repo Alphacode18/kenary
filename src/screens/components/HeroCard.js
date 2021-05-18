@@ -1,11 +1,6 @@
 import React from 'react';
 import { Layout, Text } from '@ui-kitten/components';
-import {
-  ImageBackground,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import { ImageBackground, StyleSheet, Dimensions } from 'react-native';
 const { height } = Dimensions.get('screen');
 
 export default HeroCard = ({ data }) => {
@@ -38,14 +33,6 @@ const styles = StyleSheet.create({
     bottom: 10,
     left: 5,
     fontSize: 30,
-  },
-  description: {
-    color: 'white',
-    position: 'absolute',
-    fontSize: 15,
-    bottom: 20,
-    left: 20,
-    width: '50%',
   },
   recommended: {
     color: 'white',

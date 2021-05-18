@@ -19,20 +19,20 @@ export default Onboarding = ({ navigation }) => {
           source={require('../../assets/background.png')}
           style={{ width: width, height: height, resizeMode: 'cover' }}
         >
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text
               style={{
                 top: 60,
-                left: width - width / 5,
+                left: width - width / 6,
                 fontSize: 15,
               }}
             >
-              Sign Up
+              Login
             </Text>
           </TouchableOpacity>
           <Text
             style={{
-              top: height - height / 2.5 + 40,
+              top: height - height / 3,
               left: 40,
               fontSize: 45,
               width: '85%',
@@ -44,16 +44,16 @@ export default Onboarding = ({ navigation }) => {
           <Button
             style={{
               width: '75%',
-              top: height - height / 3 + 20,
+              top: height - height / 3.5,
               left: width / 8,
               backgroundColor: 'black',
               borderRadius: 30,
               borderColor: 'black',
               height: 50,
             }}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('SignUp')}
           >
-            <Text style={{ color: 'white' }}>Login</Text>
+            <Text style={{ color: 'white' }}>Sign Up</Text>
           </Button>
         </ImageBackground>
       </Layout>

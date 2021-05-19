@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../../config/Firebase';
+import Firebase, { db } from '../../../config/Firebase';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,9 +12,11 @@ import { Layout, Text, Avatar, Spinner } from '@ui-kitten/components';
 const { height, width } = Dimensions.get('screen');
 import Hero from '../components/Hero';
 import Catalogue from '../components/Catalogue';
+const user = Firebase.auth().currentUser;
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
+  const [city, setCity] = useState('');
   const [loading, setLoading] = useState(false);
 
   const retriveExperiences = async () => {
@@ -36,6 +38,12 @@ export default Home = ({ navigation }) => {
     setData(tempExperiencesArray);
   };
 
+  const retriveUser = async () => {
+    const data = db.collection('users').doc(user['uid']);
+    const doc = await data.get();
+    setCity(doc.data().city);
+  };
+
   const [allowVerticalScroll, setAllowVerticalScroll] = useState(true);
   const toggleVerticalScroll = () => {
     setTimeout(() => {
@@ -46,6 +54,7 @@ export default Home = ({ navigation }) => {
   };
 
   useEffect(() => {
+    retriveUser();
     retriveExperiences();
     setLoading(true);
     setTimeout(() => {
@@ -106,7 +115,7 @@ export default Home = ({ navigation }) => {
               </TouchableWithoutFeedback>
               {/* Replace with the user's location */}
               <Text category='h1' style={styles.hero}>
-                West Lafayette
+                {city}
               </Text>
               <TouchableOpacity
                 style={{ alignSelf: 'flex-end', marginRight: 20 }}

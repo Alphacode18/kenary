@@ -13,19 +13,23 @@ import {
   Button,
   Spinner,
   Icon,
+  Select,
+  SelectItem,
+  IndexPath,
 } from '@ui-kitten/components';
-import Firebase from '../../config/Firebase';
+import Firebase, { db } from '../../config/Firebase';
 import { events, initialize, track } from '../../Analytics';
 
 export default SignUp = ({ navigation }) => {
-  const [username, setUsername] = useState('');
+  const cities = ['West Lafayette', 'Lafayette'];
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [loading, setLoading] = useState(false);
-
-  const AlertIcon = (props) => <Icon {...props} name='alert-circle-outline' />;
+  const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
+  const displayValue = cities[selectedIndex.row];
 
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -42,9 +46,17 @@ export default SignUp = ({ navigation }) => {
     if (password === confirmPassword) {
       Firebase.auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((response) => {
           setLoading(false);
-          track(events.REGISTRATIONS);
+          if (response.user.uid) {
+            const user = {
+              uid: response.user.uid,
+              name: name,
+              email: email,
+              city: displayValue,
+            };
+            db.collection('users').doc(response.user.uid).set(user);
+          }
         })
         .catch((error) => {
           setLoading(false);
@@ -71,6 +83,13 @@ export default SignUp = ({ navigation }) => {
         </Text>
         <Input
           style={styles.inputBox}
+          placeholder='Name'
+          autoCapitalize='none'
+          value={name}
+          onChangeText={(name) => setName(name)}
+        />
+        <Input
+          style={styles.inputBox}
           placeholder='Email'
           autoCapitalize='none'
           value={email}
@@ -94,6 +113,17 @@ export default SignUp = ({ navigation }) => {
             setConfirmPassword(confirmPassword)
           }
         />
+        <Select
+          style={styles.inputBox}
+          placeholder='City'
+          selectedIndex={selectedIndex}
+          onSelect={(index) => setSelectedIndex(index)}
+          value={displayValue}
+        >
+          {cities.map((city) => {
+            return <SelectItem key={city} title={city} />;
+          })}
+        </Select>
         <Button
           onPress={handleSignUp}
           style={{
@@ -128,7 +158,7 @@ export default SignUp = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 4,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

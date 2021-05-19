@@ -56,7 +56,7 @@ export default Login = ({ navigation }) => {
             fontWeight: '400',
           }}
         >
-          Ready For Adventures?
+          Welcome Back!
         </Text>
         <Input
           style={styles.inputBox}

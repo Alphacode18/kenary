@@ -7,6 +7,7 @@ import {
   Icon,
   Layout,
 } from '@ui-kitten/components';
+import { Platform } from 'react-native';
 import { Profile, Circles, Explore } from './_Export';
 import HomeStack from '../../navigation/HomeStack';
 
@@ -24,7 +25,7 @@ const BottomTabBar = ({ navigation, state }) => (
     <BottomNavigation
       selectedIndex={state.index}
       onSelect={(index) => navigation.navigate(state.routeNames[index])}
-      style={{ marginBottom: 20 }}
+      style={{ marginBottom: Platform.OS === 'ios' ? 20 : 0 }}
     >
       <BottomNavigationTab title='Home' icon={HomeIcon} />
       <BottomNavigationTab title='Explore' icon={ExploreIcon} />

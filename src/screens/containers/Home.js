@@ -120,8 +120,8 @@ export default Home = ({ navigation }) => {
                 <Text>Learn More</Text>
               </TouchableOpacity>
               <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
-              <Catalogue name='Near You' data={data} navigation={navigation} />
-              <Catalogue name='Specials' data={data} navigation={navigation} />
+              <Catalogue name='Art' data={data} navigation={navigation} />
+              <Catalogue name='Relaxing' data={data} navigation={navigation} />
               <Catalogue
                 name='Experimental'
                 data={data}

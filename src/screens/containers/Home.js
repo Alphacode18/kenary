@@ -7,6 +7,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { Layout, Text, Avatar, Spinner } from '@ui-kitten/components';
 const { height, width } = Dimensions.get('screen');
@@ -75,8 +76,8 @@ export default Home = ({ navigation }) => {
               <Text
                 style={{
                   marginTop: 75,
-                  marginLeft: width / 8,
-                  width: '85%',
+                  marginLeft: Platform.OS === 'ios' ? width / 8 : width / 9,
+                  width: Platform.OS === 'ios' ? '85%' : '75%',
                   fontSize: 17,
                   fontStyle: 'italic',
                 }}
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 15,
+    marginTop: Platform.OS === 'ios' ? 10 : 30,
     marginLeft: 10,
   },
   hero: {

@@ -24,7 +24,7 @@ export default Entries = ({ item, navigation }) => {
             {keywords.map((keyword) => {
               return (
                 <Text
-                  id={keyword}
+                  key={keyword}
                   style={styles.keyword}
                 >{`${keyword} | `}</Text>
               );

@@ -17,7 +17,7 @@ export default () => {
   useEffect(() => {
     setTimeout(async () => {
       await SplashScreen.hideAsync();
-    }, 2000);
+    }, 500);
     Firebase.auth().onAuthStateChanged((user) => {
       user ? setIsAuthenticated(true) : setIsAuthenticated(false);
     });

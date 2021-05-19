@@ -13,9 +13,6 @@ import {
   Button,
   Spinner,
   Icon,
-  Select,
-  SelectItem,
-  IndexPath,
 } from '@ui-kitten/components';
 import Firebase, { db } from '../../config/Firebase';
 import { events, initialize, track } from '../../Analytics';
@@ -28,8 +25,6 @@ export default SignUp = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
-  const displayValue = cities[selectedIndex.row];
 
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -53,7 +48,6 @@ export default SignUp = ({ navigation }) => {
               uid: response.user.uid,
               name: name,
               email: email,
-              city: displayValue,
             };
             db.collection('users').doc(response.user.uid).set(user);
           }
@@ -113,17 +107,6 @@ export default SignUp = ({ navigation }) => {
             setConfirmPassword(confirmPassword)
           }
         />
-        <Select
-          style={styles.inputBox}
-          placeholder='City'
-          selectedIndex={selectedIndex}
-          onSelect={(index) => setSelectedIndex(index)}
-          value={displayValue}
-        >
-          {cities.map((city) => {
-            return <SelectItem key={city} title={city} />;
-          })}
-        </Select>
         <Button
           onPress={handleSignUp}
           style={{
@@ -161,6 +144,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 100,
   },
   inputBox: {
     width: '85%',

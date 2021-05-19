@@ -55,11 +55,13 @@ export default Home = ({ navigation }) => {
 
   useEffect(() => {
     retriveUser();
-    retriveExperiences();
     setLoading(true);
     setTimeout(() => {
-      setLoading(false);
+      retriveExperiences();
     }, 2500);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3500);
   }, []);
 
   return (

@@ -34,7 +34,7 @@ const Attractions = ({ attractions }) => {
           paddingLeft: 5,
           marginBottom: 20,
         }}
-        data={dummyURI}
+        data={attractions}
         renderItem={AttractionElement}
         horizontal={true}
         showsHorizontalScrollIndicator={false}

@@ -4,7 +4,7 @@ import { Layout, Text, ListItem } from '@ui-kitten/components';
 const { width } = Dimensions.get('screen');
 
 export default Entries = ({ item, navigation }) => {
-  const { name, image, keywords } = item;
+  const { name, image, keywords, rating } = item;
   return (
     <ListItem
       onPress={() =>
@@ -24,7 +24,7 @@ export default Entries = ({ item, navigation }) => {
             {keywords.map((keyword) => {
               return (
                 <Text
-                  id={keyword}
+                  key={keyword}
                   style={styles.keyword}
                 >{`${keyword} | `}</Text>
               );
@@ -35,8 +35,7 @@ export default Entries = ({ item, navigation }) => {
           </Text>
           <Layout style={styles.meta}>
             <Text style={styles.text}>$$</Text>
-            <Text style={styles.text}>15 mins</Text>
-            <Text style={styles.text}>9.5</Text>
+            <Text style={styles.rating}>{rating} / 5</Text>
           </Layout>
         </Layout>
       </Layout>
@@ -81,7 +80,12 @@ const styles = StyleSheet.create({
   },
   name: { fontSize: 12, fontWeight: 'bold', color: '#000' },
   keyword: { fontSize: 10, color: '#000' },
-  text: { fontSize: 10, color: '#000', flexBasis: '33.33%' },
+  text: { fontSize: 10, color: '#000', flexBasis: '50%' },
+  rating: {
+    fontSize: 10,
+    color: '#000',
+    marginLeft: 50,
+  },
   divider: { fontSize: 10, color: '#e3e3e3' },
   meta: {
     flexDirection: 'row',

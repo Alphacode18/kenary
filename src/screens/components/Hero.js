@@ -8,12 +8,8 @@ export default Hero = ({ data, toggleVerticalScroll }) => {
     <ViewPager
       selectedIndex={selectedIndex}
       onSelect={(index) => setSelectedIndex(index)}
-      onTouchStart={() => {
-        toggleVerticalScroll();
-      }}
-      onTouchEnd={() => {
-        toggleVerticalScroll();
-      }}
+      onTouchStart={toggleVerticalScroll}
+      onTouchEnd={toggleVerticalScroll}
     >
       {data.map((data, index) => {
         return <HeroCard key={index} data={data} />;

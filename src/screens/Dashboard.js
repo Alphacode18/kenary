@@ -29,7 +29,7 @@ const BottomTabBar = ({ navigation, state }) => (
       <BottomNavigationTab title='Home' icon={HomeIcon} />
       <BottomNavigationTab title='Explore' icon={ExploreIcon} />
       <BottomNavigationTab title='Circles' icon={CircleIcon} />
-      <BottomNavigationTab title='Me' icon={PersonIcon} />
+      {/* <BottomNavigationTab title='Me' icon={PersonIcon} /> */}
     </BottomNavigation>
   </Layout>
 );

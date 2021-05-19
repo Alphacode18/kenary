@@ -56,7 +56,7 @@ export default Login = ({ navigation }) => {
             fontWeight: '400',
           }}
         >
-          Ready For Adventures?
+          Welcome Back!
         </Text>
         <Input
           style={styles.inputBox}
@@ -88,7 +88,7 @@ export default Login = ({ navigation }) => {
           {loading === false ? (
             <Text style={{ color: 'white' }}>Login</Text>
           ) : (
-            <Spinner size='small' />
+            <Spinner size='small' status='basic' />
           )}
         </Button>
         <TouchableOpacity

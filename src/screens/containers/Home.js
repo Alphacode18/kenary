@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../../config/Firebase';
+import Firebase, { db } from '../../../config/Firebase';
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,19 +8,24 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import { Layout, Text, Avatar } from '@ui-kitten/components';
-const { height } = Dimensions.get('screen');
+import { Layout, Text, Avatar, Spinner } from '@ui-kitten/components';
+const { height, width } = Dimensions.get('screen');
 import Hero from '../components/Hero';
 import Catalogue from '../components/Catalogue';
+const user = Firebase.auth().currentUser;
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
+  const [city, setCity] = useState('West Lafayette');
+  const [loading, setLoading] = useState(false);
 
   const retriveExperiences = async () => {
     const tempExperiencesArray = [];
+    const queryCity =
+      city === 'West Lafayette' ? 'west-lafayette' : 'lafayette';
     const data = db
       .collection('cities')
-      .doc('west-lafayette')
+      .doc(queryCity)
       .collection('experiences');
     await data.get().then((snapshot) => {
       if (snapshot.docs.length > 0) {
@@ -45,59 +50,92 @@ export default Home = ({ navigation }) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     retriveExperiences();
-  }, []);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3500);
+  }, [city]);
 
   return (
     <>
       <Layout style={styles.layout}>
         <SafeAreaView>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            scrollEnabled={allowVerticalScroll}
-          >
-            <TouchableWithoutFeedback
-              onPress={() => {
-                navigation.navigate('Profile');
-              }}
-            >
-              <Layout style={styles.header}>
-                <Text category='h1'>Experience</Text>
-                <Avatar
-                  source={{
-                    uri: `https://robohash.org/${Math.floor(
-                      Math.random() * 10
-                    )}.png`,
-                  }}
-                  size={'large'}
-                  style={{ marginRight: 20, backgroundColor: 'black' }}
-                />
+          {loading === true ? (
+            <Layout>
+              <Layout
+                style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  marginTop: height / 3,
+                }}
+              >
+                <Spinner size='giant' />
               </Layout>
-            </TouchableWithoutFeedback>
-            {/* Replace with the user's location */}
-            <Text category='h1' style={styles.hero}>
-              West Lafayette
-            </Text>
-            <TouchableOpacity
-              style={{ alignSelf: 'flex-end', marginRight: 20 }}
-              onPress={() =>
-                navigation.navigate('See All', {
-                  name: 'Top Picks',
-                  data: data,
-                })
-              }
+              <Text
+                style={{
+                  marginTop: 75,
+                  marginLeft: width / 8,
+                  width: '85%',
+                  fontSize: 17,
+                  fontStyle: 'italic',
+                }}
+              >
+                “Exploration is really the essence of the human spirit.”
+                {'\n '}
+              </Text>
+            </Layout>
+          ) : (
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              scrollEnabled={allowVerticalScroll}
             >
-              <Text>Learn More</Text>
-            </TouchableOpacity>
-            <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
-            <Catalogue name='Near You' data={data} navigation={navigation} />
-            <Catalogue name='Specials' data={data} navigation={navigation} />
-            <Catalogue
-              name='Experimental'
-              data={data}
-              navigation={navigation}
-            />
-          </ScrollView>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('Profile');
+                }}
+              >
+                <Layout style={styles.header}>
+                  <Text category='h1'>Experience</Text>
+                  <Avatar
+                    source={{
+                      uri: `https://robohash.org/${Math.floor(
+                        Math.random() * 10
+                      )}.png`,
+                    }}
+                    size={'large'}
+                    style={{ marginRight: 20, backgroundColor: 'black' }}
+                  />
+                </Layout>
+              </TouchableWithoutFeedback>
+              {/* Replace with the user's location */}
+              <TouchableOpacity
+                onPress={() => {
+                  city === 'West Lafayette'
+                    ? setCity('Lafayette')
+                    : setCity('West Lafayette');
+                }}
+              >
+                <Text category='h1' style={styles.hero}>
+                  {city}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ alignSelf: 'flex-end', marginRight: 20 }}
+                onPress={() =>
+                  navigation.navigate('See All', {
+                    name: 'Top Picks',
+                    data: data,
+                  })
+                }
+              >
+                <Text>Learn More</Text>
+              </TouchableOpacity>
+              <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
+              <Catalogue name='Art' data={data} navigation={navigation} />
+              <Catalogue name='Relaxing' data={data} navigation={navigation} />
+            </ScrollView>
+          )}
         </SafeAreaView>
       </Layout>
     </>

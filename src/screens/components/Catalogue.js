@@ -9,6 +9,9 @@ import Entries from './Entries';
 const previewNumber = 5;
 
 export default Catalogue = ({ name, data, navigation }) => {
+  data = data.filter((datum) => {
+    return datum['catalogue'] === name;
+  });
   const preview = data.slice(0, previewNumber);
   return (
     <>

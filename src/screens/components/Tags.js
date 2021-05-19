@@ -24,7 +24,7 @@ const Tags = ({ keywords }) => {
                 marginBottom: 5,
                 marginTop: 5,
               }}
-              id={keyword}
+              key={keyword}
               appearance='outline'
               disabled={true}
             >

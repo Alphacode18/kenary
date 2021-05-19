@@ -121,11 +121,17 @@ export default Home = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ alignSelf: 'flex-end', marginRight: 20 }}
+                style={{
+                  alignSelf: 'flex-end',
+                  marginRight: 20,
+                  marginTop: 10,
+                }}
                 onPress={() =>
                   navigation.navigate('See All', {
                     name: 'Top Picks',
-                    data: data,
+                    data: data.filter((datum) => {
+                      return datum['top-pick'] === true;
+                    }),
                   })
                 }
               >

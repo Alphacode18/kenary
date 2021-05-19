@@ -4,6 +4,9 @@ import HeroCard from './HeroCard';
 
 export default Hero = ({ data, toggleVerticalScroll }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  data = data.filter((datum) => {
+    return datum['top-pick'] === true;
+  });
   return (
     <ViewPager
       selectedIndex={selectedIndex}

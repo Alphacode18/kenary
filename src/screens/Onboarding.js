@@ -32,7 +32,7 @@ export default Onboarding = ({ navigation }) => {
           </TouchableOpacity>
           <Text
             style={{
-              top: height - height / 3,
+              top: height - height / 3 - 10,
               left: 40,
               fontSize: 45,
               width: '85%',
@@ -44,7 +44,7 @@ export default Onboarding = ({ navigation }) => {
           <Button
             style={{
               width: '75%',
-              top: height - height / 3.5,
+              top: height - height / 3.5 - 20,
               left: width / 8,
               backgroundColor: 'black',
               borderRadius: 30,

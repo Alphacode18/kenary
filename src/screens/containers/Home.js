@@ -139,15 +139,15 @@ export default Home = ({ navigation }) => {
                 <Text>Learn More</Text>
               </TouchableOpacity>
               <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
-              <Catalogue name='Art' data={data} navigation={navigation} />
-              <Catalogue name='Relaxing' data={data} navigation={navigation} />
-              <Catalogue name='Nature' data={data} navigation={navigation} />
               <Catalogue
                 name='Recreation'
                 data={data}
                 navigation={navigation}
               />
               <Catalogue name='Food' data={data} navigation={navigation} />
+              <Catalogue name='Art' data={data} navigation={navigation} />
+              <Catalogue name='Relaxing' data={data} navigation={navigation} />
+              <Catalogue name='Nature' data={data} navigation={navigation} />
               <Catalogue
                 name='Historic Sights'
                 data={data}

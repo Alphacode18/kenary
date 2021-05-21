@@ -22,7 +22,7 @@ const user = Firebase.auth().currentUser;
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const [city, setCity] = useState('West Lafayette');
+  const [city, setCity] = useState('Lafayette');
   const [loading, setLoading] = useState(false);
 
   const retriveExperiences = async () => {

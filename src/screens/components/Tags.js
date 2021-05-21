@@ -3,6 +3,10 @@ import { Dimensions } from 'react-native';
 import { Layout, Text, Divider, Button } from '@ui-kitten/components';
 
 const { width } = Dimensions.get('screen');
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const Tags = ({ keywords }) => {
   return (
@@ -28,7 +32,9 @@ const Tags = ({ keywords }) => {
               appearance='outline'
               disabled={true}
             >
-              <Text style={{ color: 'teal' }}>{keyword}</Text>
+              <Text style={{ color: 'teal', fontSize: hp('1.5%') }}>
+                {keyword}
+              </Text>
             </Button>
           );
         })}

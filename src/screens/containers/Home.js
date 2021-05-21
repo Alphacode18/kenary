@@ -13,6 +13,11 @@ import { Layout, Text, Avatar, Spinner } from '@ui-kitten/components';
 const { height, width } = Dimensions.get('screen');
 import Hero from '../components/Hero';
 import Catalogue from '../components/Catalogue';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 const user = Firebase.auth().currentUser;
 
 export default Home = ({ navigation }) => {
@@ -78,7 +83,7 @@ export default Home = ({ navigation }) => {
                   marginTop: 75,
                   marginLeft: Platform.OS === 'ios' ? width / 8 : width / 9,
                   width: Platform.OS === 'ios' ? '85%' : '75%',
-                  fontSize: 17,
+                  fontSize: hp('2%'),
                   fontStyle: 'italic',
                 }}
               >
@@ -126,6 +131,7 @@ export default Home = ({ navigation }) => {
                   alignSelf: 'flex-end',
                   marginRight: 20,
                   marginTop: 10,
+                  fontSize: hp('1%'),
                 }}
                 onPress={() =>
                   navigation.navigate('See All', {
@@ -136,7 +142,7 @@ export default Home = ({ navigation }) => {
                   })
                 }
               >
-                <Text>Learn More</Text>
+                <Text>Top Picks</Text>
               </TouchableOpacity>
               <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
               <Catalogue

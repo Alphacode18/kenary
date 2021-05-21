@@ -10,6 +10,10 @@ import {
 } from 'react-native';
 import { Layout, Text, Button } from '@ui-kitten/components';
 const { height, width } = Dimensions.get('screen');
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default Onboarding = ({ navigation }) => {
   return (
@@ -24,7 +28,7 @@ export default Onboarding = ({ navigation }) => {
               style={{
                 top: 60,
                 left: width - width / 6,
-                fontSize: 15,
+                fontSize: hp('1.75%'),
               }}
             >
               Login
@@ -33,8 +37,8 @@ export default Onboarding = ({ navigation }) => {
           <Text
             style={{
               top: height - height / 3 - 10,
-              left: 40,
-              fontSize: 45,
+              left: wp('12%'),
+              fontSize: hp('4%'),
               width: '85%',
               fontWeight: '400',
             }}

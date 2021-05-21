@@ -2,6 +2,10 @@ import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import { Layout, Text, Divider } from '@ui-kitten/components';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -33,13 +37,13 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   heading: {
-    fontSize: 40,
+    fontSize: hp('4%'),
     paddingTop: 15,
     paddingLeft: 10,
     fontWeight: '500',
   },
   text: {
-    fontSize: 15,
+    fontSize: hp('1.75%'),
     paddingTop: 15,
     paddingLeft: 10,
     paddingBottom: 20,

@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { Layout, Text, Button, Divider, Popover } from '@ui-kitten/components';
 const { height, width } = Dimensions.get('screen');
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default Timings = ({ timings }) => {
   const [mondayVisible, setMondayVisible] = useState(false);
@@ -49,12 +53,14 @@ export default Timings = ({ timings }) => {
         }
       }}
     >
-      {day === 'Su' ? 'S' : day}
+      <Text style={{ color: 'white', fontSize: hp('1.5%') }}>
+        {day === 'Su' ? 'S' : day}
+      </Text>
     </Button>
   );
   return (
     <Layout>
-      <Text style={{ fontSize: 25, fontWeight: '500', padding: 15 }}>
+      <Text style={{ fontSize: hp('2.5%'), fontWeight: '500', padding: 15 }}>
         Timings
       </Text>
       <Layout

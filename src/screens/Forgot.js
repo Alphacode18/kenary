@@ -23,7 +23,16 @@ export default Forgot = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Layout style={styles.container} level={'1'}>
-        <Text category='h1'>Forgot Password?</Text>
+        <Text
+          style={{
+            padding: 20,
+            marginTop: 50,
+            fontSize: 30,
+            fontWeight: '400',
+          }}
+        >
+          Forgot Password?
+        </Text>
         <Input
           style={styles.inputBox}
           placeholder='Email'
@@ -32,13 +41,20 @@ export default Forgot = ({ navigation }) => {
         />
         <Button
           onPress={handleForgotPassword}
-          style={{ width: '50%', borderRadius: 20, marginTop: 20 }}
+          style={{
+            width: '75%',
+            backgroundColor: 'black',
+            borderRadius: 30,
+            borderColor: 'black',
+            height: 50,
+            marginTop: 20,
+          }}
           appearance='outline'
         >
           {loading === false ? (
-            <Text>Send Mail</Text>
+            <Text style={{ color: 'white' }}>Sign Up</Text>
           ) : (
-            <Spinner size='small' />
+            <Spinner size='small' status={'basic'} />
           )}
         </Button>
       </Layout>

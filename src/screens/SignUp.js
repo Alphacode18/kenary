@@ -38,7 +38,17 @@ export default SignUp = ({ navigation }) => {
 
   const handleSignUp = () => {
     setLoading(true);
-    if (password === confirmPassword) {
+    if (name.length === 0) {
+      setLoading(false);
+      Alert.alert('Please enter your name');
+    } else if (email.length === 0) {
+      setLoading(false);
+      Alert.alert('Please enter your email');
+    } else if (
+      password === confirmPassword &&
+      password.length !== 0 &&
+      confirmPassword.length !== 0
+    ) {
       Firebase.auth()
         .createUserWithEmailAndPassword(email, password)
         .then((response) => {
@@ -58,7 +68,7 @@ export default SignUp = ({ navigation }) => {
         });
     } else {
       setLoading(false);
-      Alert.alert('Passwords do not match. Please try again');
+      Alert.alert('Password not entered or passwords do not match.');
     }
   };
 
@@ -122,7 +132,7 @@ export default SignUp = ({ navigation }) => {
           {loading === false ? (
             <Text style={{ color: 'white' }}>Sign Up</Text>
           ) : (
-            <Spinner size='small' />
+            <Spinner size='small' status={'basic'} />
           )}
         </Button>
         <TouchableOpacity

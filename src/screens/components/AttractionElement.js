@@ -7,6 +7,10 @@ import {
 } from 'react-native';
 import { Layout, Text, ListItem } from '@ui-kitten/components';
 const { width } = Dimensions.get('screen');
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default AttractionElement = ({ item }) => {
   return (
@@ -30,8 +34,8 @@ export default AttractionElement = ({ item }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: width / 2,
-    height: width / 2,
+    width: wp('50%'),
+    height: wp('50%'),
     borderWidth: 0.5,
     borderColor: '#dddddd',
     borderTopRightRadius: 20,
@@ -56,11 +60,10 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 0.5,
-    alignItems: 'center',
     justifyContent: 'space-evenly',
     paddingLeft: 10,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  name: { fontSize: 12, fontWeight: 'bold', color: '#000' },
+  name: { fontSize: hp('1.5%'), color: '#000' },
 });

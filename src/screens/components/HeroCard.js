@@ -2,6 +2,10 @@ import React from 'react';
 import { Layout, Text } from '@ui-kitten/components';
 import { ImageBackground, StyleSheet, Dimensions } from 'react-native';
 const { height } = Dimensions.get('screen');
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default HeroCard = ({ data }) => {
   const { name, image } = data;
@@ -13,7 +17,6 @@ export default HeroCard = ({ data }) => {
         style={styles.background}
       >
         <Text style={styles.hero}>{name}</Text>
-        <Text style={styles.recommended}>Top Picks</Text>
       </ImageBackground>
     </Layout>
   );
@@ -21,7 +24,7 @@ export default HeroCard = ({ data }) => {
 
 const styles = StyleSheet.create({
   tab: {
-    height: 0.25 * height,
+    height: 0.3 * height,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
@@ -32,17 +35,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     left: 5,
-    fontSize: 30,
-  },
-  recommended: {
-    color: 'white',
-    fontWeight: 'bold',
-    backgroundColor: 'red',
-    position: 'absolute',
-    fontSize: 15,
-    bottom: '80%',
-    left: '75%',
-    padding: 14,
+    fontSize: hp('2.5%'),
   },
   background: {
     flex: 1,

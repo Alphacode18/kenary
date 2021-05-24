@@ -4,12 +4,10 @@ import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { Authentication, Authenticated } from './navigation/_Export';
 import Firebase from './config/Firebase';
-import { initialize, track, events } from './Analytics';
 import * as SplashScreen from 'expo-splash-screen';
 
-initialize();
 SplashScreen.preventAutoHideAsync()
-  .then((result) => console.log(result))
+  .then()
   .catch((error) => console.log(error));
 
 export default () => {

@@ -15,7 +15,6 @@ import {
   Icon,
 } from '@ui-kitten/components';
 import Firebase, { db } from '../../config/Firebase';
-import { events, initialize, track } from '../../Analytics';
 
 export default SignUp = ({ navigation }) => {
   const cities = ['West Lafayette', 'Lafayette'];

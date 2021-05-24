@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   Keyboard,
   ImageBackground,
+  Text,
 } from 'react-native';
-import { Layout, Text, Button } from '@ui-kitten/components';
+import { Layout, Button } from '@ui-kitten/components';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -54,8 +55,8 @@ const styles = StyleSheet.create({
   },
   tagline: {
     top: hp('100%') - hp('100%') / 3 - 10,
-    left: wp('10%'),
-    fontSize: hp('5%'),
+    left: wp('12%'),
+    fontSize: hp('3.5%'),
     width: wp('85%'),
   },
   majorCallToAction: {

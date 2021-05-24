@@ -54,14 +54,14 @@ const styles = StyleSheet.create({
     fontSize: hp('1.75%'),
   },
   tagline: {
-    top: hp('100%') - hp('100%') / 3 - 10,
+    top: hp('100%') - hp('100%') / 2.8 - 10,
     left: wp('12%'),
-    fontSize: hp('3.5%'),
+    fontSize: hp('5%'),
     width: wp('85%'),
   },
   majorCallToAction: {
     width: wp('75%'),
-    top: hp('100%') - hp('100%') / 3.5 - 20,
+    top: hp('100%') - hp('100%') / 3.35 - 20,
     left: wp('100%') / 8,
     backgroundColor: 'black',
     borderRadius: 30,

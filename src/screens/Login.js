@@ -5,34 +5,29 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
-} from 'react-native';
-import {
-  Layout,
   Text,
-  Input,
-  Button,
-  Spinner,
-  Icon,
-} from '@ui-kitten/components';
+} from 'react-native';
+import { Layout, Button, Spinner } from '@ui-kitten/components';
 import Firebase from '../../config/Firebase';
+import { Formik, Field } from 'formik';
+import * as yup from 'yup';
+import ValidatedInput from './components/ValidatedInput';
+
+const loginValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Please enter valid email')
+    .required('Email Address is Required'),
+  password: yup
+    .string()
+    .min(8, ({ min }) => `Password must be at least ${min} characters`)
+    .required('Password is required'),
+});
 
 export default Login = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const toggleSecureEntry = () => {
-    setSecureTextEntry(!secureTextEntry);
-  };
-
-  const renderIcon = (props) => (
-    <TouchableWithoutFeedback onPress={toggleSecureEntry}>
-      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
-    </TouchableWithoutFeedback>
-  );
-
-  const handleLogin = () => {
+  const handleLogin = ({ email, password }) => {
     setLoading(true);
     Firebase.auth()
       .signInWithEmailAndPassword(email, password)
@@ -58,39 +53,52 @@ export default Login = ({ navigation }) => {
         >
           Welcome Back!
         </Text>
-        <Input
-          style={styles.inputBox}
-          placeholder='Email'
-          autoCapitalize={'none'}
-          value={email}
-          onChangeText={(email) => setEmail(email)}
-        />
-        <Input
-          style={styles.inputBox}
-          value={password}
-          placeholder='Password'
-          accessoryRight={renderIcon}
-          secureTextEntry={secureTextEntry}
-          onChangeText={(password) => setPassword(password)}
-        />
-        <Button
-          onPress={handleLogin}
-          style={{
-            width: '75%',
-            backgroundColor: 'black',
-            borderRadius: 30,
-            borderColor: 'black',
-            height: 50,
-            marginTop: 20,
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
           }}
-          appearance='outline'
+          validationSchema={loginValidationSchema}
+          onSubmit={(values) => handleLogin(values)}
         >
-          {loading === false ? (
-            <Text style={{ color: 'white' }}>Login</Text>
-          ) : (
-            <Spinner size='small' status='basic' />
+          {({ handleSubmit, isValid }) => (
+            <>
+              <Field
+                component={ValidatedInput}
+                name='email'
+                placeholder='Email Address'
+                keyboardType='email-address'
+              />
+              <Field
+                component={ValidatedInput}
+                name='password'
+                placeholder='Password'
+                secureTextEntry
+              />
+
+              <Button
+                onPress={handleSubmit}
+                disabled={!isValid}
+                style={{
+                  width: '75%',
+                  backgroundColor: 'black',
+                  borderRadius: 30,
+                  borderColor: 'black',
+                  height: 50,
+                  marginTop: 20,
+                }}
+                appearance='outline'
+              >
+                {loading === false ? (
+                  <Text style={{ color: 'white' }}>Login</Text>
+                ) : (
+                  <Spinner size='small' status='basic' />
+                )}
+              </Button>
+            </>
           )}
-        </Button>
+        </Formik>
+
         <TouchableOpacity
           style={{ color: 'white', marginTop: 40 }}
           onPress={() => navigation.navigate('SignUp')}

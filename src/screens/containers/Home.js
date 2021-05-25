@@ -17,19 +17,19 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import * as Location from 'expo-location';
 
 const user = Firebase.auth().currentUser;
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
+  const [location, setLocation] = useState({});
   const [city, setCity] = useState('Lafayette');
   const [loading, setLoading] = useState(false);
 
-  const retriveExperiences = async () => {
+  const initializer = async () => {
     const tempExperiencesArray = [];
-    const queryCity =
-      // city === 'West Lafayette' ? 'west-lafayette' : 'lafayette';
-      city === 'Lafayette' ? 'lafayette' : 'indianapolis';
+    const queryCity = city === 'Lafayette' ? 'lafayette' : 'indianapolis';
     const data = db
       .collection('cities')
       .doc(queryCity)
@@ -45,6 +45,11 @@ export default Home = ({ navigation }) => {
       }
     });
     setData(tempExperiencesArray);
+    let { status } = await Location.getForegroundPermissionsAsync();
+    if (status === 'granted') {
+      let userLocation = await Location.getCurrentPositionAsync({});
+      setLocation(userLocation);
+    }
   };
 
   const [allowVerticalScroll, setAllowVerticalScroll] = useState(true);
@@ -58,7 +63,7 @@ export default Home = ({ navigation }) => {
 
   useEffect(() => {
     setLoading(true);
-    retriveExperiences();
+    initializer();
     setTimeout(() => {
       setLoading(false);
     }, 3500);

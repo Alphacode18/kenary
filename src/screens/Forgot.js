@@ -3,19 +3,17 @@ import { StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Layout, Text, Input, Button, Spinner } from '@ui-kitten/components';
 import Firebase from '../../config/Firebase';
 import { Formik, Field } from 'formik';
-import * as yup from 'yup';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import ValidatedInput from './components/ValidatedInput';
-
-const forgotPasswordValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Please enter valid email')
-    .required('Email Address is Required'),
-});
+import forgotPasswordValidationSchema from './validation/Forgot';
 
 export default Forgot = () => {
   const [status, setStaus] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleForgotPassword = ({ email }) => {
     setLoading(true);
@@ -25,25 +23,17 @@ export default Forgot = () => {
         setLoading(false);
         setStaus(true);
       })
-      .catch((error) => {
+      .catch((err) => {
         setLoading(false);
-        console.log(error);
+        setStaus(false);
+        setError(err.toString().split(': ')[1]);
       });
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Layout style={styles.container}>
-        <Text
-          style={{
-            padding: 20,
-            marginTop: 50,
-            fontSize: 30,
-            fontWeight: '400',
-          }}
-        >
-          Forgot Password?
-        </Text>
+        <Text style={styles.heroText}>Forgot Password?</Text>
         <Formik
           initialValues={{
             email: '',
@@ -60,31 +50,49 @@ export default Forgot = () => {
                 keyboardType='email-address'
               />
               {status ? (
-                <Text style={{ color: '#28A745' }}>
-                  Email sent successfully
-                </Text>
+                <Text style={styles.successText}>Email sent successfully</Text>
               ) : (
-                <></>
+                <Text style={styles.errorText}>{error}</Text>
               )}
-              <Button
-                onPress={handleSubmit}
-                disabled={!isValid}
-                style={{
-                  width: '75%',
-                  backgroundColor: 'black',
-                  borderRadius: 30,
-                  borderColor: 'black',
-                  height: 50,
-                  marginTop: 20,
-                }}
-                appearance='outline'
-              >
-                {loading === false ? (
-                  <Text style={{ color: 'white' }}>Send Email</Text>
-                ) : (
-                  <Spinner size='small' status='basic' />
-                )}
-              </Button>
+              {isValid ? (
+                <Button
+                  onPress={handleSubmit}
+                  disabled={!isValid}
+                  style={styles.validSubmit}
+                  appearance='outline'
+                >
+                  {loading === false ? (
+                    <Text
+                      style={{
+                        color: 'white',
+                      }}
+                    >
+                      Send Email
+                    </Text>
+                  ) : (
+                    <Spinner size='small' status={'basic'} />
+                  )}
+                </Button>
+              ) : (
+                <Button
+                  onPress={handleSubmit}
+                  disabled={!isValid}
+                  style={styles.invalidSubmit}
+                  appearance='outline'
+                >
+                  {loading === false ? (
+                    <Text
+                      style={{
+                        color: 'white',
+                      }}
+                    >
+                      Send Email
+                    </Text>
+                  ) : (
+                    <Spinner size='small' status={'basic'} />
+                  )}
+                </Button>
+              )}
             </>
           )}
         </Formik>
@@ -95,16 +103,50 @@ export default Forgot = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 4,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    top: 20,
   },
   inputBox: {
-    width: '85%',
+    width: wp('85%'),
     margin: 0,
-    padding: 15,
-    fontSize: 16,
+    padding: wp('5%'),
+    fontSize: hp('3.5%'),
     textAlign: 'center',
+    backgroundColor: 'white',
+    borderColor: 'white',
+    borderBottomColor: 'black',
+  },
+  heroText: {
+    padding: 20,
+    marginTop: 50,
+    fontSize: hp('3.5%'),
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    paddingVertical: 10,
+    width: wp('75%'),
+  },
+  successText: {
+    color: 'green',
+    fontSize: 12,
+    paddingVertical: 10,
+  },
+  validSubmit: {
+    width: wp('75%'),
+    backgroundColor: 'black',
+    borderRadius: 30,
+    borderColor: 'black',
+    height: 50,
+    marginTop: 20,
+  },
+  invalidSubmit: {
+    width: wp('75%'),
+    backgroundColor: 'grey',
+    borderRadius: 30,
+    borderColor: 'grey',
+    height: hp('5%'),
+    marginTop: 20,
   },
 });

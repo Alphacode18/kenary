@@ -134,7 +134,7 @@ export default Login = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 4,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

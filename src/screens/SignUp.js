@@ -3,16 +3,15 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Alert,
   Keyboard,
   Text,
 } from 'react-native';
-import { Layout, Button, Spinner, Icon } from '@ui-kitten/components';
-import Firebase, { db } from '../../config/Firebase';
+import { Layout, Button, Spinner } from '@ui-kitten/components';
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
-import ValidatedInput from './components/ValidatedInput';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import Firebase, { db } from '../../config/Firebase';
+import ValidatedInput from './components/ValidatedInput';
 
 const signUpValidationSchema = yup.object().shape({
   name: yup
@@ -35,6 +34,7 @@ const signUpValidationSchema = yup.object().shape({
 
 export default SignUp = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSignUp = ({ name, email, password }) => {
     setLoading(true);
@@ -51,18 +51,18 @@ export default SignUp = ({ navigation }) => {
           db.collection('users').doc(response.user.uid).set(user);
         }
       })
-      .catch((error) => {
+      .catch((err) => {
         setLoading(false);
-        Alert.alert(error);
+        setError(err.toString().split(': ')[1]);
       });
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <Layout style={styles.container}>
+      <Layout style={{ flex: 1 }}>
         <Layout style={styles.header}>
           <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-            <FontAwesome5Icon name='arrow-left' size={25}>
+            <FontAwesome5Icon name='chevron-left' size={30}>
               <Text>{'\t  '}</Text>
             </FontAwesome5Icon>
           </TouchableWithoutFeedback>
@@ -112,6 +112,19 @@ export default SignUp = ({ navigation }) => {
                   name='confirmPassword'
                   placeholder='Confirm Password'
                 />
+                {error.length !== 0 ? (
+                  <Text
+                    style={{
+                      color: 'red',
+                      fontSize: 12,
+                      paddingVertical: 10,
+                    }}
+                  >
+                    {error}
+                  </Text>
+                ) : (
+                  <></>
+                )}
                 <Button
                   onPress={handleSubmit}
                   disabled={!isValid}
@@ -126,7 +139,13 @@ export default SignUp = ({ navigation }) => {
                   appearance='outline'
                 >
                   {loading === false ? (
-                    <Text style={{ color: 'white' }}>Sign Up</Text>
+                    <Text
+                      style={{
+                        color: 'white',
+                      }}
+                    >
+                      Sign Up
+                    </Text>
                   ) : (
                     <Spinner size='small' status={'basic'} />
                   )}
@@ -151,14 +170,16 @@ export default SignUp = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
-    flex: 1,
-    alignItems: 'center',
+    flex: 0.5,
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignSelf: 'flex-start',
+    paddingTop: 25,
+    paddingLeft: 25,
   },
   container: {
     flex: 3,
     alignItems: 'center',
-    justifyContent: 'center',
     paddingBottom: 100,
   },
   inputBox: {

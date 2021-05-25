@@ -28,7 +28,8 @@ export default Home = ({ navigation }) => {
   const retriveExperiences = async () => {
     const tempExperiencesArray = [];
     const queryCity =
-      city === 'West Lafayette' ? 'west-lafayette' : 'lafayette';
+      // city === 'West Lafayette' ? 'west-lafayette' : 'lafayette';
+      city === 'Lafayette' ? 'lafayette' : 'indianapolis';
     const data = db
       .collection('cities')
       .doc(queryCity)
@@ -117,9 +118,9 @@ export default Home = ({ navigation }) => {
               {/* Replace with the user's location */}
               <TouchableOpacity
                 onPress={() => {
-                  city === 'West Lafayette'
+                  city === 'Indianapolis'
                     ? setCity('Lafayette')
-                    : setCity('West Lafayette');
+                    : setCity('Indianapolis');
                 }}
               >
                 <Text category='h1' style={styles.hero}>

@@ -4,28 +4,21 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
   Text,
 } from 'react-native';
 import { Layout, Button, Spinner } from '@ui-kitten/components';
 import Firebase from '../../config/Firebase';
 import { Formik, Field } from 'formik';
-import * as yup from 'yup';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import ValidatedInput from './components/ValidatedInput';
-
-const loginValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Please enter valid email')
-    .required('Email Address is Required'),
-  password: yup
-    .string()
-    .min(8, ({ min }) => `Password must be at least ${min} characters`)
-    .required('Password is required'),
-});
+import loginValidationSchema from './validation/Login';
 
 export default Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleLogin = ({ email, password }) => {
     setLoading(true);
@@ -34,25 +27,16 @@ export default Login = ({ navigation }) => {
       .then(() => {
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
         setLoading(false);
-        Alert.alert('Username/Password did not match');
+        setError(err.toString().split(': ')[1]);
       });
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Layout style={styles.container}>
-        <Text
-          style={{
-            padding: 20,
-            marginTop: 50,
-            fontSize: 30,
-            fontWeight: '400',
-          }}
-        >
-          Welcome Back!
-        </Text>
+        <Text style={styles.heroText}>Welcome Back!</Text>
         <Formik
           initialValues={{
             email: '',
@@ -76,25 +60,50 @@ export default Login = ({ navigation }) => {
                 secureTextEntry
               />
 
-              <Button
-                onPress={handleSubmit}
-                disabled={!isValid}
-                style={{
-                  width: '75%',
-                  backgroundColor: 'black',
-                  borderRadius: 30,
-                  borderColor: 'black',
-                  height: 50,
-                  marginTop: 20,
-                }}
-                appearance='outline'
-              >
-                {loading === false ? (
-                  <Text style={{ color: 'white' }}>Login</Text>
-                ) : (
-                  <Spinner size='small' status='basic' />
-                )}
-              </Button>
+              {error.length !== 0 ? (
+                <Text style={styles.errorText}>{error}</Text>
+              ) : (
+                <></>
+              )}
+              {isValid ? (
+                <Button
+                  onPress={handleSubmit}
+                  disabled={!isValid}
+                  style={styles.validSubmit}
+                  appearance='outline'
+                >
+                  {loading === false ? (
+                    <Text
+                      style={{
+                        color: 'white',
+                      }}
+                    >
+                      Login
+                    </Text>
+                  ) : (
+                    <Spinner size='small' status={'basic'} />
+                  )}
+                </Button>
+              ) : (
+                <Button
+                  onPress={handleSubmit}
+                  disabled={!isValid}
+                  style={styles.invalidSubmit}
+                  appearance='outline'
+                >
+                  {loading === false ? (
+                    <Text
+                      style={{
+                        color: 'white',
+                      }}
+                    >
+                      Login
+                    </Text>
+                  ) : (
+                    <Spinner size='small' status={'basic'} />
+                  )}
+                </Button>
+              )}
             </>
           )}
         </Formik>
@@ -130,10 +139,39 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   inputBox: {
-    width: '85%',
-    margin: 10,
-    padding: 15,
-    fontSize: 20,
+    width: wp('85%'),
+    margin: 0,
+    padding: wp('5%'),
+    fontSize: hp('3.5%'),
     textAlign: 'center',
+    backgroundColor: 'white',
+    borderColor: 'white',
+    borderBottomColor: 'black',
+  },
+  heroText: {
+    padding: 20,
+    marginTop: 50,
+    fontSize: hp('3.5%'),
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    paddingVertical: 10,
+  },
+  validSubmit: {
+    width: wp('75%'),
+    backgroundColor: 'black',
+    borderRadius: 30,
+    borderColor: 'black',
+    height: 50,
+    marginTop: 20,
+  },
+  invalidSubmit: {
+    width: wp('75%'),
+    backgroundColor: 'grey',
+    borderRadius: 30,
+    borderColor: 'grey',
+    height: hp('5%'),
+    marginTop: 20,
   },
 });

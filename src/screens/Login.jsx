@@ -13,6 +13,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import ValidatedInput from './components/ValidatedInput';
 import loginValidationSchema from './validation/Login';
 
@@ -35,108 +36,124 @@ export default Login = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <Layout style={styles.container}>
-        <Text style={styles.heroText}>Welcome Back!</Text>
-        <Formik
-          initialValues={{
-            email: '',
-            password: '',
-          }}
-          validationSchema={loginValidationSchema}
-          onSubmit={(values) => handleLogin(values)}
-        >
-          {({ handleSubmit, isValid }) => (
-            <>
-              <Field
-                component={ValidatedInput}
-                name='email'
-                placeholder='Email Address'
-                keyboardType='email-address'
-              />
-              <Field
-                component={ValidatedInput}
-                name='password'
-                placeholder='Password'
-                secureTextEntry
-              />
+      <Layout style={{ flex: 1 }}>
+        <Layout style={styles.header}>
+          <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+            <FontAwesome5Icon name='chevron-left' size={30}>
+              <Text>{'\t  '}</Text>
+            </FontAwesome5Icon>
+          </TouchableWithoutFeedback>
+        </Layout>
+        <Layout style={styles.container}>
+          <Text style={styles.heroText}>Welcome Back!</Text>
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            validationSchema={loginValidationSchema}
+            onSubmit={(values) => handleLogin(values)}
+          >
+            {({ handleSubmit, isValid }) => (
+              <>
+                <Field
+                  component={ValidatedInput}
+                  name='email'
+                  placeholder='Email Address'
+                  keyboardType='email-address'
+                />
+                <Field
+                  component={ValidatedInput}
+                  name='password'
+                  placeholder='Password'
+                  secureTextEntry
+                />
 
-              {error.length !== 0 ? (
-                <Text style={styles.errorText}>{error}</Text>
-              ) : (
-                <></>
-              )}
-              {isValid ? (
-                <Button
-                  onPress={handleSubmit}
-                  disabled={!isValid}
-                  style={styles.validSubmit}
-                  appearance='outline'
-                >
-                  {loading === false ? (
-                    <Text
-                      style={{
-                        color: 'white',
-                      }}
-                    >
-                      Login
-                    </Text>
-                  ) : (
-                    <Spinner size='small' status={'basic'} />
-                  )}
-                </Button>
-              ) : (
-                <Button
-                  onPress={handleSubmit}
-                  disabled={!isValid}
-                  style={styles.invalidSubmit}
-                  appearance='outline'
-                >
-                  {loading === false ? (
-                    <Text
-                      style={{
-                        color: 'white',
-                      }}
-                    >
-                      Login
-                    </Text>
-                  ) : (
-                    <Spinner size='small' status={'basic'} />
-                  )}
-                </Button>
-              )}
-            </>
-          )}
-        </Formik>
+                {error.length !== 0 ? (
+                  <Text style={styles.errorText}>{error}</Text>
+                ) : (
+                  <></>
+                )}
+                {isValid ? (
+                  <Button
+                    onPress={handleSubmit}
+                    disabled={!isValid}
+                    style={styles.validSubmit}
+                    appearance='outline'
+                  >
+                    {loading === false ? (
+                      <Text
+                        style={{
+                          color: 'white',
+                        }}
+                      >
+                        Login
+                      </Text>
+                    ) : (
+                      <Spinner size='small' status={'basic'} />
+                    )}
+                  </Button>
+                ) : (
+                  <Button
+                    onPress={handleSubmit}
+                    disabled={!isValid}
+                    style={styles.invalidSubmit}
+                    appearance='outline'
+                  >
+                    {loading === false ? (
+                      <Text
+                        style={{
+                          color: 'white',
+                        }}
+                      >
+                        Login
+                      </Text>
+                    ) : (
+                      <Spinner size='small' status={'basic'} />
+                    )}
+                  </Button>
+                )}
+              </>
+            )}
+          </Formik>
 
-        <TouchableOpacity
-          style={{ color: 'white', marginTop: 40 }}
-          onPress={() => navigation.navigate('SignUp')}
-        >
-          <Text>
-            <Text>Do not have an account yet? </Text>
-            <Text style={{ textDecorationLine: 'underline' }}>Sign Up</Text>
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ color: 'white', marginTop: 40 }}
-          onPress={() => navigation.navigate('Forgot')}
-        >
-          <Text>
-            <Text style={{ textDecorationLine: 'underline' }}>
-              Forgot Your Password ?
+          <TouchableOpacity
+            style={{ color: 'white', marginTop: 40 }}
+            onPress={() => navigation.navigate('SignUp')}
+          >
+            <Text>
+              <Text>Do not have an account yet? </Text>
+              <Text style={{ textDecorationLine: 'underline' }}>Sign Up</Text>
             </Text>
-          </Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ color: 'white', marginTop: 40 }}
+            onPress={() => navigation.navigate('Forgot')}
+          >
+            <Text>
+              <Text style={{ textDecorationLine: 'underline' }}>
+                Forgot Your Password ?
+              </Text>
+            </Text>
+          </TouchableOpacity>
+        </Layout>
       </Layout>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
+  header: {
+    flex: 0.5,
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignSelf: 'flex-start',
+    paddingTop: hp('3%'),
+    paddingLeft: wp('5.5%'),
+  },
+  container: {
+    flex: 3,
+    alignItems: 'center',
   },
   inputBox: {
     width: wp('85%'),

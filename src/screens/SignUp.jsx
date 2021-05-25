@@ -163,7 +163,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 3,
     alignItems: 'center',
-    paddingBottom: hp('11%'),
   },
   inputBox: {
     width: wp('85%'),

@@ -7,10 +7,11 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import ValidatedInput from './components/ValidatedInput';
 import forgotPasswordValidationSchema from './validation/Forgot';
 
-export default Forgot = () => {
+export default Forgot = ({ navigation }) => {
   const [status, setStaus] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -32,80 +33,98 @@ export default Forgot = () => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <Layout style={styles.container}>
-        <Text style={styles.heroText}>Forgot Password?</Text>
-        <Formik
-          initialValues={{
-            email: '',
-          }}
-          validationSchema={forgotPasswordValidationSchema}
-          onSubmit={(values) => handleForgotPassword(values)}
-        >
-          {({ handleSubmit, isValid }) => (
-            <>
-              <Field
-                component={ValidatedInput}
-                name='email'
-                placeholder='Email Address'
-                keyboardType='email-address'
-              />
-              {status ? (
-                <Text style={styles.successText}>Email sent successfully</Text>
-              ) : (
-                <Text style={styles.errorText}>{error}</Text>
-              )}
-              {isValid ? (
-                <Button
-                  onPress={handleSubmit}
-                  disabled={!isValid}
-                  style={styles.validSubmit}
-                  appearance='outline'
-                >
-                  {loading === false ? (
-                    <Text
-                      style={{
-                        color: 'white',
-                      }}
-                    >
-                      Send Email
-                    </Text>
-                  ) : (
-                    <Spinner size='small' status={'basic'} />
-                  )}
-                </Button>
-              ) : (
-                <Button
-                  onPress={handleSubmit}
-                  disabled={!isValid}
-                  style={styles.invalidSubmit}
-                  appearance='outline'
-                >
-                  {loading === false ? (
-                    <Text
-                      style={{
-                        color: 'white',
-                      }}
-                    >
-                      Send Email
-                    </Text>
-                  ) : (
-                    <Spinner size='small' status={'basic'} />
-                  )}
-                </Button>
-              )}
-            </>
-          )}
-        </Formik>
+      <Layout style={{ flex: 1 }}>
+        <Layout style={styles.header}>
+          <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+            <FontAwesome5Icon name='chevron-left' size={30}>
+              <Text>{'\t  '}</Text>
+            </FontAwesome5Icon>
+          </TouchableWithoutFeedback>
+        </Layout>
+        <Layout style={styles.container}>
+          <Text style={styles.heroText}>Forgot Password?</Text>
+          <Formik
+            initialValues={{
+              email: '',
+            }}
+            validationSchema={forgotPasswordValidationSchema}
+            onSubmit={(values) => handleForgotPassword(values)}
+          >
+            {({ handleSubmit, isValid }) => (
+              <>
+                <Field
+                  component={ValidatedInput}
+                  name='email'
+                  placeholder='Email Address'
+                  keyboardType='email-address'
+                />
+                {status ? (
+                  <Text style={styles.successText}>
+                    Email sent successfully
+                  </Text>
+                ) : (
+                  <Text style={styles.errorText}>{error}</Text>
+                )}
+                {isValid ? (
+                  <Button
+                    onPress={handleSubmit}
+                    disabled={!isValid}
+                    style={styles.validSubmit}
+                    appearance='outline'
+                  >
+                    {loading === false ? (
+                      <Text
+                        style={{
+                          color: 'white',
+                        }}
+                      >
+                        Send Email
+                      </Text>
+                    ) : (
+                      <Spinner size='small' status={'basic'} />
+                    )}
+                  </Button>
+                ) : (
+                  <Button
+                    onPress={handleSubmit}
+                    disabled={!isValid}
+                    style={styles.invalidSubmit}
+                    appearance='outline'
+                  >
+                    {loading === false ? (
+                      <Text
+                        style={{
+                          color: 'white',
+                        }}
+                      >
+                        Send Email
+                      </Text>
+                    ) : (
+                      <Spinner size='small' status={'basic'} />
+                    )}
+                  </Button>
+                )}
+              </>
+            )}
+          </Formik>
+        </Layout>
       </Layout>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
+  header: {
+    flex: 0.5,
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignSelf: 'flex-start',
+    paddingTop: hp('3%'),
+    paddingLeft: wp('5.5%'),
+  },
+  container: {
+    flex: 3,
+    alignItems: 'center',
   },
   inputBox: {
     width: wp('85%'),

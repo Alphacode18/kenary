@@ -8,29 +8,14 @@ import {
 } from 'react-native';
 import { Layout, Button, Spinner } from '@ui-kitten/components';
 import { Formik, Field } from 'formik';
-import * as yup from 'yup';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import Firebase, { db } from '../../config/Firebase';
 import ValidatedInput from './components/ValidatedInput';
-
-const signUpValidationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .matches(/(\w.+\s).+/, 'Please enter your full name')
-    .required('Full name is required'),
-  email: yup
-    .string()
-    .email('Please enter valid email')
-    .required('Email is required'),
-  password: yup
-    .string()
-    .min(8, ({ min }) => `Password must be at least ${min} characters`)
-    .required('Password is required'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], 'Passwords do not match')
-    .required('Confirm password is required'),
-});
+import signUpValidationSchema from './validation/SignUp';
 
 export default SignUp = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -68,15 +53,7 @@ export default SignUp = ({ navigation }) => {
           </TouchableWithoutFeedback>
         </Layout>
         <Layout style={styles.container}>
-          <Text
-            style={{
-              padding: 20,
-              marginTop: 50,
-              fontSize: 30,
-            }}
-          >
-            Ready For Adventures?
-          </Text>
+          <Text style={styles.heroText}>Ready For Adventures?</Text>
           <Formik
             validationSchema={signUpValidationSchema}
             initialValues={{
@@ -113,43 +90,49 @@ export default SignUp = ({ navigation }) => {
                   placeholder='Confirm Password'
                 />
                 {error.length !== 0 ? (
-                  <Text
-                    style={{
-                      color: 'red',
-                      fontSize: 12,
-                      paddingVertical: 10,
-                    }}
-                  >
-                    {error}
-                  </Text>
+                  <Text style={styles.errorText}>{error}</Text>
                 ) : (
                   <></>
                 )}
-                <Button
-                  onPress={handleSubmit}
-                  disabled={!isValid}
-                  style={{
-                    width: '75%',
-                    backgroundColor: 'black',
-                    borderRadius: 30,
-                    borderColor: 'black',
-                    height: 50,
-                    marginTop: 20,
-                  }}
-                  appearance='outline'
-                >
-                  {loading === false ? (
-                    <Text
-                      style={{
-                        color: 'white',
-                      }}
-                    >
-                      Sign Up
-                    </Text>
-                  ) : (
-                    <Spinner size='small' status={'basic'} />
-                  )}
-                </Button>
+                {isValid ? (
+                  <Button
+                    onPress={handleSubmit}
+                    disabled={!isValid}
+                    style={styles.validSubmit}
+                    appearance='outline'
+                  >
+                    {loading === false ? (
+                      <Text
+                        style={{
+                          color: 'white',
+                        }}
+                      >
+                        Sign Up
+                      </Text>
+                    ) : (
+                      <Spinner size='small' status={'basic'} />
+                    )}
+                  </Button>
+                ) : (
+                  <Button
+                    onPress={handleSubmit}
+                    disabled={!isValid}
+                    style={styles.invalidSubmit}
+                    appearance='outline'
+                  >
+                    {loading === false ? (
+                      <Text
+                        style={{
+                          color: 'white',
+                        }}
+                      >
+                        Sign Up
+                      </Text>
+                    ) : (
+                      <Spinner size='small' status={'basic'} />
+                    )}
+                  </Button>
+                )}
               </>
             )}
           </Formik>
@@ -174,22 +157,48 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignSelf: 'flex-start',
-    paddingTop: 25,
-    paddingLeft: 25,
+    paddingTop: hp('3%'),
+    paddingLeft: wp('5.5%'),
   },
   container: {
     flex: 3,
     alignItems: 'center',
-    paddingBottom: 100,
+    paddingBottom: hp('11%'),
   },
   inputBox: {
-    width: '85%',
+    width: wp('85%'),
     margin: 0,
-    padding: 15,
-    fontSize: 16,
+    padding: wp('5%'),
+    fontSize: hp('3.5%'),
     textAlign: 'center',
     backgroundColor: 'white',
     borderColor: 'white',
     borderBottomColor: 'black',
+  },
+  heroText: {
+    padding: 20,
+    marginTop: 50,
+    fontSize: hp('3.5%'),
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    paddingVertical: 10,
+  },
+  validSubmit: {
+    width: wp('75%'),
+    backgroundColor: 'black',
+    borderRadius: 30,
+    borderColor: 'black',
+    height: 50,
+    marginTop: 20,
+  },
+  invalidSubmit: {
+    width: wp('75%'),
+    backgroundColor: 'grey',
+    borderRadius: 30,
+    borderColor: 'grey',
+    height: hp('5%'),
+    marginTop: 20,
   },
 });

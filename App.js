@@ -5,6 +5,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { Authentication, Authenticated } from './navigation/_Export';
 import Firebase from './config/Firebase';
 import * as SplashScreen from 'expo-splash-screen';
+import * as Location from 'expo-location';
 
 SplashScreen.preventAutoHideAsync()
   .then()
@@ -16,6 +17,9 @@ export default () => {
     Firebase.auth().onAuthStateChanged((user) => {
       user ? setIsAuthenticated(true) : setIsAuthenticated(false);
     });
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+    })();
     setTimeout(async () => {
       await SplashScreen.hideAsync();
     }, 1000);

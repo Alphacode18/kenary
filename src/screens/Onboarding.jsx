@@ -7,22 +7,12 @@ import {
   Text,
 } from 'react-native';
 import { Layout, Button } from '@ui-kitten/components';
-import * as Location from 'expo-location';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
 export default Onboarding = ({ navigation }) => {
-  const requestLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    console.log(status);
-  };
-
-  useEffect(() => {
-    requestLocation();
-  }, []);
-
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Layout style={styles.container}>

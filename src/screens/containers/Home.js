@@ -17,7 +17,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import * as Location from 'expo-location';
+const haversine = require('haversine');
 
 const user = Firebase.auth().currentUser;
 
@@ -26,6 +26,7 @@ export default Home = ({ navigation }) => {
   const [location, setLocation] = useState({});
   const [city, setCity] = useState('Lafayette');
   const [loading, setLoading] = useState(false);
+  const distance = [];
 
   const initializer = async () => {
     const tempExperiencesArray = [];
@@ -41,15 +42,10 @@ export default Home = ({ navigation }) => {
           tempExperiencesArray.push(data);
         });
       } else {
-        console.log('No Data Found :(');
+        console.log('No Data Found');
       }
     });
     setData(tempExperiencesArray);
-    let { status } = await Location.getForegroundPermissionsAsync();
-    if (status === 'granted') {
-      let userLocation = await Location.getCurrentPositionAsync({});
-      setLocation(userLocation);
-    }
   };
 
   const [allowVerticalScroll, setAllowVerticalScroll] = useState(true);

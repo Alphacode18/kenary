@@ -2,12 +2,12 @@ import React from 'react';
 import {
   StyleSheet,
   TouchableWithoutFeedback,
-  TouchableOpacity,
   Keyboard,
   ImageBackground,
   Text,
 } from 'react-native';
 import { Layout, Button } from '@ui-kitten/components';
+import { StatusBar } from 'expo-status-bar';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -21,9 +21,11 @@ export default Onboarding = ({ navigation }) => {
           source={require('../../assets/background.png')}
           style={styles.backgroundImage}
         >
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate('Login')}
+          >
             <Text style={styles.minorCallToAction}>Login</Text>
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
           <Text style={styles.tagline}>Experiences that create memories.</Text>
           <Button
             style={styles.majorCallToAction}

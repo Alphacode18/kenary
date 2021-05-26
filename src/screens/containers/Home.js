@@ -14,6 +14,7 @@ const { height, width } = Dimensions.get('screen');
 import Hero from '../components/Hero';
 import Nearby from '../components/Nearby';
 import Catalogue from '../components/Catalogue';
+import * as Location from 'expo-location';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -25,7 +26,7 @@ export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [city, setCity] = useState('Lafayette');
   const [loading, setLoading] = useState(false);
-  const distance = [];
+  const [locationPreference, setLocationPreference] = useState(null);
 
   const initializer = async () => {
     const tempExperiencesArray = [];
@@ -45,6 +46,11 @@ export default Home = ({ navigation }) => {
       }
     });
     setData(tempExperiencesArray);
+    let { status } = await Location.getForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      return;
+    }
+    setLocationPreference(true);
   };
 
   const [allowVerticalScroll, setAllowVerticalScroll] = useState(true);
@@ -146,7 +152,11 @@ export default Home = ({ navigation }) => {
                 <Text>Top Picks</Text>
               </TouchableOpacity>
               <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
-              <Nearby name='Near You' data={data} navigation={navigation} />
+              {locationPreference === true ? (
+                <Nearby name='Near You' data={data} navigation={navigation} />
+              ) : (
+                <></>
+              )}
               <Catalogue
                 name='Recreation'
                 data={data}

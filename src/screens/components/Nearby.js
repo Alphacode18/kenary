@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, Dimensions, Image, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import { Layout, Text, List } from '@ui-kitten/components';
 import Entries from './Entries';
 const haversine = require('haversine');
 import * as Location from 'expo-location';
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 /* The previewNumber denotes the number of data points to be shown
  * on the Homepage horizontal flatlists.
@@ -14,10 +14,6 @@ const previewNumber = 5;
 export default Nearby = ({ name, data, navigation }) => {
   const [nearby, setNearby] = useState([]);
   const retrieveNearbyExperiences = async () => {
-    let { status } = await Location.getForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      return;
-    }
     let lastPosition = await Location.getLastKnownPositionAsync({});
     const userLocation = {
       latitude: lastPosition['coords']['latitude'],
@@ -26,19 +22,24 @@ export default Nearby = ({ name, data, navigation }) => {
     const sortable = [];
     data.map((datum) => {
       if (datum['coordinates']) {
-        datum['distanceTo'] = haversine(userLocation, datum['coordinates']);
+        datum['distanceTo'] = haversine(userLocation, datum['coordinates'], {
+          unit: 'meter',
+        });
         sortable.push(datum);
       }
     });
     const sorted = _.sortBy(sortable, 'distanceTo');
     setNearby(sorted);
   };
+
   useEffect(() => {
     retrieveNearbyExperiences();
   }, []);
+
   const preview = nearby.slice(0, previewNumber);
+
   return (
-    <>
+    <Layout>
       <Layout style={styles.header}>
         <Text category='h6'>{name}</Text>
         <TouchableOpacity
@@ -61,7 +62,7 @@ export default Nearby = ({ name, data, navigation }) => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       />
-    </>
+    </Layout>
   );
 };
 

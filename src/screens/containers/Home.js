@@ -12,19 +12,17 @@ import {
 import { Layout, Text, Avatar, Spinner } from '@ui-kitten/components';
 const { height, width } = Dimensions.get('screen');
 import Hero from '../components/Hero';
+import Nearby from '../components/Nearby';
 import Catalogue from '../components/Catalogue';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import * as Location from 'expo-location';
-const haversine = require('haversine');
 
 const user = Firebase.auth().currentUser;
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const [location, setLocation] = useState({});
   const [city, setCity] = useState('Lafayette');
   const [loading, setLoading] = useState(false);
   const distance = [];
@@ -47,11 +45,6 @@ export default Home = ({ navigation }) => {
       }
     });
     setData(tempExperiencesArray);
-    const lastPosition = await Location.getLastKnownPositionAsync({});
-    setLocation({
-      latitude: lastPosition['coords']['latitude'],
-      longitude: lastPosition['coords']['longitude'],
-    });
   };
 
   const [allowVerticalScroll, setAllowVerticalScroll] = useState(true);
@@ -153,6 +146,7 @@ export default Home = ({ navigation }) => {
                 <Text>Top Picks</Text>
               </TouchableOpacity>
               <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
+              <Nearby name='Near You' data={data} navigation={navigation} />
               <Catalogue
                 name='Recreation'
                 data={data}
@@ -167,12 +161,6 @@ export default Home = ({ navigation }) => {
                 data={data}
                 navigation={navigation}
               />
-              {data.map((datum) => {
-                if (datum['coordinates']) {
-                  distance.push(haversine(location, datum['coordinates']));
-                }
-              })}
-              {console.log(distance)}
             </ScrollView>
           )}
         </SafeAreaView>

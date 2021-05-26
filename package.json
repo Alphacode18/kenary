@@ -22,6 +22,7 @@
     "firebase": "^8.4.2",
     "formik": "^2.2.8",
     "haversine": "^1.1.1",
+    "lodash": "^4.17.21",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",

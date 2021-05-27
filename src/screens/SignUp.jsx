@@ -13,6 +13,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Firebase, { db } from '../../config/Firebase';
 import ValidatedInput from './components/ValidatedInput';
 import signUpValidationSchema from './validation/SignUp';
@@ -20,6 +21,14 @@ import signUpValidationSchema from './validation/SignUp';
 export default SignUp = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const storeUserData = async (value) => {
+    try {
+      await AsyncStorage.setItem('user', JSON.stringify(value));
+    } catch (e) {
+      console.log('Error');
+    }
+  };
 
   const handleSignUp = ({ name, email, password }) => {
     setLoading(true);
@@ -34,6 +43,11 @@ export default SignUp = ({ navigation }) => {
             email: email,
           };
           db.collection('users').doc(response.user.uid).set(user);
+          const localStorage = {
+            ...user,
+            newUser: true,
+          };
+          storeUserData(localStorage);
         }
       })
       .catch((err) => {

@@ -19,7 +19,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const user = Firebase.auth().currentUser;
 
 export default Home = ({ navigation }) => {
@@ -27,6 +27,16 @@ export default Home = ({ navigation }) => {
   const [city, setCity] = useState('Lafayette');
   const [loading, setLoading] = useState(false);
   const [locationPreference, setLocationPreference] = useState(null);
+
+  const getUserData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('user');
+      console.log(JSON.parse(jsonValue));
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      console.log('Reading Error');
+    }
+  };
 
   const initializer = async () => {
     const tempExperiencesArray = [];
@@ -65,6 +75,7 @@ export default Home = ({ navigation }) => {
   useEffect(() => {
     setLoading(true);
     initializer();
+    getUserData();
     setTimeout(() => {
       setLoading(false);
     }, 3500);

@@ -18,7 +18,6 @@ const ExploreIcon = (props) => <Icon {...props} name='compass-outline' />;
 const CircleIcon = (props) => (
   <Icon {...props} name='radio-button-off-outline' />
 );
-const PersonIcon = (props) => <Icon {...props} name='person-outline' />;
 
 const BottomTabBar = ({ navigation, state }) => (
   <Layout>

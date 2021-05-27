@@ -29,12 +29,7 @@ export default SeeAll = ({ route, navigation }) => {
     <Layout style={styles.container}>
       <SafeAreaView>
         <List
-          style={{
-            maxLength: 180,
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            paddingLeft: 5,
-          }}
+          style={styles.list}
           data={data}
           renderItem={({ item }) => (
             <ListEntries item={item} navigation={navigation} />
@@ -57,5 +52,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
+  },
+  list: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingLeft: 5,
   },
 });

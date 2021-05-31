@@ -21,7 +21,6 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import HeroCard from '../components/HeroCard';
-import Entries from '../components/Entries';
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -155,7 +154,7 @@ export default Home = ({ navigation }) => {
               <Carousel
                 data={data}
                 renderItem={HeroCard}
-                layout={'layout'}
+                layout={'default'}
                 itemWidth={wp('100')}
                 sliderWidth={wp('100')}
                 onSnapToItem={(index) => {

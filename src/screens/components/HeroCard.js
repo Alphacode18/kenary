@@ -7,8 +7,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-export default HeroCard = ({ data }) => {
-  const { name, image } = data;
+export default HeroCard = ({ item }) => {
+  const { name, image } = item;
   return (
     <Layout style={styles.tab}>
       <ImageBackground
@@ -24,7 +24,7 @@ export default HeroCard = ({ data }) => {
 
 const styles = StyleSheet.create({
   tab: {
-    height: 0.3 * height,
+    height: hp('30%'),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,

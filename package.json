@@ -35,6 +35,7 @@
     "react-native-maps": "0.27.1",
     "react-native-open-maps": "^0.3.6",
     "react-native-responsive-screen": "^1.4.2",
+    "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^9.13.6",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",

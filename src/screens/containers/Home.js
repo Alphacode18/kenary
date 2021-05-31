@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Firebase, { db } from '../../../config/Firebase';
+import { db } from '../../../config/Firebase';
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { Layout, Text, Avatar, Spinner } from '@ui-kitten/components';
 const { height, width } = Dimensions.get('screen');
-import Hero from '../components/Hero';
 import Nearby from '../components/Nearby';
 import Catalogue from '../components/Catalogue';
 import * as Location from 'expo-location';
@@ -20,10 +19,13 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const user = Firebase.auth().currentUser;
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+import HeroCard from '../components/HeroCard';
+import Entries from '../components/Entries';
 
 export default Home = ({ navigation }) => {
   const [data, setData] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [city, setCity] = useState('Lafayette');
   const [loading, setLoading] = useState(false);
   const [locationPreference, setLocationPreference] = useState(null);
@@ -40,7 +42,7 @@ export default Home = ({ navigation }) => {
 
   const initializer = async () => {
     const tempExperiencesArray = [];
-    const queryCity = city === 'Lafayette' ? 'lafayette' : 'indianapolis';
+    const queryCity = city === 'Lafayette' ? 'lafayette' : 'west-lafayette';
     const data = db
       .collection('cities')
       .doc(queryCity)
@@ -61,15 +63,6 @@ export default Home = ({ navigation }) => {
       return;
     }
     setLocationPreference(true);
-  };
-
-  const [allowVerticalScroll, setAllowVerticalScroll] = useState(true);
-  const toggleVerticalScroll = () => {
-    setTimeout(() => {
-      allowVerticalScroll
-        ? setAllowVerticalScroll(false)
-        : setAllowVerticalScroll(true);
-    }, 0);
   };
 
   useEffect(() => {
@@ -110,10 +103,7 @@ export default Home = ({ navigation }) => {
               </Text>
             </Layout>
           ) : (
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              scrollEnabled={allowVerticalScroll}
-            >
+            <ScrollView showsVerticalScrollIndicator={false}>
               <TouchableWithoutFeedback
                 onPress={() => {
                   navigation.navigate('Profile');
@@ -135,9 +125,9 @@ export default Home = ({ navigation }) => {
               {/* Replace with the user's location */}
               <TouchableOpacity
                 onPress={() => {
-                  city === 'Indianapolis'
+                  city === 'West Lafayette'
                     ? setCity('Lafayette')
-                    : setCity('Indianapolis');
+                    : setCity('West Lafayette');
                 }}
               >
                 <Text category='h1' style={styles.hero}>
@@ -162,7 +152,20 @@ export default Home = ({ navigation }) => {
               >
                 <Text>Top Picks</Text>
               </TouchableOpacity>
-              <Hero data={data} toggleVerticalScroll={toggleVerticalScroll} />
+              <Carousel
+                data={data}
+                renderItem={HeroCard}
+                layout={'layout'}
+                itemWidth={wp('100')}
+                sliderWidth={wp('100')}
+                onSnapToItem={(index) => {
+                  setActiveIndex(index);
+                }}
+              />
+              <Pagination
+                dotsLength={data.length}
+                activeDotIndex={activeIndex}
+              />
               {locationPreference === true ? (
                 <Nearby name='Near You' data={data} navigation={navigation} />
               ) : (

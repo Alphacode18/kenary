@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
-import { Layout, Text, List } from '@ui-kitten/components';
+import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { Layout, List } from '@ui-kitten/components';
 import Entries from './Entries';
 const haversine = require('haversine');
 import * as Location from 'expo-location';
@@ -45,7 +45,7 @@ export default Nearby = ({ name, data, navigation }) => {
   return (
     <Layout>
       <Layout style={styles.header}>
-        <Text category='h6'>{name}</Text>
+        <Text style={{ fontWeight: '700', fontSize: hp('2.25') }}>{name}</Text>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('See All', {
@@ -54,7 +54,16 @@ export default Nearby = ({ name, data, navigation }) => {
             })
           }
         >
-          <Text style={{ marginRight: 20 }}>{'See All'}</Text>
+          <Text
+            style={{
+              marginRight: 20,
+              color: '#0000FF',
+              fontSize: hp('1.5'),
+              fontWeight: '500',
+            }}
+          >
+            {'See All'}
+          </Text>
         </TouchableOpacity>
       </Layout>
       <List
@@ -79,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 20,
     marginLeft: wp('4%'),
   },
   hero: {

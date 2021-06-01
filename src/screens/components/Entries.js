@@ -1,7 +1,6 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { Layout, Text, ListItem, Divider } from '@ui-kitten/components';
-const { width } = Dimensions.get('screen');
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -17,6 +16,9 @@ export default Entries = ({ item, navigation }) => {
           navigation: navigation,
         })
       }
+      style={{
+        backgroundColor: 'white',
+      }}
     >
       <Layout style={styles.container}>
         <Layout style={{ flex: 3 }}>
@@ -53,10 +55,7 @@ const styles = StyleSheet.create({
     height: wp('50%'),
     borderWidth: 0.5,
     borderColor: '#dddddd',
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

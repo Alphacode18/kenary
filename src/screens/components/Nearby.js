@@ -5,6 +5,10 @@ import Entries from './Entries';
 const haversine = require('haversine');
 import * as Location from 'expo-location';
 import _ from 'lodash';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 /* The previewNumber denotes the number of data points to be shown
  * on the Homepage horizontal flatlists.
@@ -61,6 +65,7 @@ export default Nearby = ({ name, data, navigation }) => {
         )}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        style={{ marginTop: 10, marginHorizontal: 0, backgroundColor: 'white' }}
       />
     </Layout>
   );
@@ -75,7 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 10,
-    marginLeft: 10,
+    marginLeft: wp('4%'),
   },
   hero: {
     color: '#cc7722',

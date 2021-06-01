@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../../config/Firebase';
+import firebase, { db } from '../../../config/Firebase';
 import {
   SafeAreaView,
   StyleSheet,
@@ -28,11 +28,11 @@ export default Home = ({ navigation }) => {
   const [city, setCity] = useState('Lafayette');
   const [loading, setLoading] = useState(false);
   const [locationPreference, setLocationPreference] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
 
   const getUserData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('user');
-      console.log(JSON.parse(jsonValue));
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (e) {
       console.log('Reading Error');
@@ -40,6 +40,7 @@ export default Home = ({ navigation }) => {
   };
 
   const initializer = async () => {
+    setLoading(true);
     const tempExperiencesArray = [];
     const queryCity = city === 'Lafayette' ? 'lafayette' : 'west-lafayette';
     const data = db
@@ -62,15 +63,16 @@ export default Home = ({ navigation }) => {
       return;
     }
     setLocationPreference(true);
+    const imageRef = firebase.storage().ref('/' + 'Shreyas.JPG');
+    imageRef.getDownloadURL().then((url) => {
+      setUserProfile(url);
+    });
+    setLoading(false);
   };
 
   useEffect(() => {
-    setLoading(true);
     initializer();
     getUserData();
-    setTimeout(() => {
-      setLoading(false);
-    }, 3500);
   }, [city]);
 
   return (
@@ -111,13 +113,12 @@ export default Home = ({ navigation }) => {
                 <Layout style={styles.header}>
                   <Text category='h1'>Experience</Text>
                   <Avatar
-                    source={{
-                      uri: `https://robohash.org/${Math.floor(
-                        Math.random() * 10
-                      )}.png`,
-                    }}
+                    source={{ uri: userProfile }}
                     size={'large'}
-                    style={{ marginRight: 20, backgroundColor: 'black' }}
+                    style={{
+                      marginRight: wp('4%'),
+                      backgroundColor: 'black',
+                    }}
                   />
                 </Layout>
               </TouchableWithoutFeedback>
@@ -133,38 +134,26 @@ export default Home = ({ navigation }) => {
                   {city}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  alignSelf: 'flex-end',
-                  marginRight: 20,
-                  marginTop: 10,
-                  fontSize: hp('1%'),
-                }}
-                onPress={() =>
-                  navigation.navigate('See All', {
-                    name: 'Top Picks',
-                    data: data.filter((datum) => {
-                      return datum['top-pick'] === true;
-                    }),
-                  })
-                }
-              >
-                <Text>Top Picks</Text>
-              </TouchableOpacity>
-              <Carousel
-                data={data}
-                renderItem={HeroCard}
-                layout={'default'}
-                itemWidth={wp('100')}
-                sliderWidth={wp('100')}
-                onSnapToItem={(index) => {
-                  setActiveIndex(index);
-                }}
-              />
-              <Pagination
-                dotsLength={data.length}
-                activeDotIndex={activeIndex}
-              />
+              <Layout style={{ marginTop: 20, alignItems: 'center' }}>
+                <Carousel
+                  data={data}
+                  renderItem={HeroCard}
+                  layout={'default'}
+                  itemWidth={wp('98')}
+                  sliderWidth={wp('98')}
+                  onSnapToItem={(index) => {
+                    setActiveIndex(index);
+                  }}
+                />
+                <Pagination
+                  dotsLength={data.length}
+                  activeDotIndex={activeIndex}
+                  dotColor='black'
+                  inactiveDotColor='grey'
+                  containerStyle={{ paddingVertical: 2 }}
+                  dotContainerStyle={{ marginHorizontal: 5 }}
+                />
+              </Layout>
               {locationPreference === true ? (
                 <Nearby name='Near You' data={data} navigation={navigation} />
               ) : (
@@ -200,12 +189,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: Platform.OS === 'ios' ? 10 : 30,
-    marginLeft: 10,
+    marginTop: Platform.OS === 'ios' ? 25 : 30,
+    marginLeft: wp('4%'),
   },
   hero: {
-    color: '#cc7722',
-    marginLeft: 10,
+    color: '#6200EE',
+    marginLeft: wp('4%'),
   },
   tab: {
     height: 0.2 * height,

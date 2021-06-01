@@ -24,10 +24,10 @@ export default HeroCard = ({ item }) => {
 
 const styles = StyleSheet.create({
   tab: {
-    height: hp('30%'),
+    height: hp('27%'),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
+    borderRadius: 10,
     margin: 10,
   },
   hero: {

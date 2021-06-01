@@ -1,7 +1,17 @@
 import React from 'react';
-import { TouchableOpacity, Dimensions, Image, StyleSheet } from 'react-native';
-import { Layout, Text, List } from '@ui-kitten/components';
+import {
+  TouchableOpacity,
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+} from 'react-native';
+import { Layout, List } from '@ui-kitten/components';
 import Entries from './Entries';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 /* The previewNumber denotes the number of data points to be shown
  * on the Homepage horizontal flatlists.
@@ -16,7 +26,14 @@ export default Catalogue = ({ name, data, navigation }) => {
   return (
     <>
       <Layout style={styles.header}>
-        <Text category='h6'>{name}</Text>
+        <Text
+          style={{
+            fontWeight: '700',
+            fontSize: hp('2.25'),
+          }}
+        >
+          {name}
+        </Text>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('See All', {
@@ -25,17 +42,26 @@ export default Catalogue = ({ name, data, navigation }) => {
             })
           }
         >
-          <Text style={{ marginRight: 20 }}>{'See All'}</Text>
+          <Text
+            style={{
+              marginRight: 20,
+              color: '#0000FF',
+              fontSize: hp('1.5'),
+              fontWeight: '500',
+            }}
+          >
+            {'See All'}
+          </Text>
         </TouchableOpacity>
       </Layout>
       <List
-        style={{ maxLength: 180 }}
         data={preview}
         renderItem={({ item }) => (
           <Entries item={item} navigation={navigation} />
         )}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        style={{ marginTop: 10, marginHorizontal: 0, backgroundColor: 'white' }}
       />
     </>
   );
@@ -49,8 +75,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 10,
-    marginLeft: 10,
+    marginTop: 20,
+    marginLeft: wp('4%'),
   },
   hero: {
     color: '#cc7722',

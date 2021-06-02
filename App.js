@@ -17,7 +17,7 @@ SplashScreen.preventAutoHideAsync()
 export default () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
-    //track(events.APP_OPEN);
+    track(events.APP_OPEN);
     Firebase.auth().onAuthStateChanged((user) => {
       user ? setIsAuthenticated(true) : setIsAuthenticated(false);
     });

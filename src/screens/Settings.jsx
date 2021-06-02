@@ -88,7 +88,7 @@ const Settings = ({ route, navigation }) => {
                   backgroundColor: 'black',
                 }}
               />
-              <TouchableOpacity onPress={}>
+              <TouchableOpacity>
                 <Text
                   style={{
                     marginLeft: wp('7%'),

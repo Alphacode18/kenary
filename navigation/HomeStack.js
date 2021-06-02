@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../src/screens/containers/Home';
 import SeeAll from '../src/screens/SeeAll';
 import Listing from '../src/screens/Listing';
+import Settings from '../src/screens/Settings';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,11 @@ function HomeStack() {
       <Stack.Screen
         name='Listing'
         component={Listing}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='Settings'
+        component={Settings}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

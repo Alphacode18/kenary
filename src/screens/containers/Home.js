@@ -39,6 +39,14 @@ export default Home = ({ navigation }) => {
     }
   };
 
+  // const storeImage = async (value) => {
+  //   try {
+  //     await AsyncStorage.setItem('user', JSON.stringify(value));
+  //   } catch (e) {
+  //     console.log('Error');
+  //   }
+  // };
+
   const initializer = async () => {
     setLoading(true);
     const tempExperiencesArray = [];
@@ -63,7 +71,7 @@ export default Home = ({ navigation }) => {
       return;
     }
     setLocationPreference(true);
-    const imageRef = firebase.storage().ref('/' + 'Shreyas.JPG');
+    const imageRef = firebase.storage().ref('/' + 'appstore.png');
     imageRef.getDownloadURL().then((url) => {
       setUserProfile(url);
     });
@@ -107,7 +115,10 @@ export default Home = ({ navigation }) => {
             <ScrollView showsVerticalScrollIndicator={false}>
               <TouchableWithoutFeedback
                 onPress={() => {
-                  navigation.navigate('Profile');
+                  navigation.navigate('Settings', {
+                    userProfile: userProfile,
+                    navigation: navigation,
+                  });
                 }}
               >
                 <Layout style={styles.header}>

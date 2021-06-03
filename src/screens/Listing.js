@@ -27,11 +27,16 @@ export default Listing = ({ route }) => {
     <Layout style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <HeaderImage image={image} navigation={navigation} />
-        <ListingInfo name={name} rating={rating} description={description} />
+        <ListingInfo
+          name={name}
+          rating={rating}
+          description={description}
+          timings={timings}
+        />
         <Reserve booking={booking} />
         <Tags keywords={keywords} />
         <Attractions attractions={attractions} />
-        <Timings timings={timings} />
+        {/* <Timings timings={timings} /> */}
         <ViewMap name={name} coordinates={coordinates} />
       </ScrollView>
     </Layout>

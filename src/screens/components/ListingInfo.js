@@ -1,7 +1,8 @@
-import React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
-import { Layout, Text, Divider } from '@ui-kitten/components';
+import React, { useState } from 'react';
+import { StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { Layout, Divider } from '@ui-kitten/components';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -10,18 +11,51 @@ import {
 const { height, width } = Dimensions.get('screen');
 
 const ListingInfo = ({ name, rating, description }) => {
+  const [like, setLike] = useState(false);
   return (
     <Layout>
-      <Text style={styles.heading}>{name}</Text>
-      <FontAwesome5Icon
+      <Layout style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={styles.heading}>{name}</Text>
+        {like ? (
+          <FontAwesomeIcon
+            name='heart'
+            size={30}
+            style={styles.likeButton}
+            color={'red'}
+            fill={true}
+            onPress={() => {
+              like ? setLike(false) : setLike(true);
+            }}
+          />
+        ) : (
+          <FontAwesomeIcon
+            name='heart-o'
+            size={30}
+            style={styles.likeButton}
+            color={'grey'}
+            fill={true}
+            onPress={() => {
+              like ? setLike(false) : setLike(true);
+            }}
+          />
+        )}
+      </Layout>
+      {/* <FontAwesome5Icon
         name='star'
         size={20}
         style={{ paddingLeft: 10, paddingTop: 10 }}
         color={'red'}
       >
         <Text style={{ fontSize: 20 }}> {rating}</Text>
-      </FontAwesome5Icon>
-      <Text style={styles.text}>{description}</Text>
+      </FontAwesome5Icon> */}
+
+      <Text style={styles.text}>
+        {description.split('.')[0].concat('.')}
+        <TouchableOpacity>
+          <Text>Read More</Text>
+        </TouchableOpacity>
+      </Text>
+
       <Divider
         style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
       />
@@ -37,17 +71,23 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   heading: {
-    fontSize: hp('4%'),
-    paddingTop: 15,
-    paddingLeft: 10,
+    marginTop: hp('4%'),
+    fontSize: hp('3%'),
+    paddingLeft: wp('4%'),
     fontWeight: '500',
   },
   text: {
     fontSize: hp('1.75%'),
-    paddingTop: 15,
-    paddingLeft: 10,
+    marginTop: hp('2%'),
     paddingBottom: 20,
+    paddingLeft: wp('4%'),
     fontWeight: '400',
+    width: wp('95%'),
+  },
+  likeButton: {
+    marginTop: hp('4%'),
+    paddingRight: wp('5%'),
+    backgroundColor: 'white',
   },
 });
 

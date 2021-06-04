@@ -36,7 +36,6 @@ export default Listing = ({ route }) => {
         <Reserve booking={booking} />
         <Tags keywords={keywords} />
         <Attractions attractions={attractions} />
-        {/* <Timings timings={timings} /> */}
         <ViewMap name={name} coordinates={coordinates} />
       </ScrollView>
     </Layout>

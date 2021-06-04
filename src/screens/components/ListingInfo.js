@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { Layout, Divider } from '@ui-kitten/components';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   widthPercentageToDP as wp,
@@ -23,7 +30,6 @@ weekday[6] = 'Saturday';
 
 const ListingInfo = ({ name, rating, description, timings }) => {
   const [like, setLike] = useState(false);
-  const [readMore, setReadMore] = useState(false);
   return (
     <Layout>
       <Layout style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -52,33 +58,25 @@ const ListingInfo = ({ name, rating, description, timings }) => {
           />
         )}
       </Layout>
-      {readMore === false ? (
-        <Text style={styles.text}>
-          {description.split('.')[0].concat('.')}
-          <TouchableOpacity
-            onPress={() => {
-              setReadMore(true);
-            }}
-          >
-            <Text style={{ color: '#0000FF', marginLeft: 20 }}>
-              {'Read More'}
-            </Text>
-          </TouchableOpacity>
+      <Layout
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingBottom: 20,
+          width: wp('95%'),
+          marginTop: wp('4%'),
+        }}
+      >
+        <Text style={styles.text}>{description.split('.')[0].concat('.')}</Text>
+
+        <Text>
+          {[1, 2, 3].map(() => {
+            return <Text style={styles.dollar}>$</Text>;
+          })}
+          <Text style={styles.placeholderDollar}>$</Text>
+          <Text style={styles.placeholderDollar}>$</Text>
         </Text>
-      ) : (
-        <Text style={styles.text}>
-          {description}
-          <TouchableOpacity
-            onPress={() => {
-              setReadMore(false);
-            }}
-          >
-            <Text style={{ color: '#0000FF', paddingLeft: 20 }}>
-              {'Read Less'}
-            </Text>
-          </TouchableOpacity>
-        </Text>
-      )}
+      </Layout>
       <Layout
         style={{
           flexDirection: 'row',
@@ -94,20 +92,16 @@ const ListingInfo = ({ name, rating, description, timings }) => {
         >
           <MaterialIcon
             name='emoticon-excited-outline'
-            size={20}
+            size={25}
             color={'grey'}
           />
-          <Text style={{ fontSize: 15, color: 'grey', paddingLeft: 16 }}>
+          <Text style={{ fontSize: 15, color: 'grey', paddingLeft: 10 }}>
             Excellent
           </Text>
         </Layout>
         <TouchableOpacity>
-          <Text>
-            {[1, 2, 3].map(() => {
-              return <Text style={{ paddingLeft: 20, color: 'black' }}>$</Text>;
-            })}
-            <Text style={{ paddingLeft: 20, color: 'grey' }}>$</Text>
-            <Text style={{ paddingLeft: 20, color: 'grey' }}>$</Text>
+          <Text style={{ color: '#0000FF', paddingLeft: 20 }}>
+            Rate Experience
           </Text>
         </TouchableOpacity>
       </Layout>
@@ -123,13 +117,19 @@ const ListingInfo = ({ name, rating, description, timings }) => {
         <Layout
           style={{ flexDirection: 'row', justifyContent: 'space-between' }}
         >
-          <EvilIcon name='clock' size={25} color={'grey'} />
+          <MaterialIcon
+            name='clock-time-four-outline'
+            size={25}
+            color={'grey'}
+          />
           <Text style={{ fontSize: 15, color: 'grey', paddingLeft: 10 }}>
             {timings[weekday[date.getDay()].toLowerCase()]}
           </Text>
         </Layout>
         <TouchableOpacity>
-          <Text style={{ color: '#0000FF', paddingLeft: 20 }}>More Info</Text>
+          <Text style={{ color: '#0000FF', paddingLeft: 20 }}>
+            More Information
+          </Text>
         </TouchableOpacity>
       </Layout>
       <Layout
@@ -150,7 +150,7 @@ const ListingInfo = ({ name, rating, description, timings }) => {
             size={25}
             color={'grey'}
           />
-          <Text style={{ fontSize: 15, color: 'grey', paddingLeft: 16 }}>
+          <Text style={{ fontSize: 15, color: 'grey', paddingLeft: 10 }}>
             500 m
           </Text>
         </Layout>
@@ -182,17 +182,32 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: hp('1.75%'),
-    marginTop: hp('2%'),
     color: 'grey',
-    paddingBottom: 20,
+    paddingBottom: 5,
     paddingLeft: wp('4%'),
     fontWeight: '400',
-    width: wp('95%'),
+    width: wp('70%'),
   },
   likeButton: {
     marginTop: hp('4%'),
     paddingRight: wp('5%'),
     backgroundColor: 'white',
+  },
+  dollar: {
+    fontSize: hp('2.15%'),
+    color: 'black',
+    paddingBottom: 5,
+    paddingLeft: wp('4%'),
+    fontWeight: '400',
+    width: wp('70%'),
+  },
+  placeholderDollar: {
+    fontSize: hp('2.15%'),
+    color: 'grey',
+    paddingBottom: 5,
+    paddingLeft: wp('4%'),
+    fontWeight: '400',
+    width: wp('70%'),
   },
 });
 

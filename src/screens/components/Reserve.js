@@ -3,6 +3,10 @@ import { Dimensions } from 'react-native';
 import { Layout, Text, Divider, Button } from '@ui-kitten/components';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import * as WebBrowser from 'expo-web-browser';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const { height, width } = Dimensions.get('screen');
 
 const Reserve = ({ booking }) => {
@@ -10,7 +14,7 @@ const Reserve = ({ booking }) => {
     await WebBrowser.openBrowserAsync(booking);
   };
   if (booking === undefined) {
-    return <Layout></Layout>;
+    return null;
   } else {
     return (
       <Layout>
@@ -20,13 +24,14 @@ const Reserve = ({ booking }) => {
             flexDirection: 'row',
             alignContent: 'space-between',
             marginBottom: 10,
+            marginLeft: wp('4%'),
           }}
         >
           <FeatherIcon
             name='alert-octagon'
             style={{
               width: 0.4 * width,
-              marginLeft: 15,
+
               marginRight: 50,
               marginBottom: 10,
               color: '#cc7722',
@@ -41,7 +46,7 @@ const Reserve = ({ booking }) => {
             style={{
               backgroundColor: 'teal',
               borderColor: 'teal',
-              width: 0.35 * width,
+              width: 0.4 * width,
               height: 50,
             }}
             onPress={handleReservation}

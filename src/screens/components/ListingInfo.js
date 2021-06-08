@@ -1,32 +1,23 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import viewMap from 'react-native-open-maps';
 import { Layout, Divider } from '@ui-kitten/components';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import EvilIcon from 'react-native-vector-icons/EvilIcons';
-import AntIcon from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-const { height, width } = Dimensions.get('screen');
-
 var date = new Date();
-var weekday = new Array(7);
-weekday[0] = 'Sunday';
-weekday[1] = 'Monday';
-weekday[2] = 'Tuesday';
-weekday[3] = 'Wednesday';
-weekday[4] = 'Thursday';
-weekday[5] = 'Friday';
-weekday[6] = 'Saturday';
+var weekday = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
 
 const ListingInfo = ({ name, rating, description, timings }) => {
   const [like, setLike] = useState(false);
@@ -35,9 +26,9 @@ const ListingInfo = ({ name, rating, description, timings }) => {
       <Layout style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text style={styles.heading}>{name}</Text>
         {like ? (
-          <FontAwesomeIcon
+          <MaterialIcon
             name='heart'
-            size={30}
+            size={35}
             style={styles.likeButton}
             color={'red'}
             fill={true}
@@ -46,9 +37,9 @@ const ListingInfo = ({ name, rating, description, timings }) => {
             }}
           />
         ) : (
-          <FontAwesomeIcon
-            name='heart-o'
-            size={30}
+          <MaterialIcon
+            name='heart'
+            size={35}
             style={styles.likeButton}
             color={'grey'}
             fill={true}
@@ -100,9 +91,7 @@ const ListingInfo = ({ name, rating, description, timings }) => {
           </Text>
         </Layout>
         <TouchableOpacity>
-          <Text style={{ color: '#0000FF', paddingLeft: 20 }}>
-            Rate Experience
-          </Text>
+          <Text style={{ color: '#0000FF', paddingLeft: 20 }}>Rate</Text>
         </TouchableOpacity>
       </Layout>
       <Layout
@@ -127,9 +116,7 @@ const ListingInfo = ({ name, rating, description, timings }) => {
           </Text>
         </Layout>
         <TouchableOpacity>
-          <Text style={{ color: '#0000FF', paddingLeft: 20 }}>
-            More Information
-          </Text>
+          <Text style={{ color: '#0000FF', paddingLeft: 20 }}>More Info</Text>
         </TouchableOpacity>
       </Layout>
       <Layout
@@ -154,15 +141,20 @@ const ListingInfo = ({ name, rating, description, timings }) => {
             500 m
           </Text>
         </Layout>
-        <TouchableOpacity>
-          <Text style={{ color: '#0000FF', paddingLeft: 20 }}>
-            Show Location
-          </Text>
+        <TouchableOpacity
+          onPress={() => {
+            viewMap({
+              query: `${name}, West Lafayette`,
+              provider: 'google',
+              travelType: 'drive',
+              navigate_mode: 'preview',
+            });
+          }}
+        >
+          <Text style={{ color: '#0000FF', paddingLeft: 20 }}>View Map</Text>
         </TouchableOpacity>
       </Layout>
-      <Divider
-        style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
-      />
+      <Divider style={{ width: wp('100%'), marginBottom: 15 }} />
     </Layout>
   );
 };

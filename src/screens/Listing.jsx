@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Image,
-  SafeAreaView,
-} from 'react-native';
-import { Layout, Divider } from '@ui-kitten/components';
-import ListingInfo from './components/ListingInfo';
-import HeaderImage from './components/HeaderImage';
+import { StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Layout, Divider, Button } from '@ui-kitten/components';
 import Reserve from './components/Book';
 import Attractions from './components/Attractions';
 import Timings from './components/Timings';
@@ -76,7 +68,7 @@ export default Listing = ({ route }) => {
                     name='arrowleft'
                     size={25}
                     color={'black'}
-                    style={{ marginTop: wp('.5') }}
+                    style={{ marginTop: wp('.5'), marginLeft: wp('.5') }}
                     onPress={() => {
                       navigation.goBack();
                     }}
@@ -118,6 +110,7 @@ export default Listing = ({ route }) => {
                   paddingBottom: 20,
                   width: wp('95%'),
                   marginTop: wp('8%'),
+                  paddingRight: wp('6%'),
                 }}
               >
                 <Text style={styles.text}>
@@ -133,6 +126,7 @@ export default Listing = ({ route }) => {
                   paddingBottom: 20,
                   paddingLeft: wp('6%'),
                   width: wp('95%'),
+                  paddingRight: wp('6%'),
                 }}
               >
                 <Layout
@@ -153,9 +147,7 @@ export default Listing = ({ route }) => {
                   </Text>
                 </Layout>
                 <TouchableOpacity>
-                  <Text style={{ color: '#0000FF', paddingLeft: 20 }}>
-                    Rate
-                  </Text>
+                  <Text style={{ color: '#0000FF' }}>Rate</Text>
                 </TouchableOpacity>
               </Layout>
               <Layout
@@ -165,6 +157,7 @@ export default Listing = ({ route }) => {
                   paddingBottom: 20,
                   paddingLeft: wp('6%'),
                   width: wp('95%'),
+                  paddingRight: wp('6%'),
                 }}
               >
                 <Layout
@@ -198,6 +191,7 @@ export default Listing = ({ route }) => {
                   paddingBottom: 20,
                   paddingLeft: wp('6%'),
                   width: wp('95%'),
+                  paddingRight: wp('6%'),
                 }}
               >
                 <Layout
@@ -231,6 +225,39 @@ export default Listing = ({ route }) => {
                     View Map
                   </Text>
                 </TouchableOpacity>
+              </Layout>
+              <Divider
+                style={{
+                  width: wp('90%'),
+                  marginLeft: wp('6%'),
+                  marginBottom: 15,
+                }}
+              />
+              <Layout
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  marginLeft: wp('6%'),
+                  justifyContent: 'space-between',
+                  marginRight: wp('8%'),
+                  marginBottom: hp('2%'),
+                }}
+              >
+                {keywords.map((keyword) => {
+                  return (
+                    <Button
+                      appearance='outline'
+                      style={{
+                        borderRadius: 25,
+                        backgroundColor: 'white',
+                        borderColor: 'grey',
+                        marginVertical: wp('2%'),
+                      }}
+                    >
+                      <Text style={{ color: 'grey' }}>{keyword}</Text>
+                    </Button>
+                  );
+                })}
               </Layout>
               <Divider
                 style={{

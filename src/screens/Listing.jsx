@@ -237,8 +237,7 @@ export default Listing = ({ route }) => {
                 style={{
                   flexDirection: 'row',
                   flexWrap: 'wrap',
-                  marginLeft: wp('6%'),
-                  justifyContent: 'space-between',
+                  marginLeft: wp('5%'),
                   marginRight: wp('8%'),
                   marginBottom: hp('2%'),
                 }}
@@ -252,9 +251,12 @@ export default Listing = ({ route }) => {
                         backgroundColor: 'white',
                         borderColor: 'grey',
                         marginVertical: wp('2%'),
+                        marginLeft: wp('1%'),
                       }}
                     >
-                      <Text style={{ color: 'grey' }}>{keyword}</Text>
+                      <Text style={{ color: 'grey', fontSize: 11 }}>
+                        {keyword}
+                      </Text>
                     </Button>
                   );
                 })}
@@ -266,17 +268,7 @@ export default Listing = ({ route }) => {
                   marginBottom: 15,
                 }}
               />
-              <Text
-                style={{
-                  fontSize: hp('2.5%'),
-                  fontWeight: '500',
-                  marginLeft: wp('8%'),
-                  marginVertical: wp('1%'),
-                }}
-              >
-                Main Attractions
-              </Text>
-              <Attractions attractions={attractions} />
+              {attractions && <Attractions attractions={attractions} />}
             </Layout>
           </TriggeringView>
         </Layout>

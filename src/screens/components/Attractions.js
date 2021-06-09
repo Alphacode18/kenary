@@ -10,10 +10,20 @@ const { width } = Dimensions.get('screen');
 const Attractions = ({ attractions }) => {
   return (
     <Layout style={{ flex: 1 }}>
+      <Text
+        style={{
+          fontSize: hp('2.5%'),
+          fontWeight: '500',
+          marginLeft: wp('8%'),
+          marginVertical: wp('1%'),
+        }}
+      >
+        Main Attractions
+      </Text>
       <Layout style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {attractions.map((item) => {
           return (
-            <Layout style={styles.container}>
+            <Layout key={item.name} style={styles.container}>
               <Layout style={{ flex: 1 }}>
                 <Layout style={{ flex: 3 }}>
                   <Image source={{ uri: item.uri }} style={styles.image} />

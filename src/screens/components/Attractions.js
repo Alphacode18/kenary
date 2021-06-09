@@ -32,9 +32,10 @@ const Attractions = ({ attractions }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: wp('45%'),
-    height: wp('45%'),
-    margin: wp('2.5%'),
+    width: wp('42%'),
+    height: wp('42%'),
+    marginVertical: hp('1%'),
+    marginLeft: wp('6%'),
     justifyContent: 'space-between',
     borderWidth: 0.5,
     borderColor: '#dddddd',

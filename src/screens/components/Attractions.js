@@ -10,9 +10,6 @@ const { width } = Dimensions.get('screen');
 const Attractions = ({ attractions }) => {
   return (
     <Layout style={{ flex: 1 }}>
-      <Text style={{ fontSize: hp('2.5%'), fontWeight: '500', padding: 15 }}>
-        Main Attractions
-      </Text>
       <Layout style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {attractions.map((item) => {
           return (
@@ -29,7 +26,6 @@ const Attractions = ({ attractions }) => {
           );
         })}
       </Layout>
-      <Divider style={{ width: width, marginTop: 20 }} />
     </Layout>
   );
 };

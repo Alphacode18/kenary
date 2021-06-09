@@ -7,6 +7,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import Reserve from './Book';
 
 var date = new Date();
 var weekday = [
@@ -19,11 +20,16 @@ var weekday = [
   'Saturday',
 ];
 
-const ListingInfo = ({ name, rating, description, timings }) => {
+const ListingInfo = ({ name, rating, description, timings, booking }) => {
   const [like, setLike] = useState(false);
   return (
     <Layout>
-      <Layout style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Layout
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
         <Text style={styles.heading}>{name}</Text>
         {like ? (
           <MaterialIcon
@@ -41,7 +47,6 @@ const ListingInfo = ({ name, rating, description, timings }) => {
             name='heart'
             size={35}
             style={styles.likeButton}
-            color={'grey'}
             fill={true}
             onPress={() => {
               like ? setLike(false) : setLike(true);
@@ -59,14 +64,7 @@ const ListingInfo = ({ name, rating, description, timings }) => {
         }}
       >
         <Text style={styles.text}>{description.split('.')[0].concat('.')}</Text>
-
-        <Text>
-          {[1, 2, 3].map(() => {
-            return <Text style={styles.dollar}>$</Text>;
-          })}
-          <Text style={styles.placeholderDollar}>$</Text>
-          <Text style={styles.placeholderDollar}>$</Text>
-        </Text>
+        {booking && <Reserve booking={booking} />}
       </Layout>
       <Layout
         style={{
@@ -178,12 +176,14 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingLeft: wp('4%'),
     fontWeight: '400',
-    width: wp('70%'),
+    width: wp('60%'),
   },
   likeButton: {
     marginTop: hp('4%'),
     paddingRight: wp('5%'),
     backgroundColor: 'white',
+    borderColor: 'black',
+    color: 'white',
   },
   dollar: {
     fontSize: hp('2.15%'),

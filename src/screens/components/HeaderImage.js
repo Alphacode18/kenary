@@ -4,9 +4,10 @@ import {
   TouchableWithoutFeedback,
   ImageBackground,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import { Layout } from '@ui-kitten/components';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -15,17 +16,27 @@ const HeaderImage = ({ image, navigation }) => {
     <Layout>
       <ImageBackground
         source={{ uri: image }}
-        style={{ width: width, height: 0.3 * height }}
+        style={{ width: width, height: 0.35 * height }}
         imageStyle={{ resizeMode: 'cover' }}
       >
-        <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-          <FontAwesome5Icon
-            name='arrow-circle-left'
-            size={30}
-            style={styles.header}
-            color={'white'}
-          />
-        </TouchableWithoutFeedback>
+        <SafeAreaView>
+          <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+            {/* <AntIcon
+              name='leftsquare'
+              size={30}
+              style={styles.header}
+              color={'white'}
+            /> */}
+            <Layout
+              style={{
+                height: 30,
+                width: 30,
+                backgroundColor: 'white',
+                borderRadius: 7,
+              }}
+            ></Layout>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
       </ImageBackground>
     </Layout>
   );
@@ -35,7 +46,6 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 50,
     paddingLeft: 10,
   },
 });

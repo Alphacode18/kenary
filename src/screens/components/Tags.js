@@ -1,8 +1,5 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
 import { Layout, Text, Divider, Button } from '@ui-kitten/components';
-
-const { width } = Dimensions.get('screen');
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -13,34 +10,39 @@ const Tags = ({ keywords }) => {
     <Layout>
       <Layout
         style={{
-          flex: 1,
           flexDirection: 'row',
           flexWrap: 'wrap',
-          paddingBottom: 20,
+          marginLeft: wp('5%'),
+          marginRight: wp('8%'),
+          marginBottom: hp('2%'),
         }}
       >
-        {keywords.map((keyword) => {
-          return (
-            <Button
-              style={{
-                borderRadius: 20,
-                marginLeft: 10,
-                marginBottom: 5,
-                marginTop: 5,
-              }}
-              key={keyword}
-              appearance='outline'
-              disabled={true}
-            >
-              <Text style={{ color: 'teal', fontSize: hp('1.5%') }}>
-                {keyword}
-              </Text>
-            </Button>
-          );
-        })}
+        {keywords &&
+          keywords.map((keyword) => {
+            return (
+              <Button
+                appearance='outline'
+                style={{
+                  borderRadius: 25,
+                  backgroundColor: 'white',
+                  borderColor: '#d3d3d3',
+                  marginVertical: wp('2%'),
+                  marginLeft: wp('1.5%'),
+                }}
+              >
+                <Text style={{ color: 'grey', fontSize: hp('1.25%') }}>
+                  {keyword}
+                </Text>
+              </Button>
+            );
+          })}
       </Layout>
       <Divider
-        style={{ width: 0.9 * width, marginLeft: 15, marginBottom: 15 }}
+        style={{
+          width: wp('90%'),
+          marginLeft: wp('6%'),
+          marginBottom: 15,
+        }}
       />
     </Layout>
   );

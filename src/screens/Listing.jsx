@@ -3,8 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Layout, Divider, Button } from '@ui-kitten/components';
 import Reserve from './components/Book';
 import Attractions from './components/Attractions';
-import Timings from './components/Timings';
-import ViewMap from './components/ViewMap';
+import Tags from './components/Tags';
+import viewMap from 'react-native-open-maps';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -233,41 +233,7 @@ export default Listing = ({ route }) => {
                   marginBottom: 15,
                 }}
               />
-              <Layout
-                style={{
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  marginLeft: wp('5%'),
-                  marginRight: wp('8%'),
-                  marginBottom: hp('2%'),
-                }}
-              >
-                {keywords.map((keyword) => {
-                  return (
-                    <Button
-                      appearance='outline'
-                      style={{
-                        borderRadius: 25,
-                        backgroundColor: 'white',
-                        borderColor: 'grey',
-                        marginVertical: wp('2%'),
-                        marginLeft: wp('1%'),
-                      }}
-                    >
-                      <Text style={{ color: 'grey', fontSize: 11 }}>
-                        {keyword}
-                      </Text>
-                    </Button>
-                  );
-                })}
-              </Layout>
-              <Divider
-                style={{
-                  width: wp('90%'),
-                  marginLeft: wp('6%'),
-                  marginBottom: 15,
-                }}
-              />
+              <Tags keywords={keywords} />
               {attractions && <Attractions attractions={attractions} />}
             </Layout>
           </TriggeringView>

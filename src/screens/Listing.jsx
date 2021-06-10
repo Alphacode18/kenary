@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  Image,
+} from 'react-native';
 import { Layout, Divider, Button } from '@ui-kitten/components';
 import Reserve from './components/Book';
 import Attractions from './components/Attractions';
@@ -15,6 +21,29 @@ import {
 } from 'react-native-image-header-scroll-view';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import ImageView from 'react-native-image-viewing';
+import MasonryList from 'react-native-masonry-list';
+
+const images = [
+  {
+    uri: 'https://images.unsplash.com/photo-1571501679680-de32f1e7aad4',
+  },
+  {
+    uri: 'https://images.unsplash.com/photo-1573273787173-0eb81a833b34',
+  },
+  {
+    uri: 'https://images.unsplash.com/photo-1569569970363-df7b6160d111',
+  },
+  {
+    uri: 'https://images.unsplash.com/photo-1571501679680-de32f1e7aad4',
+  },
+  {
+    uri: 'https://images.unsplash.com/photo-1573273787173-0eb81a833b34',
+  },
+  {
+    uri: 'https://images.unsplash.com/photo-1569569970363-df7b6160d111',
+  },
+];
 
 var date = new Date();
 var weekday = [
@@ -28,7 +57,7 @@ var weekday = [
 ];
 
 export default Listing = ({ route }) => {
-  const [like, setLike] = useState(false);
+  const [visible, setIsVisible] = useState(false);
   const listingData = route.params.data;
   const navigation = route.params.navigation;
   const {
@@ -81,7 +110,7 @@ export default Listing = ({ route }) => {
       >
         <Layout
           style={{
-            height: 1000,
+            height: 1500,
           }}
         >
           <TriggeringView>
@@ -234,6 +263,13 @@ export default Listing = ({ route }) => {
                 }}
               />
               <Tags keywords={keywords} />
+              <ImageView
+                images={images}
+                imageIndex={0}
+                visible={visible}
+                onRequestClose={() => setIsVisible(false)}
+              />
+
               {attractions && <Attractions attractions={attractions} />}
             </Layout>
           </TriggeringView>

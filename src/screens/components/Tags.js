@@ -22,6 +22,7 @@ const Tags = ({ keywords }) => {
             return (
               <Button
                 appearance='outline'
+                key={keyword}
                 style={{
                   borderRadius: 25,
                   backgroundColor: 'white',

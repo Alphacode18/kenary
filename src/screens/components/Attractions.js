@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, StyleSheet, Image } from 'react-native';
-import { Layout, Text, Divider } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -15,7 +15,8 @@ const Attractions = ({ attractions }) => {
           fontSize: hp('2.5%'),
           fontWeight: '500',
           marginLeft: wp('8%'),
-          marginVertical: wp('1%'),
+          marginBottom: wp('2.5%'),
+          marginTop: hp('2.5%'),
         }}
       >
         Main Attractions

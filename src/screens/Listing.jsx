@@ -6,9 +6,10 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import { Layout, Divider, List, ListItem } from '@ui-kitten/components';
-import Reserve from './components/Book';
+import { Layout, Divider, List, Avatar } from '@ui-kitten/components';
 import Attractions from './components/Attractions';
+import Reserve from './components/Book';
+import ReviewCard from './components/Review';
 import Tags from './components/Tags';
 import viewMap from 'react-native-open-maps';
 import {
@@ -25,25 +26,25 @@ import ImageView from 'react-native-image-viewing';
 
 const reviews = [
   {
-    user: Shreyas,
-    rating: 4,
-    timestamp: 'Two Weeks Ago',
+    reviewer: 'Shreyas Kharbanda',
     review:
       ' It was popularised in the 1960s with the release of Letraset sheets containing Lorem',
+    rating: 4,
+    timestamp: 'Two Weeks Ago',
   },
   {
-    user: Shreyas,
-    rating: 4,
-    timestamp: 'Two Weeks Ago',
+    reviewer: 'Shreyas Kharbanda',
     review:
       ' It was popularised in the 1960s with the release of Letraset sheets containing Lorem',
+    rating: 4,
+    timestamp: 'Two Weeks Ago',
   },
   {
-    user: Shreyas,
-    rating: 4,
-    timestamp: 'Two Weeks Ago',
+    reviewer: 'Shreyas Kharbanda',
     review:
       ' It was popularised in the 1960s with the release of Letraset sheets containing Lorem',
+    rating: 4,
+    timestamp: 'Two Weeks Ago',
   },
 ];
 
@@ -133,7 +134,7 @@ export default Listing = ({ route }) => {
       >
         <Layout
           style={{
-            height: 1500,
+            height: 2200,
           }}
         >
           <TriggeringView>
@@ -141,7 +142,7 @@ export default Listing = ({ route }) => {
               style={{
                 width: '100%',
                 height: '100%',
-                bottom: '5%',
+                bottom: hp('3%'),
                 borderTopLeftRadius: 18,
                 borderTopRightRadius: 18,
               }}
@@ -367,10 +368,76 @@ export default Listing = ({ route }) => {
                   justifyContent: 'space-between',
                 }}
               >
-                <List horizontal={true} data={reviews} />
+                <List
+                  style={{ backgroundColor: 'white' }}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  data={reviews}
+                  renderItem={ReviewCard}
+                />
               </Layout>
-
-              {/* {attractions && <Attractions attractions={attractions} />} */}
+              <Layout
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginTop: hp('5%'),
+                }}
+              >
+                <Divider
+                  style={{
+                    width: wp('30%'),
+                    marginLeft: wp('6%'),
+                    marginBottom: hp('1.5%'),
+                    marginTop: hp('3%'),
+                  }}
+                />
+                <Avatar
+                  source={require('../../assets/appstore.png')}
+                  size={'large'}
+                />
+                <Divider
+                  style={{
+                    width: wp('30%'),
+                    marginRight: wp('6%'),
+                    marginBottom: hp('1.5%'),
+                    marginTop: hp('3%'),
+                  }}
+                />
+              </Layout>
+              <Text
+                style={{ alignSelf: 'center', paddingTop: 10, color: 'grey' }}
+              >
+                More from
+              </Text>
+              <Text
+                style={{
+                  alignSelf: 'center',
+                  paddingTop: 10,
+                  fontSize: 25,
+                  fontWeight: '600',
+                }}
+              >
+                {name}
+              </Text>
+              {attractions && <Attractions attractions={attractions} />}
+              <Divider
+                style={{
+                  width: wp('90%'),
+                  marginLeft: wp('6%'),
+                  marginTop: hp('3%'),
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: hp('2.5%'),
+                  fontWeight: '500',
+                  marginLeft: wp('8%'),
+                  marginTop: hp('3%'),
+                }}
+              >
+                More Like This
+              </Text>
+              {attractions && <Attractions attractions={attractions} />}
             </Layout>
           </TriggeringView>
         </Layout>

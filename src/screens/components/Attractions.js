@@ -9,18 +9,7 @@ import {
 const { width } = Dimensions.get('screen');
 const Attractions = ({ attractions }) => {
   return (
-    <Layout style={{ flex: 1 }}>
-      <Text
-        style={{
-          fontSize: hp('2.5%'),
-          fontWeight: '500',
-          marginLeft: wp('8%'),
-          marginBottom: wp('2.5%'),
-          marginTop: hp('2.5%'),
-        }}
-      >
-        Main Attractions
-      </Text>
+    <Layout style={{ marginTop: hp('4%') }}>
       <Layout style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {attractions.map((item) => {
           return (

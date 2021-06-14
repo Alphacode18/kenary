@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import { Layout, Divider, Button } from '@ui-kitten/components';
+import { Layout, Divider, List, ListItem } from '@ui-kitten/components';
 import Reserve from './components/Book';
 import Attractions from './components/Attractions';
 import Tags from './components/Tags';
@@ -22,6 +22,30 @@ import {
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import ImageView from 'react-native-image-viewing';
+
+const reviews = [
+  {
+    user: Shreyas,
+    rating: 4,
+    timestamp: 'Two Weeks Ago',
+    review:
+      ' It was popularised in the 1960s with the release of Letraset sheets containing Lorem',
+  },
+  {
+    user: Shreyas,
+    rating: 4,
+    timestamp: 'Two Weeks Ago',
+    review:
+      ' It was popularised in the 1960s with the release of Letraset sheets containing Lorem',
+  },
+  {
+    user: Shreyas,
+    rating: 4,
+    timestamp: 'Two Weeks Ago',
+    review:
+      ' It was popularised in the 1960s with the release of Letraset sheets containing Lorem',
+  },
+];
 
 const images = [
   {
@@ -137,8 +161,8 @@ export default Listing = ({ route }) => {
                   justifyContent: 'space-between',
                   paddingBottom: 20,
                   width: wp('95%'),
-                  marginTop: wp('8%'),
-                  paddingRight: wp('2%'),
+                  marginTop: wp('10%'),
+                  paddingRight: wp('1%'),
                 }}
               >
                 <Text style={styles.text}>
@@ -263,14 +287,90 @@ export default Listing = ({ route }) => {
                 }}
               />
               <Tags keywords={keywords} />
-              {/* <ImageView
+              <ImageView
                 images={images}
                 imageIndex={0}
                 visible={visible}
                 onRequestClose={() => setIsVisible(false)}
-              /> */}
+              />
+              <Text
+                style={{
+                  fontSize: hp('2.5%'),
+                  fontWeight: '500',
+                  marginLeft: wp('8%'),
+                  marginTop: wp('2.5%'),
+                }}
+              >
+                Photos
+              </Text>
+              <Layout
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  paddingLeft: wp('6%'),
+                  width: wp('95%'),
+                  paddingRight: wp('2%'),
+                  justifyContent: 'space-between',
+                  marginVertical: hp('2%'),
+                }}
+              >
+                {images
+                  .filter((_, index) => index < 4)
+                  .map((image) => {
+                    return (
+                      <TouchableOpacity onPress={() => setIsVisible(true)}>
+                        <Image
+                          source={{ uri: image.uri }}
+                          style={{
+                            height: 150,
+                            width: 175,
+                            marginVertical: 5,
+                            borderWidth: 0.5,
+                            borderColor: '#dddddd',
+                            borderRadius: 10,
+                            shadowColor: '#000',
+                            shadowOffset: {
+                              width: 0,
+                              height: 5,
+                            },
+                            shadowOpacity: 0.1,
+                          }}
+                        />
+                      </TouchableOpacity>
+                    );
+                  })}
+              </Layout>
+              <Divider
+                style={{
+                  width: wp('90%'),
+                  marginLeft: wp('6%'),
+                  marginBottom: hp('1.5%'),
+                  marginTop: hp('1%'),
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: hp('2.5%'),
+                  fontWeight: '500',
+                  marginLeft: wp('8%'),
+                  marginBottom: wp('3%'),
+                  marginTop: wp('2.5%'),
+                }}
+              >
+                Reviews
+              </Text>
+              <Layout
+                style={{
+                  paddingLeft: wp('6%'),
+                  width: wp('95%'),
+                  paddingRight: wp('2%'),
+                  justifyContent: 'space-between',
+                }}
+              >
+                <List horizontal={true} data={reviews} />
+              </Layout>
 
-              {attractions && <Attractions attractions={attractions} />}
+              {/* {attractions && <Attractions attractions={attractions} />} */}
             </Layout>
           </TriggeringView>
         </Layout>

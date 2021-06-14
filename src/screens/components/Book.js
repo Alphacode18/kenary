@@ -13,25 +13,23 @@ const Reserve = ({ booking }) => {
   const handleReservation = async () => {
     await WebBrowser.openBrowserAsync(booking);
   };
-  if (booking === undefined) {
-    return null;
-  } else {
-    return (
-      <Layout>
+  return (
+    <Layout>
+      {!booking ? null : (
         <Button
           style={{
             backgroundColor: '#FFFFFF',
             borderColor: 'black',
-            width: 0.25 * width,
+            width: 0.3 * width,
             height: 30,
           }}
           onPress={handleReservation}
         >
-          <Text>Book</Text>
+          <Text>Book | $15</Text>
         </Button>
-      </Layout>
-    );
-  }
+      )}
+    </Layout>
+  );
 };
 
 export default Reserve;

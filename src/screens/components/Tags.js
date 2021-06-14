@@ -17,6 +17,7 @@ const Tags = ({ keywords }) => {
                 <Button
                   appearance='outline'
                   key={keyword}
+                  size={'small'}
                   style={styles.keyword}
                 >
                   <Text style={styles.keywordText}>{keyword}</Text>
@@ -35,18 +36,21 @@ const styles = StyleSheet.create({
   keywordsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginLeft: wp('8%'),
+    marginLeft: wp('5%'),
     marginRight: wp('2%'),
     marginBottom: hp('2%'),
   },
   keyword: {
     borderRadius: 25,
     backgroundColor: 'white',
-    borderColor: '#d3d3d3',
+    borderColor: '#DFDFDF',
     marginVertical: wp('2%'),
     marginLeft: wp('1.5%'),
   },
-  keywordText: { color: 'grey', fontSize: hp('1.25%') },
+  keywordText: {
+    color: '#5B5B5B',
+    fontSize: hp('1.5%'),
+  },
   divider: {
     width: wp('90%'),
     marginLeft: wp('6%'),

@@ -22,7 +22,6 @@ import {
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import ImageView from 'react-native-image-viewing';
-import MasonryList from 'react-native-masonry-list';
 
 const images = [
   {
@@ -139,7 +138,7 @@ export default Listing = ({ route }) => {
                   paddingBottom: 20,
                   width: wp('95%'),
                   marginTop: wp('8%'),
-                  paddingRight: wp('6%'),
+                  paddingRight: wp('2%'),
                 }}
               >
                 <Text style={styles.text}>
@@ -155,7 +154,7 @@ export default Listing = ({ route }) => {
                   paddingBottom: 20,
                   paddingLeft: wp('6%'),
                   width: wp('95%'),
-                  paddingRight: wp('6%'),
+                  paddingRight: wp('2%'),
                 }}
               >
                 <Layout
@@ -166,7 +165,7 @@ export default Listing = ({ route }) => {
                 >
                   <MaterialIcon
                     name='emoticon-excited-outline'
-                    size={25}
+                    size={20}
                     color={'grey'}
                   />
                   <Text
@@ -186,7 +185,7 @@ export default Listing = ({ route }) => {
                   paddingBottom: 20,
                   paddingLeft: wp('6%'),
                   width: wp('95%'),
-                  paddingRight: wp('6%'),
+                  paddingRight: wp('2%'),
                 }}
               >
                 <Layout
@@ -197,7 +196,7 @@ export default Listing = ({ route }) => {
                 >
                   <MaterialIcon
                     name='clock-time-four-outline'
-                    size={25}
+                    size={20}
                     color={'grey'}
                   />
                   <Text
@@ -220,7 +219,7 @@ export default Listing = ({ route }) => {
                   paddingBottom: 20,
                   paddingLeft: wp('6%'),
                   width: wp('95%'),
-                  paddingRight: wp('6%'),
+                  paddingRight: wp('2%'),
                 }}
               >
                 <Layout
@@ -231,7 +230,7 @@ export default Listing = ({ route }) => {
                 >
                   <MaterialIcon
                     name='map-marker-radius-outline'
-                    size={25}
+                    size={20}
                     color={'grey'}
                   />
                   <Text
@@ -259,16 +258,17 @@ export default Listing = ({ route }) => {
                 style={{
                   width: wp('90%'),
                   marginLeft: wp('6%'),
-                  marginBottom: 15,
+                  marginBottom: hp('1.5%'),
+                  marginTop: hp('1%'),
                 }}
               />
               <Tags keywords={keywords} />
-              <ImageView
+              {/* <ImageView
                 images={images}
                 imageIndex={0}
                 visible={visible}
                 onRequestClose={() => setIsVisible(false)}
-              />
+              /> */}
 
               {attractions && <Attractions attractions={attractions} />}
             </Layout>

@@ -7,7 +7,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-export default Reviews = ({ item }) => {
+export default Review = ({ item }) => {
   const { reviewer, review, rating, timestamp } = item;
   return (
     <ListItem

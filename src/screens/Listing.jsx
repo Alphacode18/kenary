@@ -50,21 +50,27 @@ const reviews = [
 
 const images = [
   {
+    key: 1,
     uri: 'https://images.unsplash.com/photo-1571501679680-de32f1e7aad4',
   },
   {
+    key: 2,
     uri: 'https://images.unsplash.com/photo-1573273787173-0eb81a833b34',
   },
   {
+    key: 3,
     uri: 'https://images.unsplash.com/photo-1569569970363-df7b6160d111',
   },
   {
+    key: 4,
     uri: 'https://images.unsplash.com/photo-1571501679680-de32f1e7aad4',
   },
   {
+    key: 5,
     uri: 'https://images.unsplash.com/photo-1573273787173-0eb81a833b34',
   },
   {
+    key: 6,
     uri: 'https://images.unsplash.com/photo-1569569970363-df7b6160d111',
   },
 ];
@@ -294,16 +300,38 @@ export default Listing = ({ route }) => {
                 visible={visible}
                 onRequestClose={() => setIsVisible(false)}
               />
-              <Text
+              <Layout
                 style={{
-                  fontSize: hp('2.5%'),
-                  fontWeight: '500',
-                  marginLeft: wp('8%'),
-                  marginTop: wp('2.5%'),
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                 }}
               >
-                Photos
-              </Text>
+                <Text
+                  style={{
+                    fontSize: hp('2.5%'),
+                    fontWeight: '500',
+                    marginLeft: wp('8%'),
+                    marginTop: wp('2.5%'),
+                  }}
+                >
+                  Photos
+                </Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('Photos', { images: images })
+                  }
+                >
+                  <Text
+                    style={{
+                      color: '#0000FF',
+                      marginRight: wp('8%'),
+                      marginTop: wp('2.5%'),
+                    }}
+                  >
+                    See All
+                  </Text>
+                </TouchableOpacity>
+              </Layout>
               <Layout
                 style={{
                   flexDirection: 'row',
@@ -349,27 +377,44 @@ export default Listing = ({ route }) => {
                   marginTop: hp('1%'),
                 }}
               />
-              <Text
-                style={{
-                  fontSize: hp('2.5%'),
-                  fontWeight: '500',
-                  marginLeft: wp('8%'),
-                  marginBottom: wp('3%'),
-                  marginTop: wp('2.5%'),
-                }}
-              >
-                Reviews
-              </Text>
               <Layout
                 style={{
-                  paddingLeft: wp('6%'),
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: hp('2.5%'),
+                    fontWeight: '500',
+                    marginLeft: wp('8.5%'),
+                    marginTop: wp('2.5%'),
+                    marginBottom: hp('2%'),
+                  }}
+                >
+                  Reviews
+                </Text>
+                <TouchableOpacity>
+                  <Text
+                    style={{
+                      color: '#0000FF',
+                      marginRight: wp('8%'),
+                      marginTop: wp('2.5%'),
+                    }}
+                  >
+                    See All
+                  </Text>
+                </TouchableOpacity>
+              </Layout>
+              <Layout
+                style={{
                   width: wp('95%'),
                   paddingRight: wp('2%'),
                   justifyContent: 'space-between',
                 }}
               >
                 <List
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: 'white', paddingLeft: 20 }}
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                   data={reviews}

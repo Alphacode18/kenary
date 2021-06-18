@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
+  Platform,
 } from 'react-native';
 import { Layout, Divider, List, Avatar } from '@ui-kitten/components';
 import Attractions from './components/Attractions';
@@ -148,7 +149,7 @@ export default Listing = ({ route }) => {
               style={{
                 width: '100%',
                 height: '100%',
-                bottom: hp('3%'),
+                bottom: Platform.os === 'ios' ? hp('3%') : hp('0%'),
                 borderTopLeftRadius: 18,
                 borderTopRightRadius: 18,
               }}
